@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+   <head>
+    <meta charset="UTF-8">
+    <title>Preenchimento AIH</title>
+    
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
+    <style>
+        /* Estilo geral da página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8; /* Um tom de cinza azulado bem leve */
+            color: #333333;
+            padding: 20px;
+        }
+
+        /* Estilo dos títulos */
+        h1, h2 {
+            color: #0056b3; /* Azul escuro, passando uma ideia de saúde/institucional */
+        }
+
+        /* Estilo da caixa do formulário */
+        form {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px; /* Arredonda as pontas da caixa */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Cria uma sombra suave atrás da caixa */
+            max-width: 600px; /* Impede que o formulário fique esticado em telas grandes */
+        }
+
+        /* Estilo dos rótulos (textos explicativos) */
+        label {
+            display: block; /* Faz o rótulo ocupar a linha inteira, jogando a caixa para baixo */
+            font-weight: bold;
+            margin-top: 15px; /* Cria o espaçamento automático em cima, substituindo o <br> */
+            margin-bottom: 5px;
+        }
+
+        /* Estilo das caixas de texto e menu suspenso */
+        input, select {
+            width: 100%; /* Faz a caixa ocupar toda a largura disponível */
+            padding: 10px; /* Dá um "respiro" interno para o texto não ficar colado nas bordas */
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Garante que as caixas não ultrapassem o limite do formulário */
+        }
+		
+		/* Estilo das caixas de texto, áreas de texto e menu suspenso */
+        input, select, textarea {
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box; 
+            font-family: Arial, sans-serif; /* Garante que a fonte de dentro seja Arial */
+        }
+		
+		/* Estilo para os contadores de caracteres */
+        .contador {
+            font-size: 12px;
+            color: #666666;
+            text-align: right;
+            margin-top: 2px;
+            margin-bottom: 15px; /* Devolve o espaçamento para o próximo campo */
+        }
+		
+		/* --- ESTILOS DE VALIDAÇÃO DE ERRO --- */
+        #mensagemErro {
+            display: none; /* Fica invisível por padrão */
+            background-color: #ffe6e6; /* Fundo vermelho bem clarinho */
+            color: #cc0000; /* Texto vermelho escuro */
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #cc0000; /* Linha grossa na esquerda para chamar atenção */
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .campo-invalido {
+            border: 2px solid #cc0000 !important; /* Borda vermelha forte */
+            background-color: #fffaf0 !important; /* Fundo levemente amarelado/alerta */
+        }
+		
+		/* --- ESTILOS DO AUTOCOMPLETE (MENU SUSPENSO) --- */
+        .autocomplete-container {
+            position: relative;
+            display: block;
+        }
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #cccccc;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99; /* Garante que o menu flutue por cima dos outros campos */
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 250px; /* Altura máxima antes de criar barra de rolagem */
+            overflow-y: auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 0 0 4px 4px;
+        }
+        .autocomplete-items div {
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #cccccc;
+            font-size: 14px;
+        }
+        /* Cor de destaque quando o mouse passa por cima da doença */
+        .autocomplete-items div:hover {
+            background-color: #0056b3;
+            color: #ffffff; 
+        }
+		
+    </style>
+</head>
+<body>
+    <h1>Plataforma de Preenchimento da AIH</h1>
+    
+    <form>
+        <h2>1. Identificação do Estabelecimento de Saúde</h2>
+        <label for="nomeEstabelecimento">Nome do Estabelecimento Solicitante:</label>
+        <input type="text" id="nomeEstabelecimento">
+		
+		<label for="cnesEstabelecimento">Código CNES do Estabelecimento:</label>
+        <input type="number" id="cnesEstabelecimento">
+        
+        <h2>2. Identificação do Paciente</h2>
+        <label for="nomePaciente">Nome do Paciente:</label>
+        <input type="text" id="nomePaciente">
+
+        <label for="cnsPaciente">Cartão Nacional de Saúde (CNS):</label>
+        <input type="number" id="cnsPaciente">
+
+        <label for="dataNascimento">Data de Nascimento:</label>
+        <input type="date" id="dataNascimento">
+
+        <label for="sexoPaciente">Sexo:</label>
+        <select id="sexoPaciente">
+            <option value="">Selecione...</option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+        </select>
+
+        <label for="nomeMae">Nome da Mãe:</label>
+        <input type="text" id="nomeMae">
+
+        <label for="municipioResidencia">Município de Residência:</label>
+        <input type="text" id="municipioResidencia">
+        
+		<h2>3. Justificativa da Internação</h2>
+        
+        <label for="sinaisSintomas">Principais Sinais e Sintomas Clínicos:</label>
+        <textarea id="sinaisSintomas" rows="3" maxlength="1000"></textarea>
+		<div id="cont-sinaisSintomas" class="contador">0 / 1000</div>
+
+        <label for="condicoesInternacao">Condições que Justificam a Internação:</label>
+        <textarea id="condicoesInternacao" rows="3" maxlength="400"></textarea>
+		<div id="cont-condicoesInternacao" class="contador">0 / 400</div>
+
+		<label for="principaisResultados">Principais Resultados e Provas Diagnósticas:</label>
+		<textarea id="principaisResultados" rows="3" maxlength="400"></textarea>
+		<div id="cont-principaisResultados" class="contador">0 / 400</div>
+
+        <label for="diagnosticoInicial">Diagnóstico Inicial:</label>
+        <div class="autocomplete-container">
+            <input type="text" id="diagnosticoInicial" maxlength="40" autocomplete="off" placeholder="Digite o nome da doença ou código...">
+            <div id="listaDiagnostico" class="autocomplete-items"></div>
+        </div>
+            <div id="listaDiagnostico" class="autocomplete-items"></div>
+
+		<label for="buscaCidPrincipal">CID 10 Principal:</label>
+        <div class="autocomplete-container">
+            <input type="text" id="buscaCidPrincipal" placeholder="Digite o código (ex: J15) ou o nome da doença..." autocomplete="off">
+            <div id="listaCidPrincipal" class="autocomplete-items"></div>
+        </div>
+        
+        <input type="hidden" id="cidPrincipal">
+
+        <label for="cidSecundario">CID 10 Secundário:</label>
+        <input type="text" id="cidSecundario" maxlength="4">
+
+        <label for="cidCausasAssociadas">CID 10 Causas Associadas:</label>
+        <input type="text" id="cidCausasAssociadas" maxlength="4">
+		
+		<h2>4. Procedimento Solicitado</h2>
+
+        <label for="descricaoProcedimento">Descrição do Procedimento Solicitado:</label>
+        <div class="autocomplete-container">
+            <input type="text" id="descricaoProcedimento" maxlength="50" autocomplete="off" placeholder="Digite o nome do procedimento ou código...">
+            <div id="listaDescricaoProcedimento" class="autocomplete-items"></div>
+        </div>
+
+        <label for="buscaCodigoProcedimento">Código do Procedimento (SIGTAP):</label>
+        <div class="autocomplete-container">
+            <input type="text" id="buscaCodigoProcedimento" placeholder="Digite o código (ex: 0303010037) ou o nome..." autocomplete="off">
+            <div id="listaCodigoProcedimento" class="autocomplete-items"></div>
+        </div>
+        
+        <input type="hidden" id="codigoProcedimento">
+
+        <label for="clinica">Clínica (Ex: Médica, Cirúrgica, Obstétrica):</label>
+        <input type="text" id="clinica">
+
+        <label for="caraterInternacao">Caráter da Internação:</label>
+        <select id="caraterInternacao">
+            <option value="">Selecione...</option>
+            <option value="Eletiva">Eletiva</option>
+            <option value="Urgência">Urgência</option>
+        </select>
+		
+		<h2>5. Identificação do Profissional Solicitante</h2>
+
+        <label for="tipoDocumentoProfissional">Tipo de Documento do Profissional:</label>
+        <select id="tipoDocumentoProfissional">
+            <option value="">Selecione...</option>
+            <option value="CNS">CNS</option>
+            <option value="CPF">CPF</option>
+        </select>
+
+        <label for="numeroDocProfissional">Nº Documento (CNS/CPF) do Profissional:</label>
+        <input type="number" id="numeroDocProfissional">
+        
+        <label for="nomeProfissional">Nome do Profissional Solicitante:</label>
+        <input type="text" id="nomeProfissional">
+		
+		<label for="dataSolicitacao">Data da Solicitação:</label>
+        <input type="date" id="dataSolicitacao">
+
+		<div id="mensagemErro"></div>
+
+        <button type="button" onclick="capturarDados()">Gerar AIH</button>
+    </form>
+	
+	<script>
+
+// --- AUTO-PREENCHIMENTO AO CARREGAR A PÁGINA ---
+// O window.onload é um gatilho. Ele diz: "Navegador, assim que terminar de ler o HTML, execute isso:"
+window.onload = function() {
+    let hoje = new Date(); // Captura o relógio interno do computador no momento exato
+    
+    let ano = hoje.getFullYear(); // Pega o ano (ex: 2026)
+    
+    // Na programação, os meses começam no zero (Janeiro = 0, Fevereiro = 1). 
+    // Por isso somamos + 1. O "padStart(2, '0')" garante que o mês 5 vire "05".
+    let mes = String(hoje.getMonth() + 1).padStart(2, '0'); 
+    
+    let dia = String(hoje.getDate()).padStart(2, '0'); // O mesmo para o dia
+    
+    // O campo HTML do tipo "date" exige que o formato seja escrito em inglês (AAAA-MM-DD)
+    let dataFormatadaPadrao = ano + '-' + mes + '-' + dia;
+    
+    // Injeta a data formatada diretamente na caixa de texto na tela
+    document.getElementById('dataSolicitacao').value = dataFormatadaPadrao;
+
+    // NOVA FUNÇÃO: Preparando o "Ouvinte" de digitação
+    function iniciarContador(idCampo, idContador, limite) {
+        let campo = document.getElementById(idCampo);
+        let contador = document.getElementById(idContador);
+
+        // O 'addEventListener' escuta especificamente o evento 'input' (quando qualquer tecla é digitada ou apagada)
+        campo.addEventListener('input', function() {
+            let quantidadeDigitada = campo.value.length; // Conta quantas letras existem no campo agora
+            
+            // Atualiza o texto na tela
+            contador.innerText = quantidadeDigitada + " / " + limite;
+            
+            // Bônus de UX: Se chegar no limite, o texto fica vermelho para alertar o médico
+            if (quantidadeDigitada >= limite) {
+                contador.style.color = "red";
+                contador.style.fontWeight = "bold";
+            } else {
+                contador.style.color = "#666666"; // Volta pro cinza se ele apagar letras
+                contador.style.fontWeight = "normal";
+            }
+        });
+    }
+
+    // Ativando a máquina para os nossos 4 campos (passando o ID do campo, o ID do contador e o Limite Máximo)
+    iniciarContador('sinaisSintomas', 'cont-sinaisSintomas', 1000);
+    iniciarContador('condicoesInternacao', 'cont-condicoesInternacao', 400);
+    iniciarContador('principaisResultados', 'cont-principaisResultados', 400);
+	
+// --- BANCO DE DADOS DE CIDS (Amostra do MVP) ---
+// Regra SUS: CIDs de 3 letras ganham um "X" no final para preencher os 4 quadradinhos
+// --- O NOSSO BANCO DE DADOS AGORA COMEÇA VAZIO ---
+    let bancoCids = [];
+
+    // --- NOVA FUNÇÃO QUE CONSOME A API / ARQUIVO JSON ---
+    async function carregarBancoCids() {
+    try {
+        let resposta = await fetch('cid10-csv-teste1.json');
+        let dadosBrutos = await resposta.json();
+        
+        bancoCids = dadosBrutos.map(doenca => {
+            let partes = doenca[Object.keys(doenca)[0]].split(';');
+            return {
+                codigo: partes[0],
+                nome: partes[4]
+            };
+        });
+        
+        console.log("Banco de CIDs carregado com sucesso! Total:", bancoCids.length);
+    } catch (erro) {
+        console.error("Erro ao carregar o arquivo:", erro);
+    }
+}
+
+    // Chama a função para carregar os dados assim que a página abrir
+    carregarBancoCids();    // (Mantenha o seu array const bancoCids = [...] exatamente como está)
+
+    // NOVA LÓGICA DE AUTOCOMPLETE DUPLO E SINCRONIZADO
+    function iniciarAutocompleteSincronizado(idCampoBusca, idLista) {
+        let campoBusca = document.getElementById(idCampoBusca);
+        let lista = document.getElementById(idLista);
+        let campoDiagnostico = document.getElementById('diagnosticoInicial');
+        let campoCidVisivel = document.getElementById('buscaCidPrincipal');
+        let campoCidEscondido = document.getElementById('cidPrincipal');
+
+        // Escuta a digitação no campo
+        campoBusca.addEventListener('input', function() {
+            let valor = this.value.toLowerCase();
+            lista.innerHTML = '';
+            campoCidEscondido.value = ''; // Reseta o código oficial se o médico alterar o texto
+
+            if (!valor) return;
+
+            let resultados = bancoCids.filter(cid => 
+                cid.codigo.toLowerCase().includes(valor) || 
+                cid.nome.toLowerCase().includes(valor)
+            );
+
+            resultados.forEach(cid => {
+                let item = document.createElement('div');
+                item.innerHTML = `<strong>${cid.codigo}</strong> - ${cid.nome}`;
+                
+                // O QUE ACONTECE AO CLICAR NA DOENÇA?
+                item.addEventListener('click', function() {
+                    
+                    // 1. Injeta o Nome da Doença no campo de Diagnóstico
+                    campoDiagnostico.value = cid.nome;
+                    
+                    // 2. Injeta o Código do CID no campo visível do formulário
+                    campoCidVisivel.value = cid.codigo;
+                    
+                    // 3. Força o contador de caracteres a recalcular PRIMEIRO!
+                    campoDiagnostico.dispatchEvent(new Event('input'));
+                    
+                    // 4. Salva o Código invisível DEPOIS do evento, para não ser apagado por acidente!
+                    campoCidEscondido.value = cid.codigo;
+                    
+                    // 5. Remove qualquer alerta de erro vermelho dos campos
+                    campoDiagnostico.classList.remove('campo-invalido');
+                    campoCidVisivel.classList.remove('campo-invalido');
+                    
+                    // 6. Fecha ambos os menus suspensos
+                    document.getElementById('listaDiagnostico').innerHTML = '';
+                    document.getElementById('listaCidPrincipal').innerHTML = '';
+                });
+                
+                lista.appendChild(item);
+            });
+        });
+    }
+
+    // Ativamos a mesma inteligência para os DOIS campos do formulário
+    iniciarAutocompleteSincronizado('diagnosticoInicial', 'listaDiagnostico');
+    iniciarAutocompleteSincronizado('buscaCidPrincipal', 'listaCidPrincipal');
+
+    // Fechar os menus caso o médico clique em qualquer lugar fora da caixa
+    document.addEventListener('click', function(e) {
+        if (e.target.id !== 'diagnosticoInicial' && e.target.id !== 'buscaCidPrincipal') {
+            document.getElementById('listaDiagnostico').innerHTML = '';
+            document.getElementById('listaCidPrincipal').innerHTML = '';
+        }
+    });
+	
+};
+
+// --- O BANCO DE DADOS DO SIGTAP AGORA COMEÇA VAZIO ---
+    let bancoProcedimentos = [];
+
+// --- FUNÇÃO QUE CONSOME O ARQUIVO BRUTO DO SIGTAP ---
+    async function carregarBancoProcedimentos() {
+        try {
+            // Lemos o arquivo como TEXTO puro, pois ele é um arquivo posicional do DATASUS
+            let resposta = await fetch('sigtap.json');
+            let textoBruto = await resposta.text();
+            
+            // Quebramos o texto gigante em uma lista, separando linha por linha (Enter)
+            let linhas = textoBruto.split('\n');
+            
+            bancoProcedimentos = [];
+
+            // Lemos cada linha individualmente
+            linhas.forEach(linha => {
+                // Ignora linhas vazias no final do documento
+                if (linha.trim() === '') return;
+
+                // REGRA DATASUS: Os primeiros 10 caracteres sempre são o Código (0 a 10)
+                let codigoBruto = linha.substring(0, 10).trim();
+                
+                // REGRA DATASUS: A descrição tem exatos 250 caracteres (da posição 10 até a 260)
+                // O ".trim()" no final joga fora todos os espaços vazios que sobrarem.
+                let nomeBruto = linha.substring(10, 260).trim();
+
+                // Salva no nosso banco se houver um código válido
+                if (codigoBruto !== '') {
+                    bancoProcedimentos.push({
+                        codigo: codigoBruto,
+                        nome: nomeBruto
+                    });
+                }
+            });
+            
+            console.log("Banco SIGTAP Posicional carregado com sucesso! Total:", bancoProcedimentos.length);
+        } catch (erro) {
+            console.error("Erro ao carregar o arquivo sigtap.json:", erro);
+        }
+    }
+    // Chama a função para carregar os dados assim que a página abrir
+    carregarBancoProcedimentos();
+
+    // --- NOVA LÓGICA DE AUTOCOMPLETE PARA PROCEDIMENTOS ---
+    function iniciarAutocompleteProcedimento(idCampoBusca, idLista) {
+        let campoBusca = document.getElementById(idCampoBusca);
+        let lista = document.getElementById(idLista);
+        let campoDescricao = document.getElementById('descricaoProcedimento');
+        let campoCodigoVisivel = document.getElementById('buscaCodigoProcedimento');
+        let campoCodigoEscondido = document.getElementById('codigoProcedimento');
+
+        campoBusca.addEventListener('input', function() {
+            let valor = this.value.toLowerCase();
+            lista.innerHTML = '';
+            campoCodigoEscondido.value = ''; // Apaga o invisível se houver alteração
+
+            if (!valor) return;
+
+            let resultados = bancoProcedimentos.filter(proc => 
+                proc.codigo.includes(valor) || 
+                proc.nome.toLowerCase().includes(valor)
+            );
+
+            resultados.forEach(proc => {
+                let item = document.createElement('div');
+                item.innerHTML = `<strong>${proc.codigo}</strong> - ${proc.nome}`;
+                
+                item.addEventListener('click', function() {
+                    campoDescricao.value = proc.nome;
+                    campoCodigoVisivel.value = proc.codigo;
+                    
+                    campoCodigoEscondido.value = proc.codigo;         // 2. Salva o código seguro
+                    
+                    campoDescricao.classList.remove('campo-invalido');
+                    campoCodigoVisivel.classList.remove('campo-invalido');
+                    
+                    document.getElementById('listaDescricaoProcedimento').innerHTML = '';
+                    document.getElementById('listaCodigoProcedimento').innerHTML = '';
+                });
+                
+                lista.appendChild(item);
+            });
+        });
+    }
+
+    // Ativa os dois campos de procedimento
+    iniciarAutocompleteProcedimento('descricaoProcedimento', 'listaDescricaoProcedimento');
+    iniciarAutocompleteProcedimento('buscaCodigoProcedimento', 'listaCodigoProcedimento');
+
+    // Fechar os menus caso o médico clique em qualquer lugar fora da caixa
+    document.addEventListener('click', function(e) {
+        if (e.target.id !== 'diagnosticoInicial' && e.target.id !== 'buscaCidPrincipal') {
+            document.getElementById('listaDiagnostico').innerHTML = '';
+            document.getElementById('listaCidPrincipal').innerHTML = '';
+        }
+        if (e.target.id !== 'descricaoProcedimento' && e.target.id !== 'buscaCodigoProcedimento') {
+            document.getElementById('listaDescricaoProcedimento').innerHTML = '';
+            document.getElementById('listaCodigoProcedimento').innerHTML = '';
+        }
+    });
+	
+// 1. O NOSSO MAPA DE COORDENADAS (Atualizado)
+const mapaAih = {
+    // (Bloco 1)
+    nomeEstabelecimento: { x: 35,  y: 745, tamanho: 14 },
+	cnesEstabelecimento: { x: 475, y: 745, tamanho: 14, espacamento: 15 },
+    nome:                { x: 35,  y: 680, tamanho: 14 },
+    cns:                 { x: 35,  y: 655, tamanho: 14, espacamento: 18 }, 
+    dataNasc:            { x: 315, y: 655, tamanho: 15 }, 
+    sexoMasc:            { x: 418, y: 656, tamanho: 12 }, 
+    sexoFem:             { x: 470, y: 656, tamanho: 12 },
+    nomeMae:             { x: 35,  y: 632, tamanho: 14 },
+    municipioResidencia: { x: 35,  y: 565, tamanho: 14 },
+    
+    // (Bloco 2)
+    sinaisSintomas:       { x: 35,  y: 530, tamanho: 10, larguraMaxima: 540, alturaLinha: 10 },
+    condicoesInternacao:  { x: 35,  y: 425, tamanho: 10, larguraMaxima: 540, alturaLinha: 10 },
+    principaisResultados: { x: 35,  y: 368, tamanho: 10, larguraMaxima: 540, alturaLinha: 10 },
+	diagnosticoInicial:   { x: 35,  y: 315, tamanho: 8 },
+    cidPrincipal:         { x: 280, y: 315, tamanho: 14, espacamento: 10 },
+    cidSecundario:        { x: 380, y: 315, tamanho: 14, espacamento: 10 },
+    cidCausasAssociadas:  { x: 480, y: 315, tamanho: 14, espacamento: 10 },
+	
+	// (Bloco 3)
+    descricaoProcedimento: { x: 35,  y: 275, tamanho: 10 },
+    codigoProcedimento:    { x: 402, y: 275, tamanho: 14, espacamento: 18 },
+    clinica:               { x: 35,  y: 250, tamanho: 12 },
+    caraterInternacao:     { x: 150, y: 250, tamanho: 12 },
+    docProfissionalCns:    { x: 255, y: 250, tamanho: 12 },
+    docProfissionalCpf:    { x: 297, y: 250, tamanho: 12 },
+	numeroDocProfissional: { x: 337, y: 250, tamanho: 14, espacamento: 16 },
+	nomeProfissional:      { x: 35,  y: 228, tamanho: 12 },
+	dataSolicitacao:       { x: 303, y: 227, tamanho: 15 }  // Nossa nova coordenada	
+};
+
+// --- NOSSA NOVA FUNÇÃO REUTILIZÁVEL ---
+// Ela recebe três ingredientes: o texto que foi digitado, as configurações do mapa e a página do PDF
+function imprimirTextoEspacado(texto, configuracaoMapa, pagina) {
+    if (!texto) return; // Se o médico não digitou nada, a função para aqui e não dá erro
+    
+    let textoString = String(texto).toUpperCase(); // Já transforma tudo em Maiúsculo (ex: j159 vira J159)
+    
+    for (let i = 0; i < textoString.length; i++) {
+        let digito = textoString[i];
+        let posicaoX = configuracaoMapa.x + (i * configuracaoMapa.espacamento);
+        
+        pagina.drawText(digito, { 
+            x: posicaoX, 
+            y: configuracaoMapa.y, 
+            size: configuracaoMapa.tamanho 
+        });
+    }
+}
+
+// 2. A FUNÇÃO PRINCIPAL
+async function capturarDados() {
+    
+    let divErro = document.getElementById('mensagemErro');
+
+    // --- NOVA MINI-FUNÇÃO INTERNA PARA DISPARAR ERROS (D.R.Y.) ---
+    // Em vez de copiar 5 linhas de código de erro toda vez, nós chamamos esta função
+    function bloquearComErro(elemento, mensagem) {
+        divErro.textContent = mensagem;
+        divErro.style.display = 'block';
+        elemento.classList.add('campo-invalido');
+        elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        elemento.focus();
+    }
+
+    // --- 1. VALIDAÇÃO DE CAMPOS VAZIOS OBRIGATÓRIOS ---
+    const camposParaValidar = [
+        { id: 'nomeEstabelecimento', nome: 'Nome do Estabelecimento Solicitante' },
+        { id: 'nomePaciente', nome: 'Nome do Paciente' },
+        { id: 'cnsPaciente', nome: 'Cartão Nacional de Saúde (CNS)' },
+        { id: 'dataNascimento', nome: 'Data de Nascimento' },
+        { id: 'sexoPaciente', nome: 'Sexo' },
+        { id: 'nomeMae', nome: 'Nome da Mãe' },
+        { id: 'municipioResidencia', nome: 'Município de Residência' },
+        { id: 'sinaisSintomas', nome: 'Principais Sinais e Sintomas Clínicos' },
+        { id: 'condicoesInternacao', nome: 'Condições que Justificam a Internação' },
+        { id: 'principaisResultados', nome: 'Principais Resultados e Provas Diagnósticas' },
+        { id: 'diagnosticoInicial', nome: 'Diagnóstico Inicial' },
+        { id: 'buscaCidPrincipal', nome: 'CID 10 Principal' },
+        { id: 'descricaoProcedimento', nome: 'Descrição do Procedimento Solicitado' },
+        { id: 'buscaCodigoProcedimento', nome: 'Código do Procedimento (SIGTAP)' }, // Atualizado
+        { id: 'clinica', nome: 'Clínica' },
+        { id: 'caraterInternacao', nome: 'Caráter da Internação' },
+        { id: 'tipoDocumentoProfissional', nome: 'Tipo de Documento do Profissional' },
+        { id: 'numeroDocProfissional', nome: 'Nº Documento (CNS/CPF) do Profissional' },
+        { id: 'nomeProfissional', nome: 'Nome do Profissional Solicitante' },
+        { id: 'dataSolicitacao', nome: 'Data da Solicitação' }
+    ];
+
+    // Limpeza de segurança antes de checar
+    divErro.style.display = 'none';
+    camposParaValidar.forEach(campo => {
+        document.getElementById(campo.id).classList.remove('campo-invalido');
+    });
+
+    // Verificação de vazios usando a nossa nova mini-função
+    for (let i = 0; i < camposParaValidar.length; i++) {
+        let elemento = document.getElementById(camposParaValidar[i].id);
+        let valor = elemento.value.trim();
+
+        if (valor === '') {
+            bloquearComErro(elemento, `Processo interrompido: O campo "${camposParaValidar[i].nome}" é de preenchimento obrigatório.`);
+            return; // Encerra a função
+        }
+    }
+
+    // --- 2. VALIDAÇÃO ESPECÍFICA DE TAMANHO DE NÚMEROS (NOVO) ---
+    
+    // A. Validando o CNS do Paciente (!== significa "Diferente de")
+    let cnsPacienteElem = document.getElementById('cnsPaciente');
+    if (cnsPacienteElem.value.trim().length !== 15) {
+        bloquearComErro(cnsPacienteElem, "Erro de formatação: O Cartão Nacional de Saúde (CNS) do paciente deve conter exatamente 15 dígitos.");
+        return;
+    }
+
+    // B. Validando o Documento do Profissional (Inteligência Condicional)
+    let tipoDocSelecionado = document.getElementById('tipoDocumentoProfissional').value;
+    let numDocProfElem = document.getElementById('numeroDocProfissional');
+    let numDocProfValor = numDocProfElem.value.trim();
+
+    if (tipoDocSelecionado === 'CNS' && numDocProfValor.length !== 15) {
+        bloquearComErro(numDocProfElem, "Erro de formatação: O CNS do profissional deve conter exatamente 15 dígitos.");
+        return;
+    } else if (tipoDocSelecionado === 'CPF' && numDocProfValor.length !== 11) {
+        bloquearComErro(numDocProfElem, "Erro de formatação: O CPF do profissional deve conter exatamente 11 dígitos.");
+        return;
+    }
+	
+	// C. Validando o Código do Procedimento (SIGTAP)
+    let codigoProcElemVisivel = document.getElementById('buscaCodigoProcedimento');
+    let codigoProcEscondido = document.getElementById('codigoProcedimento').value;
+
+    if (codigoProcEscondido.length !== 10) {
+        bloquearComErro(codigoProcElemVisivel, "Erro de Validação: Você deve selecionar um Procedimento válido na lista suspensa (SIGTAP de 10 dígitos).");
+        return;
+    }
+	
+	// D. Validando o CNES do Estabelecimento (Opcional, mas estrito a 7 dígitos)
+    let cnesElem = document.getElementById('cnesEstabelecimento');
+    let cnesValor = cnesElem.value.trim();
+
+    // Se o médico preencheu alguma coisa E essa coisa não tiver 7 dígitos, bloqueie!
+    if (cnesValor !== '' && cnesValor.length !== 7) {
+        bloquearComErro(cnesElem, "Erro de formatação: O CNES do estabelecimento deve conter exatamente 7 dígitos.");
+        return;
+    }
+	
+	// E. Validando se o CID Principal foi selecionado na lista (Menu Suspenso)
+    let cidEscondidoValor = document.getElementById('cidPrincipal').value;
+    let cidBuscaElem = document.getElementById('buscaCidPrincipal');
+    
+    // Se o usuário digitou algo, mas o código escondido está vazio, significa que ele não clicou no menu!
+    if (cidBuscaElem.value !== '' && cidEscondidoValor === '') {
+        bloquearComErro(cidBuscaElem, "Erro de Validação: Você deve selecionar uma doença válida na lista suspensa do CID 10 Principal.");
+        return;
+    }
+	
+    // --- FIM DA VALIDAÇÃO ---
+
+    // Captura os dados digitados
+	let nomeEstabelecimento = document.getElementById('nomeEstabelecimento').value;
+	let cnesEstabelecimento = document.getElementById('cnesEstabelecimento').value;
+    let nome = document.getElementById('nomePaciente').value;
+    let cns = document.getElementById('cnsPaciente').value;
+    let dataNasc = document.getElementById('dataNascimento').value;
+    let sexo = document.getElementById('sexoPaciente').value;
+    let nomeMae = document.getElementById('nomeMae').value;             
+    let municipioResidencia = document.getElementById('municipioResidencia').value; 
+    let sinaisSintomas = document.getElementById('sinaisSintomas').value.replace(/[\r\n]+/g, ' ').trim();
+    let condicoesInternacao = document.getElementById('condicoesInternacao').value.replace(/[\r\n]+/g, ' ').trim();
+    let principaisResultados = document.getElementById('principaisResultados').value.replace(/[\r\n]+/g, ' ').trim();
+    let diagnosticoInicial = document.getElementById('diagnosticoInicial').value;
+    let cidPrincipal = document.getElementById('cidPrincipal').value;
+	let cidSecundario = document.getElementById('cidSecundario').value;
+    let cidCausasAssociadas = document.getElementById('cidCausasAssociadas').value;
+	let descricaoProcedimento = document.getElementById('descricaoProcedimento').value;
+    let codigoProcedimento = document.getElementById('codigoProcedimento').value;
+    let clinica = document.getElementById('clinica').value;
+    let caraterInternacao = document.getElementById('caraterInternacao').value; 
+	let tipoDocumentoProfissional = document.getElementById('tipoDocumentoProfissional').value;
+    let numeroDocProfissional = document.getElementById('numeroDocProfissional').value;
+	let nomeProfissional = document.getElementById('nomeProfissional').value;
+	let dataSolicitacao = document.getElementById('dataSolicitacao').value;
+	
+	// --- CARREGA O PDF FIXO DO SERVIDOR ---
+    // O fetch busca o arquivo na mesma pasta. Se você deu outro nome ao PDF no Passo 1, mude aqui!
+    let respostaPdf = await fetch('aih_base.pdf'); 
+    
+    // Converte o PDF baixado para a linguagem binária que a biblioteca entende
+    let arrayBuffer = await respostaPdf.arrayBuffer(); 
+    let pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+    let primeiraPagina = pdfDoc.getPages()[0];
+	
+	// NOVO: Embutindo a fonte padrão explícita (A nossa "Régua" matemática)
+    let fontePadrao = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+
+// 3. CARIMBANDO OS DADOS USANDO O NOSSO MAPA ATUALIZADO
+	primeiraPagina.drawText(nomeEstabelecimento, { 
+        x: mapaAih.nomeEstabelecimento.x, 
+        y: mapaAih.nomeEstabelecimento.y, 
+        size: mapaAih.nomeEstabelecimento.tamanho 
+    });
+
+	// Imprimindo o CNES usando nossa função de quadradinhos
+    imprimirTextoEspacado(cnesEstabelecimento, mapaAih.cnesEstabelecimento, primeiraPagina);
+
+    primeiraPagina.drawText(nome, { 
+        x: mapaAih.nome.x, 
+        y: mapaAih.nome.y, 
+        size: mapaAih.nome.tamanho // Busca o tamanho específico do Nome
+    });
+    
+// --- NOVA LÓGICA DO CNS COM LAÇO DE REPETIÇÃO ---
+    if(cns) {
+        let stringCns = String(cns); // Garante que o computador trate o número como texto
+        
+        // O Loop "for": (Começa no 0; Vai até o fim da palavra; Anda de 1 em 1)
+        for (let i = 0; i < stringCns.length; i++) {
+            let digito = stringCns[i]; // Pega apenas uma letra/número por vez
+            
+            // Calcula a posição X exata: Posição inicial + (Qual número é * Tamanho do passo)
+            let posicaoX = mapaAih.cns.x + (i * mapaAih.cns.espacamento);
+            
+            primeiraPagina.drawText(digito, { 
+                x: posicaoX, 
+                y: mapaAih.cns.y, 
+                size: mapaAih.cns.tamanho 
+            });
+        }
+    }
+
+    if(dataNasc) {
+        let partesData = dataNasc.split('-'); 
+        let dataFormatada = partesData[2] + '/' + partesData[1] + '/' + partesData[0];
+        primeiraPagina.drawText(dataFormatada, { 
+            x: mapaAih.dataNasc.x, 
+            y: mapaAih.dataNasc.y, 
+            size: mapaAih.dataNasc.tamanho // Busca o tamanho específico da Data
+        });
+    }
+
+// --- NOVA LÓGICA PARA AS CAIXAS DE SELEÇÃO DO SEXO ---
+    // Se o médico escolheu "M" no formulário web...
+    if (sexo === 'M') {
+        // Imprime um "X" na coordenada do sexo masculino
+        primeiraPagina.drawText('X', { 
+            x: mapaAih.sexoMasc.x, 
+            y: mapaAih.sexoMasc.y, 
+            size: mapaAih.sexoMasc.tamanho 
+        });
+    } 
+    // Caso contrário, se o médico escolheu "F"...
+    else if (sexo === 'F') {
+        // Imprime um "X" na coordenada do sexo feminino
+        primeiraPagina.drawText('X', { 
+            x: mapaAih.sexoFem.x, 
+            y: mapaAih.sexoFem.y, 
+            size: mapaAih.sexoFem.tamanho 
+        });
+    }
+    
+	// Carimbando o Nome da Mãe
+    primeiraPagina.drawText(nomeMae, { 
+        x: mapaAih.nomeMae.x, 
+        y: mapaAih.nomeMae.y, 
+        size: mapaAih.nomeMae.tamanho 
+    });
+	
+	// Carimbando o Município de Residência
+    primeiraPagina.drawText(municipioResidencia, { 
+        x: mapaAih.municipioResidencia.x, 
+        y: mapaAih.municipioResidencia.y, 
+        size: mapaAih.municipioResidencia.tamanho 
+    });
+
+// --- IMPRESSÃO DO BLOCO 3 ---
+    primeiraPagina.drawText(sinaisSintomas, { 
+        x: mapaAih.sinaisSintomas.x, 
+        y: mapaAih.sinaisSintomas.y, 
+        size: mapaAih.sinaisSintomas.tamanho,
+        maxWidth: mapaAih.sinaisSintomas.larguraMaxima, 
+        lineHeight: mapaAih.sinaisSintomas.alturaLinha,
+        font: fontePadrao,                // Entregando a régua para o sistema
+        wordBreaks: [' ', '-']      // Entregando a tesoura (espaços, enter e hífens)
+    });
+
+    primeiraPagina.drawText(condicoesInternacao, { 
+        x: mapaAih.condicoesInternacao.x, 
+        y: mapaAih.condicoesInternacao.y, 
+        size: mapaAih.condicoesInternacao.tamanho,
+        maxWidth: mapaAih.condicoesInternacao.larguraMaxima, 
+        lineHeight: mapaAih.condicoesInternacao.alturaLinha,
+        font: fontePadrao,
+        wordBreaks: [' ', '-']
+    });
+
+    primeiraPagina.drawText(principaisResultados, { 
+        x: mapaAih.principaisResultados.x, 
+        y: mapaAih.principaisResultados.y, 
+        size: mapaAih.principaisResultados.tamanho,
+        maxWidth: mapaAih.principaisResultados.larguraMaxima, 
+        lineHeight: mapaAih.principaisResultados.alturaLinha,
+        font: fontePadrao,
+        wordBreaks: [' ', '-']
+    });
+
+    primeiraPagina.drawText(diagnosticoInicial, { 
+        x: mapaAih.diagnosticoInicial.x, 
+        y: mapaAih.diagnosticoInicial.y, 
+        size: mapaAih.diagnosticoInicial.tamanho 
+    });
+
+// IMPRIMINDO OS CIDs USANDO A NOSSA FUNÇÃO REUTILIZÁVEL
+    imprimirTextoEspacado(cidPrincipal, mapaAih.cidPrincipal, primeiraPagina);
+    imprimirTextoEspacado(cidSecundario, mapaAih.cidSecundario, primeiraPagina);
+    imprimirTextoEspacado(cidCausasAssociadas, mapaAih.cidCausasAssociadas, primeiraPagina);
+
+// --- IMPRESSÃO DO BLOCO 4 ---
+    primeiraPagina.drawText(descricaoProcedimento, { 
+        x: mapaAih.descricaoProcedimento.x, 
+        y: mapaAih.descricaoProcedimento.y, 
+        size: mapaAih.descricaoProcedimento.tamanho 
+    });
+
+    primeiraPagina.drawText(clinica, { 
+        x: mapaAih.clinica.x, 
+        y: mapaAih.clinica.y, 
+        size: mapaAih.clinica.tamanho 
+    });
+
+    // Lógica do Código do Procedimento (SIGTAP) - Loop de espaçamento
+    if(codigoProcedimento) {
+        let stringCodigo = String(codigoProcedimento); 
+        for (let i = 0; i < stringCodigo.length; i++) {
+            let digito = stringCodigo[i];
+            let posicaoX = mapaAih.codigoProcedimento.x + (i * mapaAih.codigoProcedimento.espacamento);
+            primeiraPagina.drawText(digito, { 
+                x: posicaoX, 
+                y: mapaAih.codigoProcedimento.y, 
+                size: mapaAih.codigoProcedimento.tamanho 
+            });
+        }
+    }
+
+	// Lógica do Caráter de Internação (Texto Completo em Maiúsculas)
+    if (caraterInternacao !== "") {
+        // Transforma a palavra capturada (ex: "Eletiva") em tudo maiúsculo ("ELETIVA")
+        let textoCarater = String(caraterInternacao).toUpperCase();
+        
+        primeiraPagina.drawText(textoCarater, { 
+            x: mapaAih.caraterInternacao.x, 
+            y: mapaAih.caraterInternacao.y, 
+            size: mapaAih.caraterInternacao.tamanho 
+        });
+    }
+
+// --- IMPRESSÃO DO BLOCO 5 ---
+    // Lógica para assinalar o tipo de documento do profissional
+    if (tipoDocumentoProfissional === 'CNS') {
+        primeiraPagina.drawText('X', { 
+            x: mapaAih.docProfissionalCns.x, 
+            y: mapaAih.docProfissionalCns.y, 
+            size: mapaAih.docProfissionalCns.tamanho 
+        });
+    } else if (tipoDocumentoProfissional === 'CPF') {
+        primeiraPagina.drawText('X', { 
+            x: mapaAih.docProfissionalCpf.x, 
+            y: mapaAih.docProfissionalCpf.y, 
+            size: mapaAih.docProfissionalCpf.tamanho 
+        });
+    }
+	// Imprimindo o número do documento com espaçamento
+    imprimirTextoEspacado(numeroDocProfissional, mapaAih.numeroDocProfissional, primeiraPagina);
+
+	// Imprimindo o Nome do Profissional
+    primeiraPagina.drawText(nomeProfissional, { 
+        x: mapaAih.nomeProfissional.x, 
+        y: mapaAih.nomeProfissional.y, 
+        size: mapaAih.nomeProfissional.tamanho 
+    });
+	
+	// Imprimindo a Data da Solicitação invertida para DD/MM/AAAA
+    if(dataSolicitacao) {
+        let partesDataSol = dataSolicitacao.split('-'); 
+        let dataSolFormatada = partesDataSol[2] + '/' + partesDataSol[1] + '/' + partesDataSol[0];
+        
+        primeiraPagina.drawText(dataSolFormatada, { 
+            x: mapaAih.dataSolicitacao.x, 
+            y: mapaAih.dataSolicitacao.y, 
+            size: mapaAih.dataSolicitacao.tamanho 
+        });
+    }
+
+    // Salva e faz o download
+    let pdfBytes = await pdfDoc.save();
+    let blob = new Blob([pdfBytes], { type: "application/pdf" });
+    let link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = "AIH_Preenchida.pdf";
+    link.click();
+}
+    </script>
+</body>
+</html>
