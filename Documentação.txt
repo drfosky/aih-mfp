@@ -1,3 +1,7 @@
 27 de maio de 2026
 - Criação e disponibilidade do site para o público geral.
 - Lançamento da Versão 1.0
+
+28 de maio de 2026
+- Adicionar TAG do Google Analytics
+- Lançamento da Versão 1.1
