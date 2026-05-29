@@ -10,3 +10,7 @@
 - Ajuste da UI para centralizar e alguns elementos visuais mais elegantes.
 - Adicionado modo noturno e botão para ativá-lo e alternar com modo padrão.
 - Lançamento da Versão 1.2
+
+29 de maio de 2026
+- Ajuste do tamanho da fonte do item "Código de Procedimento" para 8.
+- Lançamento da versão 1.3
