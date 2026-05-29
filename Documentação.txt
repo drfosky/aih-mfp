@@ -8,4 +8,5 @@
 - Lançamento da Versão 1.1
 
 - Ajuste da UI para centralizar e alguns elementos visuais mais elegantes.
+- Adicionado modo noturno e botão para ativá-lo e alternar com modo padrão.
 - Lançamento da Versão 1.2
