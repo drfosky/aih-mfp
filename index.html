@@ -164,9 +164,85 @@
             color: #ffffff; 
         }
         
+		/* --- ESTILOS DO BOTÃO DE TEMA --- */
+        #btnTema {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: auto;
+            margin-top: 0;
+            padding: 10px 15px;
+            background-color: #ffffff;
+            color: #333333;
+            border: 1px solid #cccccc;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        #btnTema:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* --- MODO ESCURO (Acionado via JavaScript) --- */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode form {
+            background-color: #1e1e1e;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        body.dark-mode h1, body.dark-mode h2 {
+            color: #66b3ff; /* Azul mais claro para destacar no fundo escuro */
+        }
+
+        body.dark-mode label {
+            color: #bbbbbb;
+        }
+
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
+            background-color: #2c2c2c;
+            color: #ffffff;
+            border: 1px solid #444444;
+        }
+
+        body.dark-mode input:focus, body.dark-mode select:focus, body.dark-mode textarea:focus {
+            border-color: #66b3ff;
+            box-shadow: 0 0 0 3px rgba(102, 179, 255, 0.15);
+        }
+
+        body.dark-mode .autocomplete-items {
+            background-color: #2c2c2c;
+            border-color: #444444;
+        }
+
+        body.dark-mode .autocomplete-items div {
+            border-bottom: 1px solid #444444;
+        }
+
+        body.dark-mode .autocomplete-items div:hover {
+            background-color: #66b3ff;
+            color: #121212;
+        }
+
+        body.dark-mode #btnTema {
+            background-color: #2c2c2c;
+            color: #ffffff;
+            border-color: #66b3ff;
+        }
+		
     </style>
 </head>
 <body>
+
+	<!-- Botão de alternância de tema -->
+    <button id="btnTema" onclick="alternarTema()">🌙 Modo Escuro</button>
+
     <h1>Plataforma de Preenchimento da AIH</h1>
     
     <form>
@@ -285,10 +361,38 @@
     </form>
 	
 	<script>
+	
+	// --- SISTEMA DE TEMA (CLARO/ESCURO) ---
+	function alternarTema() {
+		const corpo = document.body;
+		const botao = document.getElementById('btnTema');
+    
+    // Liga ou desliga a classe 'dark-mode'
+    corpo.classList.toggle('dark-mode');
+    
+    // Checa se o modo escuro está ativado no momento
+    if (corpo.classList.contains('dark-mode')) {
+        botao.innerText = '☀️ Modo Claro';
+        localStorage.setItem('temaPreferencia', 'escuro'); // Salva no navegador
+    } else {
+        botao.innerText = '🌙 Modo Escuro';
+        localStorage.setItem('temaPreferencia', 'claro'); // Salva no navegador
+    }
+}
+
+// Checa a memória do navegador assim que o script carrega (evita piscar a tela branca)
+if (localStorage.getItem('temaPreferencia') === 'escuro') {
+    document.body.classList.add('dark-mode');
+}
 
 // --- AUTO-PREENCHIMENTO AO CARREGAR A PÁGINA ---
 // O window.onload é um gatilho. Ele diz: "Navegador, assim que terminar de ler o HTML, execute isso:"
 window.onload = function() {
+	// Atualiza o texto do botão caso o modo escuro esteja salvo na memória
+    if (document.body.classList.contains('dark-mode')) {
+        document.getElementById('btnTema').innerText = '☀️ Modo Claro';
+    }
+	
     let hoje = new Date(); // Captura o relógio interno do computador no momento exato
     
     let ano = hoje.getFullYear(); // Pega o ano (ex: 2026)
