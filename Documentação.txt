@@ -4,4 +4,5 @@
 
 28 de maio de 2026
 - Adicionar TAG do Google Analytics
+  - Adicionado evento para quantificação de downloads concluídos com sucesso.
 - Lançamento da Versão 1.1
