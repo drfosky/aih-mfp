@@ -22,82 +22,117 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 
     <style>
-        /* Estilo geral da página */
+        /* Estilo geral da página - Centralizando o conteúdo */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f4f8; /* Um tom de cinza azulado bem leve */
+            font-family: 'Segoe UI', Arial, sans-serif; /* Fonte mais moderna */
+            background-color: #f0f4f8; /* Fundo leve e limpo */
             color: #333333;
-            padding: 20px;
+            padding: 40px 20px; /* Mais respiro no topo e rodapé */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centraliza o formulário horizontalmente */
+            margin: 0;
         }
 
-        /* Estilo dos títulos */
         h1, h2 {
-            color: #0056b3; /* Azul escuro, passando uma ideia de saúde/institucional */
+            color: #0056b3;
         }
 
-        /* Estilo da caixa do formulário */
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Estilo do Card do formulário */
         form {
             background-color: #ffffff;
-            padding: 25px;
-            border-radius: 8px; /* Arredonda as pontas da caixa */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Cria uma sombra suave atrás da caixa */
-            max-width: 600px; /* Impede que o formulário fique esticado em telas grandes */
+            padding: 40px; /* Aumentamos o respiro interno */
+            border-radius: 12px; /* Bordas mais suaves */
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* Sombra mais elegante e profunda */
+            width: 100%;
+            max-width: 650px; /* Largura perfeita para leitura confortável em coluna única */
+            box-sizing: border-box;
         }
 
-        /* Estilo dos rótulos (textos explicativos) */
+        /* Estilo dos rótulos */
         label {
-            display: block; /* Faz o rótulo ocupar a linha inteira, jogando a caixa para baixo */
+            display: block;
             font-weight: bold;
-            margin-top: 15px; /* Cria o espaçamento automático em cima, substituindo o <br> */
-            margin-bottom: 5px;
+            margin-top: 20px; /* Aumentado levemente para respirar na coluna única */
+            margin-bottom: 8px;
+            color: #444444; /* Cor levemente mais suave para leitura */
         }
 
-        /* Estilo das caixas de texto e menu suspenso */
-        input, select {
-            width: 100%; /* Faz a caixa ocupar toda a largura disponível */
-            padding: 10px; /* Dá um "respiro" interno para o texto não ficar colado nas bordas */
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* Garante que as caixas não ultrapassem o limite do formulário */
-        }
-		
-		/* Estilo das caixas de texto, áreas de texto e menu suspenso */
+        /* Estilo das caixas de texto, áreas de texto e menu suspenso */
         input, select, textarea {
             width: 100%; 
-            padding: 10px; 
+            padding: 12px; /* Entradas levemente mais altas (melhor conforto de clique) */
             border: 1px solid #cccccc;
-            border-radius: 4px;
+            border-radius: 6px; /* Bordas mais arredondadas */
             box-sizing: border-box; 
-            font-family: Arial, sans-serif; /* Garante que a fonte de dentro seja Arial */
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s, box-shadow 0.3s; /* Animação suave no foco */
         }
-		
-		/* Estilo para os contadores de caracteres */
+
+        /* UX: Feedback visual quando o usuário clica no campo */
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15); /* "Aura" azul ao redor do campo ativo */
+        }
+
+        /* Estilo para os contadores de caracteres */
         .contador {
             font-size: 12px;
             color: #666666;
             text-align: right;
-            margin-top: 2px;
-            margin-bottom: 15px; /* Devolve o espaçamento para o próximo campo */
+            margin-top: 4px;
+            margin-bottom: 10px;
         }
-		
-		/* --- ESTILOS DE VALIDAÇÃO DE ERRO --- */
+
+        /* --- ESTILOS DE VALIDAÇÃO DE ERRO --- */
         #mensagemErro {
-            display: none; /* Fica invisível por padrão */
-            background-color: #ffe6e6; /* Fundo vermelho bem clarinho */
-            color: #cc0000; /* Texto vermelho escuro */
+            display: none; 
+            background-color: #ffe6e6; 
+            color: #cc0000; 
             padding: 15px;
+            margin-top: 25px;
             margin-bottom: 20px;
-            border-left: 5px solid #cc0000; /* Linha grossa na esquerda para chamar atenção */
+            border-left: 5px solid #cc0000; 
             border-radius: 4px;
             font-weight: bold;
         }
 
         .campo-invalido {
-            border: 2px solid #cc0000 !important; /* Borda vermelha forte */
-            background-color: #fffaf0 !important; /* Fundo levemente amarelado/alerta */
+            border: 2px solid #cc0000 !important; 
+            background-color: #fffaf0 !important; 
         }
-		
-		/* --- ESTILOS DO AUTOCOMPLETE (MENU SUSPENSO) --- */
+
+        /* --- ESTILOS DO BOTÃO --- */
+        button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.1s; /* Animação de clique */
+        }
+
+        button:hover {
+            background-color: #004494; /* Escurece ao passar o mouse */
+        }
+
+        button:active {
+            transform: scale(0.98); /* Botão "afunda" quando clicado */
+        }
+
+        /* --- ESTILOS DO AUTOCOMPLETE (MENU SUSPENSO) --- */
         .autocomplete-container {
             position: relative;
             display: block;
@@ -107,28 +142,28 @@
             border: 1px solid #cccccc;
             border-bottom: none;
             border-top: none;
-            z-index: 99; /* Garante que o menu flutue por cima dos outros campos */
+            z-index: 99; 
             top: 100%;
             left: 0;
             right: 0;
-            max-height: 250px; /* Altura máxima antes de criar barra de rolagem */
+            max-height: 250px; 
             overflow-y: auto;
             background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 0 0 4px 4px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Sombra destacada pro menu */
+            border-radius: 0 0 6px 6px;
         }
         .autocomplete-items div {
             padding: 12px;
             cursor: pointer;
-            border-bottom: 1px solid #cccccc;
+            border-bottom: 1px solid #eee;
             font-size: 14px;
+            transition: background-color 0.2s;
         }
-        /* Cor de destaque quando o mouse passa por cima da doença */
         .autocomplete-items div:hover {
             background-color: #0056b3;
             color: #ffffff; 
         }
-		
+        
     </style>
 </head>
 <body>
