@@ -14,8 +14,10 @@
    <head>
     <meta charset="UTF-8">
     <title>Preenchimento AIH</title>
+
+    <link rel="icon" href="data:,">
     
-    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 
     <style>
         /* Estilo geral da página */
@@ -895,6 +897,15 @@ async function capturarDados() {
     link.href = window.URL.createObjectURL(blob);
     link.download = "AIH_Preenchida.pdf";
     link.click();
+
+    // DISPARO DE EVENTO PARA O GOOGLE ANALYTICS - QUANTIFICA DOWNLOADS COM SUCESSO
+    // O "if" garante que o site não trave caso o médico use um bloqueador de anúncios (AdBlock)
+    if (typeof gtag === 'function') {
+        gtag('event', 'geracao_aih_sucesso', {
+            'tipo_documento': 'pdf_aih_sus',
+            'origem': 'botao_gerar'
+        });
+    }
 }
     </script>
 </body>
