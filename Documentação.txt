@@ -17,3 +17,4 @@
 
 01 de junho de 2026
 - Correção do erro para selecionar texto do arquivo final.
+- Lançamento da versão 1.4
