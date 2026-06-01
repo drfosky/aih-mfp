@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <title>Preenchimento AIH</title>
 
-    <link rel="icon" href="data:,">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 
@@ -359,6 +359,17 @@
             display: none !important; /* Trava absoluta: Nunca será mostrado até decidirmos mudar */
         }
 
+        /* --- ESTILOS DA LOGO SVG --- */
+        .logo-aih {
+            fill: #0056b3; /* Nosso Azul Principal */
+            transition: fill 0.3s;
+        }
+        
+        .logo-facil {
+            fill: #555555; /* Cinza Escuro */
+            transition: fill 0.3s;
+        }
+
         /* --- MODO ESCURO (Acionado via JavaScript) --- */
         body.dark-mode {
             background-color: #121212;
@@ -458,6 +469,14 @@
             color: #555555;
         }
 
+        body.dark-mode .logo-aih {
+            fill: #66b3ff; /* Azul mais claro e brilhante para leitura no escuro */
+        }
+        
+        body.dark-mode .logo-facil {
+            fill: #e0e0e0; /* Cinza clarinho (quase branco) */
+        }
+
     </style>
 </head>
 <body>
@@ -482,12 +501,20 @@
     <button id="btnTema" onclick="alternarTema()">🌙 Modo Escuro</button>
 
     <header class="cabecalho-principal">
-            <div class="logo">AIH Fácil</div>
-            <nav>
-                <a href="index.html">Início</a>
-                <a href="#guia-preenchimento">Guia de Preenchimento</a> 
-            </nav>
-        </header>
+        <div class="logo">
+            <!-- A Nova Logo em Código SVG -->
+            <svg viewBox="0 0 160 50" width="140" height="45" xmlns="http://www.w3.org/2000/svg">
+                <!-- "AIH" em fonte mais espessa e dominante -->
+                <text x="0" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="40" font-weight="900" class="logo-aih">AIH</text>
+                <!-- "Fácil" em fonte um pouco menor e mais leve -->
+                <text x="75" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="26" font-weight="600" class="logo-facil">Fácil</text>
+            </svg>
+        </div>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="#guia-preenchimento">Guia de Preenchimento</a> 
+        </nav>
+    </header>
 
     <h1>Plataforma de Preenchimento da AIH</h1>
     
