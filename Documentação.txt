@@ -29,4 +29,6 @@
 - Adicionado menu de navegação no topo da página.
 - Adicionado footer com links para as páginas de descrição geral do projeto.
 - Adicionados disclaimers legais no footer da página.
+- Adicionados campos de preenchimento não-obrigatório no bloco de identificação do paciente.
+- Adicionado indicador de preenchimento obrigatório e legenda ao fim do formulário.
 - Lançamento da versão 2.0
