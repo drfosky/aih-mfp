@@ -31,4 +31,5 @@
 - Adicionados disclaimers legais no footer da página.
 - Adicionados campos de preenchimento não-obrigatório no bloco de identificação do paciente.
 - Adicionado indicador de preenchimento obrigatório e legenda ao fim do formulário.
+- Adicionada logomarca no favicon e no header da página.
 - Lançamento da versão 2.0
