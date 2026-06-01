@@ -493,57 +493,69 @@
     
     <form>
         <h2>1. Identificação do Estabelecimento de Saúde</h2>
-        <label for="nomeEstabelecimento">Nome do Estabelecimento Solicitante:</label>
+        <label for="nomeEstabelecimento">Nome do Estabelecimento Solicitante: *</label>
         <input type="text" id="nomeEstabelecimento">
 		
-		<label for="cnesEstabelecimento">Código CNES do Estabelecimento:</label>
+		<label for="cnesEstabelecimento">Código CNES do Estabelecimento: *</label>
         <input type="number" id="cnesEstabelecimento">
         
         <h2>2. Identificação do Paciente</h2>
-        <label for="nomePaciente">Nome do Paciente:</label>
+        <label for="nomePaciente">Nome do Paciente: *</label>
         <input type="text" id="nomePaciente">
 
-        <label for="cnsPaciente">Cartão Nacional de Saúde (CNS):</label>
+        <label for="cnsPaciente">Cartão Nacional de Saúde (CNS): *</label>
         <input type="number" id="cnsPaciente">
 
-        <label for="dataNascimento">Data de Nascimento:</label>
+        <label for="dataNascimento">Data de Nascimento: *</label>
         <input type="date" id="dataNascimento">
 
-        <label for="sexoPaciente">Sexo:</label>
+        <label for="sexoPaciente">Sexo: *</label>
         <select id="sexoPaciente">
             <option value="">Selecione...</option>
             <option value="M">Masculino</option>
             <option value="F">Feminino</option>
         </select>
 
-        <label for="nomeMae">Nome da Mãe:</label>
+        <label for="nomeMae">Nome da Mãe: *</label>
         <input type="text" id="nomeMae">
 
-        <label for="municipioResidencia">Município de Residência:</label>
+        <label for="nomeResponsavel">Nome do Responsável:</label>
+        <input type="text" id="nomeResponsavel">
+
+        <label for="endereco">Endereço: </label>
+        <input type="text" id="endereco">
+
+        <label for="municipioResidencia">Município de Residência: *</label>
         <input type="text" id="municipioResidencia">
+
+        <label for="uf">UF:</label>
+        <input type="text" id="uf">
+
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep">
         
 		<h2>3. Justificativa da Internação</h2>
         
-        <label for="sinaisSintomas">Principais Sinais e Sintomas Clínicos:</label>
+        <label for="sinaisSintomas">Principais Sinais e Sintomas Clínicos: *</label>
         <textarea id="sinaisSintomas" rows="3" maxlength="1000"></textarea>
 		<div id="cont-sinaisSintomas" class="contador">0 / 1000</div>
 
-        <label for="condicoesInternacao">Condições que Justificam a Internação:</label>
+        <label for="condicoesInternacao">Condições que Justificam a Internação: *</label>
         <textarea id="condicoesInternacao" rows="3" maxlength="400"></textarea>
 		<div id="cont-condicoesInternacao" class="contador">0 / 400</div>
 
-		<label for="principaisResultados">Principais Resultados e Provas Diagnósticas:</label>
+		<label for="principaisResultados">Principais Resultados e Provas Diagnósticas: *</label>
 		<textarea id="principaisResultados" rows="3" maxlength="400"></textarea>
 		<div id="cont-principaisResultados" class="contador">0 / 400</div>
 
-        <label for="diagnosticoInicial">Diagnóstico Inicial:</label>
+        <label for="diagnosticoInicial">Diagnóstico Inicial: *</label>
         <div class="autocomplete-container">
             <input type="text" id="diagnosticoInicial" maxlength="40" autocomplete="off" placeholder="Digite o nome da doença ou código...">
             <div id="listaDiagnostico" class="autocomplete-items"></div>
         </div>
             <div id="listaDiagnostico" class="autocomplete-items"></div>
 
-		<label for="buscaCidPrincipal">CID 10 Principal:</label>
+		<label for="buscaCidPrincipal">CID 10 Principal: *</label>
         <div class="autocomplete-container">
             <input type="text" id="buscaCidPrincipal" placeholder="Digite o código (ex: J15) ou o nome da doença..." autocomplete="off">
             <div id="listaCidPrincipal" class="autocomplete-items"></div>
@@ -551,21 +563,21 @@
         
         <input type="hidden" id="cidPrincipal">
 
-        <label for="cidSecundario">CID 10 Secundário:</label>
+        <label for="cidSecundario">CID 10 Secundário: *</label>
         <input type="text" id="cidSecundario" maxlength="4">
 
-        <label for="cidCausasAssociadas">CID 10 Causas Associadas:</label>
+        <label for="cidCausasAssociadas">CID 10 Causas Associadas: *</label>
         <input type="text" id="cidCausasAssociadas" maxlength="4">
 		
 		<h2>4. Procedimento Solicitado</h2>
 
-        <label for="descricaoProcedimento">Descrição do Procedimento Solicitado:</label>
+        <label for="descricaoProcedimento">Descrição do Procedimento Solicitado: *</label>
         <div class="autocomplete-container">
             <input type="text" id="descricaoProcedimento" maxlength="50" autocomplete="off" placeholder="Digite o nome do procedimento ou código...">
             <div id="listaDescricaoProcedimento" class="autocomplete-items"></div>
         </div>
 
-        <label for="buscaCodigoProcedimento">Código do Procedimento (SIGTAP):</label>
+        <label for="buscaCodigoProcedimento">Código do Procedimento (SIGTAP): *</label>
         <div class="autocomplete-container">
             <input type="text" id="buscaCodigoProcedimento" placeholder="Digite o código (ex: 0303010037) ou o nome..." autocomplete="off">
             <div id="listaCodigoProcedimento" class="autocomplete-items"></div>
@@ -573,10 +585,10 @@
         
         <input type="hidden" id="codigoProcedimento">
 
-        <label for="clinica">Clínica (Ex: Médica, Cirúrgica, Obstétrica):</label>
+        <label for="clinica">Clínica (Ex: Médica, Cirúrgica, Obstétrica): *</label>
         <input type="text" id="clinica">
 
-        <label for="caraterInternacao">Caráter da Internação:</label>
+        <label for="caraterInternacao">Caráter da Internação: *</label>
         <select id="caraterInternacao">
             <option value="">Selecione...</option>
             <option value="Eletiva">Eletiva</option>
@@ -585,31 +597,34 @@
 		
 		<h2>5. Identificação do Profissional Solicitante</h2>
 
-        <label for="tipoDocumentoProfissional">Tipo de Documento do Profissional:</label>
+        <label for="tipoDocumentoProfissional">Tipo de Documento do Profissional: *</label>
         <select id="tipoDocumentoProfissional">
             <option value="">Selecione...</option>
             <option value="CNS">CNS</option>
             <option value="CPF">CPF</option>
         </select>
 
-        <label for="numeroDocProfissional">Nº Documento (CNS/CPF) do Profissional:</label>
+        <label for="numeroDocProfissional">Nº Documento (CNS/CPF) do Profissional: *</label>
         <input type="number" id="numeroDocProfissional">
         
-        <label for="nomeProfissional">Nome do Profissional Solicitante:</label>
+        <label for="nomeProfissional">Nome do Profissional Solicitante: *</label>
         <input type="text" id="nomeProfissional">
 		
-		<label for="dataSolicitacao">Data da Solicitação:</label>
+		<label for="dataSolicitacao">Data da Solicitação: *</label>
         <input type="date" id="dataSolicitacao">
 
 		<div id="mensagemErro"></div>
 
         <button type="button" onclick="capturarDados()">Gerar AIH</button>
 
-        <div class="anuncio-oculto">
-            Espaço Reservado (Abaixo do Botão Gerar AIH)
-        </div>
+        <p>(*) Todos os itens marcados com o símbolo são de preenchimento obrigatório.</p>
+
     </form>
-	
+
+    <div class="anuncio-oculto">
+    Espaço Reservado (Abaixo do Botão Gerar AIH)
+    </div>
+
     <!-- Guia de Preenchimento -->
     <section id="guia-preenchimento" style="max-width: 800px; width: 100%; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); box-sizing: border-box; margin-top: 40px; margin-bottom: 40px;">
         <h2>Guia Completo: Como Preencher a AIH do SUS</h2>
@@ -857,6 +872,10 @@ window.onload = function() {
         'cnsPaciente': 'texto-guia-paciente',
         'dataNascimento': 'texto-guia-paciente',
         'nomeMae': 'texto-guia-paciente',
+        'nomeResponsavel': 'nomeResponsavel',
+        'endereco': 'endereco',
+        'uf': 'uf',
+        'cep': 'cep',
         'sinaisSintomas': 'texto-guia-justificativa',
         'condicoesInternacao': 'texto-guia-condicoes',
         'principaisResultados': 'texto-guia-exames',
@@ -1014,6 +1033,10 @@ const mapaAih = {
     sexoMasc:            { x: 418, y: 656, tamanho: 12 }, 
     sexoFem:             { x: 470, y: 656, tamanho: 12 },
     nomeMae:             { x: 35,  y: 632, tamanho: 14 },
+    nomeResponsavel:     { x: 35,  y: 609, tamanho: 14 }, 
+    endereco:            { x: 35,  y: 590, tamanho: 10 },
+    uf:                  { x: 448,  y: 565, tamanho: 14, espacamento: 18 },   
+    cep:                 { x: 485,  y: 565, tamanho: 14, espacamento: 11 },
     municipioResidencia: { x: 35,  y: 565, tamanho: 14 },
     
     // (Bloco 2)
@@ -1172,7 +1195,11 @@ async function capturarDados() {
     let cns = document.getElementById('cnsPaciente').value;
     let dataNasc = document.getElementById('dataNascimento').value;
     let sexo = document.getElementById('sexoPaciente').value;
-    let nomeMae = document.getElementById('nomeMae').value;             
+    let nomeMae = document.getElementById('nomeMae').value;
+    let nomeResponsavel = document.getElementById('nomeResponsavel').value;
+    let endereco = document.getElementById('endereco').value;
+    let cep = document.getElementById('cep').value;
+    let uf = document.getElementById('uf').value;         
     let municipioResidencia = document.getElementById('municipioResidencia').value; 
     let sinaisSintomas = document.getElementById('sinaisSintomas').value.replace(/[\r\n]+/g, ' ').trim();
     let condicoesInternacao = document.getElementById('condicoesInternacao').value.replace(/[\r\n]+/g, ' ').trim();
@@ -1274,6 +1301,26 @@ async function capturarDados() {
         size: mapaAih.nomeMae.tamanho 
     });
 	
+    // Carimbando o Nome do Responsável
+    primeiraPagina.drawText(nomeResponsavel, { 
+        x: mapaAih.nomeResponsavel.x, 
+        y: mapaAih.nomeResponsavel.y, 
+        size: mapaAih.nomeResponsavel.tamanho 
+    });
+
+    // Carimbando o Endereço
+    primeiraPagina.drawText(endereco, { 
+        x: mapaAih.endereco.x, 
+        y: mapaAih.endereco.y, 
+        size: mapaAih.endereco.tamanho 
+    });
+
+    // Carimbando a UF usando nossa função de quadradinhos
+    imprimirTextoEspacado(uf, mapaAih.uf, primeiraPagina);
+
+    // Carimbando o CEP usando nossa função de quadradinhos
+    imprimirTextoEspacado(cep, mapaAih.cep, primeiraPagina);
+
 	// Carimbando o Município de Residência
     primeiraPagina.drawText(municipioResidencia, { 
         x: mapaAih.municipioResidencia.x, 
