@@ -823,7 +823,7 @@ async function capturarDados() {
 	let dataSolicitacao = document.getElementById('dataSolicitacao').value;
 	
 	// --- CARREGA O PDF FIXO DO SERVIDOR ---
-    // O fetch busca o arquivo na mesma pasta. Se você deu outro nome ao PDF no Passo 1, mude aqui!
+    // O fetch busca o arquivo na mesma pasta.
     let respostaPdf = await fetch('aih_base.pdf'); 
     
     // Converte o PDF baixado para a linguagem binária que a biblioteca entende
