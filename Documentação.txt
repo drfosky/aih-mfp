@@ -17,4 +17,16 @@
 
 01 de junho de 2026
 - Correção do erro para selecionar texto do arquivo final.
-- Lançamento da versão 1.4
+- Implementação da adequação da página para futura aplicação no Google Adsense:
+	- Banner de Cookies.
+	- Página de contato.
+	- Página sobre o projeto.
+	- Página de termos de uso do projeto.
+	- Página detalhando termos de privacidade do projeto.
+	- Colocados os espaços para anúncio (laterais, abaixo do botão de gerar AIH e no fim da página).
+- Adicionado guia de preenchimento de AIH do SUS.
+- Adicionado tooltip flutuante em cima do mouse quando ele está sobre as caixas de preenchimento, com trecho do guia indicando o que deve ser escrito.
+- Adicionado menu de navegação no topo da página.
+- Adicionado footer com links para as páginas de descrição geral do projeto.
+- Adicionados disclaimers legais no footer da página.
+- Lançamento da versão 2.0
