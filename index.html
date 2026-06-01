@@ -186,6 +186,179 @@
             background-color: #f0f0f0;
         }
 
+        /* --- ESTILOS DO CABEÇALHO (HEADER) --- */
+        .cabecalho-principal {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .cabecalho-principal .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        .cabecalho-principal nav a {
+            text-decoration: none;
+            color: #555555;
+            font-weight: bold;
+            margin-left: 20px;
+            transition: color 0.3s;
+        }
+
+        .cabecalho-principal nav a:hover {
+            color: #0056b3;
+        }
+
+        /* --- ESTILOS DO RODAPÉ (FOOTER) --- */
+        .rodape-principal {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 50px;
+            padding: 30px 0;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .rodape-links {
+            margin-bottom: 15px;
+        }
+
+        .rodape-links a {
+            text-decoration: none;
+            color: #555555;
+            margin: 0 15px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .rodape-links a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .rodape-creditos p {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #888888;
+        }
+
+        /* --- CAIXA FLUTUANTE (TOOLTIP DO GUIA) --- */
+        #tooltip-guia {
+            position: absolute;
+            display: none; /* Fica escondido por padrão */
+            background-color: #ffffff;
+            color: #333333;
+            border: 2px solid #0056b3;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            font-size: 13px;
+            width: 320px;
+            z-index: 9999; /* Garante que fique acima de todos os menus */
+            pointer-events: none; /* CRÍTICO: Faz o mouse "atravessar" a caixa */
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        /* --- BANNER DE COOKIES --- */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            color: #333333;
+            padding: 20px;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+            display: none; /* Escondido por padrão, o JS decide se mostra */
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 10000; /* Garante que fique acima de tudo na página */
+            box-sizing: border-box;
+            border-top: 4px solid #0056b3;
+        }
+
+        .cookie-banner p {
+            margin: 0 0 15px 0;
+            font-size: 14px;
+            max-width: 800px;
+            line-height: 1.5;
+        }
+
+        .cookie-banner a {
+            color: #0056b3;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .cookie-banner button {
+            width: auto;
+            margin-top: 0;
+            padding: 10px 30px;
+            border-radius: 30px;
+        }
+
+        /* Adaptação para telas maiores (Desktop) */
+        @media (min-width: 768px) {
+            .cookie-banner {
+                flex-direction: row;
+                justify-content: center;
+                gap: 30px;
+                padding: 15px 40px;
+            }
+            .cookie-banner p {
+                margin: 0;
+                text-align: left;
+            }
+        }
+
+        /* --- ESPAÇOS PUBLICITÁRIOS LATERAIS (DESKTOP) --- */
+        .anuncio-lateral {
+            display: none; /* Oculto por padrão (ficará invisível em celulares e tablets) */
+            width: 160px;
+            height: 600px; /* Formato clássico de banner vertical AdSense */
+            background-color: #e9ecef;
+            border: 2px dashed #cccccc;
+            border-radius: 8px;
+            text-align: center;
+            color: #888888;
+            font-size: 12px;
+            text-transform: uppercase;
+            padding: 10px;
+            box-sizing: border-box;
+            position: fixed; /* Mantém o banner parado enquanto a página rola */
+            top: 50%;
+            transform: translateY(-50%); /* Centraliza perfeitamente no meio da tela */
+            z-index: 100;
+        }
+
+        /* Ativa as laterais APENAS em telas grandes (maiores que 1150px) para não sobrepor o formulário */
+        @media (min-width: 1150px) {
+            .anuncio-lateral {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        /* Posições individuais */
+        .anuncio-lateral.esquerdo { left: 20px; }
+        .anuncio-lateral.direito { right: 20px; }
+
+        /* --- ESPAÇOS PUBLICITÁRIOS OCULTOS (PLANEJAMENTO FUTURO) --- */
+        .anuncio-oculto {
+            display: none !important; /* Trava absoluta: Nunca será mostrado até decidirmos mudar */
+        }
+
         /* --- MODO ESCURO (Acionado via JavaScript) --- */
         body.dark-mode {
             background-color: #121212;
@@ -235,13 +408,86 @@
             color: #ffffff;
             border-color: #66b3ff;
         }
+
+        body.dark-mode .cabecalho-principal, 
+        body.dark-mode .rodape-principal {
+            border-color: #444444;
+        }
+
+        body.dark-mode .cabecalho-principal .logo {
+            color: #66b3ff;
+        }
+
+        body.dark-mode .cabecalho-principal nav a,
+        body.dark-mode .rodape-links a {
+            color: #bbbbbb;
+        }
+
+        body.dark-mode .cabecalho-principal nav a:hover,
+        body.dark-mode .rodape-links a:hover {
+            color: #66b3ff;
+        }
+
+        body.dark-mode main,
+        body.dark-mode section {
+            background-color: #1e1e1e !important;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode #tooltip-guia {
+            background-color: #2c2c2c;
+            color: #e0e0e0;
+            border-color: #66b3ff;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+        }
+
+        body.dark-mode .cookie-banner {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border-top: 4px solid #66b3ff;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.5);
+        }
+
+        body.dark-mode .cookie-banner a {
+            color: #66b3ff;
+        }
 		
+        body.dark-mode .anuncio-lateral {
+            background-color: #1e1e1e;
+            border-color: #444444;
+            color: #555555;
+        }
+
     </style>
 </head>
 <body>
 
+    <!-- Caixa flutuante para o Tooltip do Guia -->
+    <div id="tooltip-guia"></div>
+
+    <!-- Banner de Consentimento de Cookies -->
+    <div id="cookie-banner" class="cookie-banner">
+        <p>Nós utilizamos cookies e tecnologias semelhantes de acordo com a nossa <a href="privacidade.html">Política de Privacidade</a> para melhorar a sua experiência, analisar o tráfego e exibir anúncios relevantes. Ao continuar navegando, você concorda com estas condições.</p>
+        <button id="btn-aceitar-cookies" onclick="aceitarCookies()">Aceitar e Fechar</button>
+    </div>
+
+    <div class="anuncio-lateral esquerdo anuncio-oculto">
+        <span>Espaço Reservado (Esquerda)</span>
+    </div>
+    <div class="anuncio-lateral direito anuncio-oculto">
+        <span>Espaço Reservado (Direita)</span>
+    </div>
+    
 	<!-- Botão de alternância de tema -->
     <button id="btnTema" onclick="alternarTema()">🌙 Modo Escuro</button>
+
+    <header class="cabecalho-principal">
+            <div class="logo">AIH Fácil</div>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="#guia-preenchimento">Guia de Preenchimento</a> 
+            </nav>
+        </header>
 
     <h1>Plataforma de Preenchimento da AIH</h1>
     
@@ -358,14 +604,73 @@
 		<div id="mensagemErro"></div>
 
         <button type="button" onclick="capturarDados()">Gerar AIH</button>
+
+        <div class="anuncio-oculto">
+            Espaço Reservado (Abaixo do Botão Gerar AIH)
+        </div>
     </form>
 	
-	<script>
+    <!-- Guia de Preenchimento -->
+    <section id="guia-preenchimento" style="max-width: 800px; width: 100%; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); box-sizing: border-box; margin-top: 40px; margin-bottom: 40px;">
+        <h2>Guia Completo: Como Preencher a AIH do SUS</h2>
+        <p>A Autorização de Internação Hospitalar (AIH) é o documento fundamental para o faturamento e registro de internações no Sistema Único de Saúde (SUS). O preenchimento correto evita glosas hospitalares e garante o repasse adequado de recursos financeiros.</p>
+
+        <h3>1. O que é a AIH e qual a sua importância?</h3>
+        <p>A AIH é o instrumento que identifica o paciente, os diagnósticos e os procedimentos realizados durante a internação. Além do impacto vital para as instituições de saúde, a AIH é a principal fonte de dados para o Sistema de Informações Hospitalares (SIH/SUS), sendo um pilar essencial para a formulação de políticas públicas e análises epidemiológicas no Brasil.</p>
+
+        <h3>2. Passo a Passo do Preenchimento</h3>
+        <ul>
+            <li id="texto-guia-est" style="margin-bottom: 10px;"><strong>Identificação do Estabelecimento:</strong> Insira o nome do estabelecimento e o código CNES (Cadastro Nacional de Estabelecimentos de Saúde) correspondente com exatos 7 dígitos.</li>
+            <li id="texto-guia-paciente" style="margin-bottom: 10px;"><strong>Dados do Paciente:</strong> O Cartão Nacional de Saúde (CNS) é obrigatório e deve conter 15 dígitos válidos. Fique atento à exatidão da data de nascimento e nome da mãe para evitar duplicidades cadastrais.</li>
+            <li id="texto-guia-justificativa" style="margin-bottom: 10px;"><strong>Principais Sinais e Sintomas Clínicos:</strong> Relate o quadro clínico de forma objetiva. Descreva os sinais, sintomas, escalas terapêuticas e medicações em uso que embasam tecnicamente a necessidade de internação no leito.</li>
+            <li id="texto-guia-condicoes" style="margin-bottom: 10px;"><strong>Condições que Justificam a Internação:</strong> Relate o o exame físico detalhado, incluindo os sinais vitais e a escala que define o grau de consciência, que embasam tecnicamente a necessidade de internação no leito.</li>
+            <li id="texto-guia-exames" style="margin-bottom: 10px;"><strong>Principais Resultados de Provas Diagnósticas</strong> Escreva os resultados de exames complementares realizados, incluindo a data de realização de cada um deles, cujos resultados embasam tecnicamente a necessidade de internação no leito.</li>
+        </ul>
+        
+    
+        <h3>3. Classificação Internacional de Doenças (CID-10)</h3>
+        <p>O <strong>AIH Fácil</strong> integra a base oficial do DATASUS para autocompletar os códigos. É crucial entender a hierarquia do faturamento:</p>
+    <div id="texto-guia-cid">
+        <ul>
+            <li style="margin-bottom: 10px;"><strong>Diagnóstico Inicial:</strong> O nome da doença primária que gera o quadro patológico do paciente e motivou a admissão do paciente no hospital.</li>
+            <li style="margin-bottom: 10px;"><strong>CID Principal:</strong> A condição primária que motivou a admissão do paciente no hospital.</li>
+            <li style="margin-bottom: 10px;"><strong>CID Secundário:</strong> Complicações ou condições agudas que surgiram ou foram tratadas em conjunto.</li>
+            <li style="margin-bottom: 10px;"><strong>Causas Associadas:</strong> Doenças crônicas pré-existentes que influenciam o manejo clínico.</li>
+        </ul>
+    </div>
+
+        <h3>4. Procedimentos e Tabela SIGTAP</h3>
+    <div id="texto-guia-sigtap">
+        <p>O Sistema de Gerenciamento da Tabela de Procedimentos (SIGTAP) define os códigos de 10 dígitos para cada intervenção. Utilize a nossa busca inteligente para localizar o procedimento exato. O código SIGTAP selecionado deve estar sempre em perfeita concordância técnica com o CID-10 principal apontado.</p>
+    </div>
+
+        <h3>5. Validação Legal</h3>
+        <p>O documento gerado em PDF pela nossa plataforma não dispensa a etapa de validação. Ele deve ser impresso e carimbado pelo profissional de saúde solicitante, ou assinado digitalmente da forma que lhe for preferida, informando seu respectivo conselho de classe e associando forma de assinatura legalmente viável para atestar a veracidade das informações clínicas prestadas.</p>
+    </section>
+
+    <div class="anuncio-oculto">
+            Espaço Reservado (Fim da Página)
+        </div>
+
+    <footer class="rodape-principal">
+        <div class="rodape-links">
+            <a href="sobre.html">Sobre a Ferramenta</a>
+            <a href="privacidade.html">Política de Privacidade</a>
+            <a href="termos.html">Termos de Uso</a>
+            <a href="contato.html">Contato</a>
+        </div>
+        <div class="rodape-creditos">
+            <p>&copy; 2026 AIH Fácil. Desenvolvido sob o selo MFP.</p>
+            <p>Esta ferramenta não salva quaisquer tipos de dados ou informações sensíveis de pacientes.</p>
+        </div>
+    </footer>
+
+<script>
 	
 	// --- SISTEMA DE TEMA (CLARO/ESCURO) ---
-	function alternarTema() {
-		const corpo = document.body;
-		const botao = document.getElementById('btnTema');
+    function alternarTema() {
+	const corpo = document.body;
+	const botao = document.getElementById('btnTema');
     
     // Liga ou desliga a classe 'dark-mode'
     corpo.classList.toggle('dark-mode');
@@ -378,14 +683,19 @@
         botao.innerText = '🌙 Modo Escuro';
         localStorage.setItem('temaPreferencia', 'claro'); // Salva no navegador
     }
-}
+    }
 
-// Checa a memória do navegador assim que o script carrega (evita piscar a tela branca)
-if (localStorage.getItem('temaPreferencia') === 'escuro') {
-    document.body.classList.add('dark-mode');
-}
+    // --- SISTEMA DE CONSENTIMENTO DE COOKIES ---
+    function aceitarCookies() {
+        localStorage.setItem('cookiesAceitos', 'sim');
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
 
-// --- AUTO-PREENCHIMENTO AO CARREGAR A PÁGINA ---
+    // Checa a memória do navegador assim que o script carrega (evita piscar a tela branca)
+    if (localStorage.getItem('temaPreferencia') === 'escuro') {
+        document.body.classList.add('dark-mode');
+    }
+
 // O window.onload é um gatilho. Ele diz: "Navegador, assim que terminar de ler o HTML, execute isso:"
 window.onload = function() {
 	// Atualiza o texto do botão caso o modo escuro esteja salvo na memória
@@ -393,6 +703,11 @@ window.onload = function() {
         document.getElementById('btnTema').innerText = '☀️ Modo Claro';
     }
 	
+    // Exibe o banner de cookies se o usuário ainda não tiver aceitado
+    if (!localStorage.getItem('cookiesAceitos')) {
+        document.getElementById('cookie-banner').style.display = 'flex';
+    }
+
     let hoje = new Date(); // Captura o relógio interno do computador no momento exato
     
     let ano = hoje.getFullYear(); // Pega o ano (ex: 2026)
@@ -530,7 +845,60 @@ window.onload = function() {
             document.getElementById('listaCidPrincipal').innerHTML = '';
         }
     });
-	
+
+    // --- SISTEMA DE CAIXA FLUTUANTE (TOOLTIP DE AJUDA) ---
+    const tooltip = document.getElementById('tooltip-guia');
+
+    // Mapeamento: Liga o ID do formulário ao ID do texto do Guia.
+    const mapeamentoGuia = {
+        'nomeEstabelecimento': 'texto-guia-est',
+        'cnesEstabelecimento': 'texto-guia-est',
+        'nomePaciente': 'texto-guia-paciente',
+        'cnsPaciente': 'texto-guia-paciente',
+        'dataNascimento': 'texto-guia-paciente',
+        'nomeMae': 'texto-guia-paciente',
+        'sinaisSintomas': 'texto-guia-justificativa',
+        'condicoesInternacao': 'texto-guia-condicoes',
+        'principaisResultados': 'texto-guia-exames',
+        'diagnosticoInicial': 'texto-guia-cid',
+        'buscaCidPrincipal': 'texto-guia-cid',
+        'cidSecundario': 'texto-guia-cid',
+        'cidCausasAssociadas': 'texto-guia-cid',
+        'descricaoProcedimento': 'texto-guia-sigtap',
+        'buscaCodigoProcedimento': 'texto-guia-sigtap'
+    };
+
+    // Percorre todos os campos mapeados
+    for (let idCampo in mapeamentoGuia) {
+        let campo = document.getElementById(idCampo);
+        if (campo) {
+            // Evento 1: O mouse ENTRA na caixa do formulário
+            campo.addEventListener('mouseenter', function() {
+                let idTextoGuia = mapeamentoGuia[idCampo];
+                let elementoTexto = document.getElementById(idTextoGuia);
+                
+                if (elementoTexto) {
+                    tooltip.innerHTML = elementoTexto.innerHTML; // Puxa todo o HTML do guia
+                    tooltip.style.display = 'block';
+                    setTimeout(() => tooltip.style.opacity = '1', 10); // Animação suave
+                }
+            });
+
+            // Evento 2: O mouse SE MOVE dentro da caixa do formulário
+            campo.addEventListener('mousemove', function(e) {
+                // Posiciona a caixa flutuante 15 pixels abaixo e à direita do ponteiro
+                tooltip.style.left = (e.pageX + 15) + 'px';
+                tooltip.style.top = (e.pageY + 15) + 'px';
+            });
+
+            // Evento 3: O mouse SAI da caixa do formulário
+            campo.addEventListener('mouseleave', function() {
+                tooltip.style.opacity = '0';
+                setTimeout(() => tooltip.style.display = 'none', 200); // Esconde após animação
+            });
+        }
+    }
+
 };
 
 // --- O BANCO DE DADOS DO SIGTAP AGORA COMEÇA VAZIO ---
@@ -831,7 +1199,7 @@ async function capturarDados() {
     let pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
     let primeiraPagina = pdfDoc.getPages()[0];
 	
-	// NOVO: Embutindo a fonte padrão explícita (A nossa "Régua" matemática)
+	// Embutindo a fonte padrão explícita (A nossa "Régua" matemática)
     let fontePadrao = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
 
 // 3. CARIMBANDO OS DADOS USANDO O NOSSO MAPA ATUALIZADO

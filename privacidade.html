@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTV56CZEQ4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+	gtag('config', 'G-FTV56CZEQ4', {
+      'cookie_domain': 'aihfacil.com.br'
+  });
+</script>
+
+   <head>
+    <meta charset="UTF-8">
+    <title>Preenchimento AIH</title>
+
+    <link rel="icon" href="data:,">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+    <style>
+        /* Estilo geral da página - Centralizando o conteúdo */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif; /* Fonte mais moderna */
+            background-color: #f0f4f8; /* Fundo leve e limpo */
+            color: #333333;
+            padding: 40px 20px; /* Mais respiro no topo e rodapé */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centraliza o formulário horizontalmente */
+            margin: 0;
+        }
+
+        h1, h2 {
+            color: #0056b3;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Estilo do Card do formulário */
+        form {
+            background-color: #ffffff;
+            padding: 40px; /* Aumentamos o respiro interno */
+            border-radius: 12px; /* Bordas mais suaves */
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* Sombra mais elegante e profunda */
+            width: 100%;
+            max-width: 650px; /* Largura perfeita para leitura confortável em coluna única */
+            box-sizing: border-box;
+        }
+
+        /* Estilo dos rótulos */
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 20px; /* Aumentado levemente para respirar na coluna única */
+            margin-bottom: 8px;
+            color: #444444; /* Cor levemente mais suave para leitura */
+        }
+
+        /* Estilo das caixas de texto, áreas de texto e menu suspenso */
+        input, select, textarea {
+            width: 100%; 
+            padding: 12px; /* Entradas levemente mais altas (melhor conforto de clique) */
+            border: 1px solid #cccccc;
+            border-radius: 6px; /* Bordas mais arredondadas */
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s, box-shadow 0.3s; /* Animação suave no foco */
+        }
+
+        /* UX: Feedback visual quando o usuário clica no campo */
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15); /* "Aura" azul ao redor do campo ativo */
+        }
+
+        /* Estilo para os contadores de caracteres */
+        .contador {
+            font-size: 12px;
+            color: #666666;
+            text-align: right;
+            margin-top: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* --- ESTILOS DE VALIDAÇÃO DE ERRO --- */
+        #mensagemErro {
+            display: none; 
+            background-color: #ffe6e6; 
+            color: #cc0000; 
+            padding: 15px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #cc0000; 
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .campo-invalido {
+            border: 2px solid #cc0000 !important; 
+            background-color: #fffaf0 !important; 
+        }
+
+        /* --- ESTILOS DO BOTÃO --- */
+        button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.1s; /* Animação de clique */
+        }
+
+        button:hover {
+            background-color: #004494; /* Escurece ao passar o mouse */
+        }
+
+        button:active {
+            transform: scale(0.98); /* Botão "afunda" quando clicado */
+        }
+
+        /* --- ESTILOS DO AUTOCOMPLETE (MENU SUSPENSO) --- */
+        .autocomplete-container {
+            position: relative;
+            display: block;
+        }
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #cccccc;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99; 
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 250px; 
+            overflow-y: auto;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Sombra destacada pro menu */
+            border-radius: 0 0 6px 6px;
+        }
+        .autocomplete-items div {
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        .autocomplete-items div:hover {
+            background-color: #0056b3;
+            color: #ffffff; 
+        }
+        
+		/* --- ESTILOS DO BOTÃO DE TEMA --- */
+        #btnTema {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: auto;
+            margin-top: 0;
+            padding: 10px 15px;
+            background-color: #ffffff;
+            color: #333333;
+            border: 1px solid #cccccc;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        #btnTema:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* --- ESTILOS DO CABEÇALHO (HEADER) --- */
+        .cabecalho-principal {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .cabecalho-principal .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        .cabecalho-principal nav a {
+            text-decoration: none;
+            color: #555555;
+            font-weight: bold;
+            margin-left: 20px;
+            transition: color 0.3s;
+        }
+
+        .cabecalho-principal nav a:hover {
+            color: #0056b3;
+        }
+
+        /* --- ESTILOS DO RODAPÉ (FOOTER) --- */
+        .rodape-principal {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 50px;
+            padding: 30px 0;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .rodape-links {
+            margin-bottom: 15px;
+        }
+
+        .rodape-links a {
+            text-decoration: none;
+            color: #555555;
+            margin: 0 15px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .rodape-links a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .rodape-creditos p {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #888888;
+        }
+
+        /* --- MODO ESCURO (Acionado via JavaScript) --- */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode form {
+            background-color: #1e1e1e;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        body.dark-mode h1, body.dark-mode h2 {
+            color: #66b3ff; /* Azul mais claro para destacar no fundo escuro */
+        }
+
+        body.dark-mode label {
+            color: #bbbbbb;
+        }
+
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
+            background-color: #2c2c2c;
+            color: #ffffff;
+            border: 1px solid #444444;
+        }
+
+        body.dark-mode input:focus, body.dark-mode select:focus, body.dark-mode textarea:focus {
+            border-color: #66b3ff;
+            box-shadow: 0 0 0 3px rgba(102, 179, 255, 0.15);
+        }
+
+        body.dark-mode .autocomplete-items {
+            background-color: #2c2c2c;
+            border-color: #444444;
+        }
+
+        body.dark-mode .autocomplete-items div {
+            border-bottom: 1px solid #444444;
+        }
+
+        body.dark-mode .autocomplete-items div:hover {
+            background-color: #66b3ff;
+            color: #121212;
+        }
+
+        body.dark-mode #btnTema {
+            background-color: #2c2c2c;
+            color: #ffffff;
+            border-color: #66b3ff;
+        }
+
+        body.dark-mode .cabecalho-principal, 
+        body.dark-mode .rodape-principal {
+            border-color: #444444;
+        }
+
+        body.dark-mode .cabecalho-principal .logo {
+            color: #66b3ff;
+        }
+
+        body.dark-mode .cabecalho-principal nav a,
+        body.dark-mode .rodape-links a {
+            color: #bbbbbb;
+        }
+
+        body.dark-mode .cabecalho-principal nav a:hover,
+        body.dark-mode .rodape-links a:hover {
+            color: #66b3ff;
+        }
+
+        body.dark-mode main {
+            background-color: #1e1e1e !important;
+            color: #e0e0e0;
+        }
+		
+    </style>
+</head>
+<body>
+
+	<!-- Botão de alternância de tema -->
+    <button id="btnTema" onclick="alternarTema()">🌙 Modo Escuro</button>
+
+    <header class="cabecalho-principal">
+            <div class="logo">AIH Fácil</div>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="#guia-preenchimento">Guia de Preenchimento</a> 
+            </nav>
+        </header>
+
+    <h1>Plataforma de Preenchimento da AIH</h1>
+	
+    <main style="max-width: 800px; width: 100%; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); box-sizing: border-box; margin-bottom: 40px;">
+        <h2>Política de Privacidade</h2>
+        <p>A sua privacidade e a segurança dos dados dos pacientes são a nossa prioridade máxima. Esta política descreve como o <strong>AIH Fácil</strong> lida com as informações.</p>
+
+        <h3>1. Dados Sensíveis e Médicos (LGPD)</h3>
+        <p>Nós <strong>não coletamos, não armazenamos e não transmitimos</strong> nenhum dado sensível de pacientes (como nomes, CNS, diagnósticos ou prontuários). Todo o processamento dos dados preenchidos no formulário ocorre exclusivamente no seu próprio navegador (arquitetura *Client-side*). Ao gerar o PDF, o documento é criado na sua máquina local. Não possuímos banco de dados para salvar essas informações.</p>
+
+        <h3>2. Coleta de Dados Analíticos e Cookies</h3>
+        <p>Para manter o site seguro e entender como a ferramenta é utilizada, utilizamos o <strong>Google Analytics</strong>. Esta ferramenta coleta dados anônimos de tráfego, tais como:</p>
+        <ul>
+            <li>Páginas visitadas e tempo de permanência;</li>
+            <li>Tipo de dispositivo e navegador;</li>
+            <li>Região geográfica (cidade/estado) do acesso.</li>
+        </ul>
+        <p>Esses dados são agregados e não identificam o usuário individualmente. O Google Analytics utiliza "cookies" (pequenos arquivos de texto salvos no seu navegador) para realizar essa medição.</p>
+
+        <h3>3. Publicidade (Google AdSense)</h3>
+        <p>O nosso site pode exibir anúncios fornecidos pelo Google AdSense. Fornecedores de terceiros, incluindo o Google, usam cookies para veicular anúncios com base em visitas anteriores do usuário ao nosso site ou a outros sites na internet. Os usuários podem desativar a publicidade personalizada acessando as <a href="https://myadcenter.google.com/" target="_blank">Configurações de anúncios do Google</a>.</p>
+
+        <h3>4. Consentimento</h3>
+        <p>Ao utilizar o AIH Fácil, você concorda com o uso de cookies analíticos conforme descrito nesta política.</p>
+    </main>
+
+    <footer class="rodape-principal">
+        <div class="rodape-links">
+            <a href="sobre.html">Sobre a Ferramenta</a>
+            <a href="privacidade.html">Política de Privacidade</a>
+            <a href="termos.html">Termos de Uso</a>
+            <a href="contato.html">Contato</a>
+        </div>
+        <div class="rodape-creditos">
+            <p>&copy; 2026 AIH Fácil. Desenvolvido sob o selo MFP.</p>
+            <p>Esta ferramenta não salva quaisquer tipos de dados ou informações sensíveis de pacientes.</p>
+        </div>
+    </footer>
+
+<script>
+        // --- SISTEMA DE TEMA (CLARO/ESCURO) ---
+        function alternarTema() {
+            const corpo = document.body;
+            const botao = document.getElementById('btnTema');
+            
+            // Liga ou desliga a classe 'dark-mode'
+            corpo.classList.toggle('dark-mode');
+            
+            // Checa se o modo escuro está ativado no momento
+            if (corpo.classList.contains('dark-mode')) {
+                botao.innerText = '☀️ Modo Claro';
+                localStorage.setItem('temaPreferencia', 'escuro'); // Salva no navegador
+            } else {
+                botao.innerText = '🌙 Modo Escuro';
+                localStorage.setItem('temaPreferencia', 'claro'); // Salva no navegador
+            }
+        }
+
+        // Checa a memória do navegador assim que o script carrega (evita piscar a tela branca)
+        if (localStorage.getItem('temaPreferencia') === 'escuro') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('btnTema').innerText = '☀️ Modo Claro';
+        }
+    </script>
+
+</body>
+</html>
