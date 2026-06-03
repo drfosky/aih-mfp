@@ -33,3 +33,7 @@
 - Adicionado indicador de preenchimento obrigatório e legenda ao fim do formulário.
 - Adicionada logomarca no favicon e no header da página.
 - Lançamento da versão 2.0
+
+02 de junho de 2026
+- Adicionado Script do Mediavine Grow.
+- Lançamento da versão 2.1
