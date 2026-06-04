@@ -37,3 +37,7 @@
 02 de junho de 2026
 - Adicionado Script do Mediavine Grow.
 - Lançamento da versão 2.1
+
+04 de junho de 2026
+- Adicionada função de memória para manter dados do estabelecimento e do profissional (facilitar preenchimentos futuros).
+- Lançamento da versão 2.2
