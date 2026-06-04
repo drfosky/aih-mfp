@@ -509,7 +509,7 @@
 
     <header class="cabecalho-principal">
         <div class="logo">
-            <!-- A Logo em Código SVG -->
+            <!-- A Nova Logo em Código SVG -->
             <svg viewBox="0 0 160 50" width="140" height="45" xmlns="http://www.w3.org/2000/svg">
                 <!-- "AIH" em fonte mais espessa e dominante -->
                 <text x="0" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="40" font-weight="900" class="logo-aih">AIH</text>
@@ -597,10 +597,10 @@
         
         <input type="hidden" id="cidPrincipal">
 
-        <label for="cidSecundario">CID 10 Secundário: *</label>
+        <label for="cidSecundario">CID 10 Secundário:</label>
         <input type="text" id="cidSecundario" maxlength="4">
 
-        <label for="cidCausasAssociadas">CID 10 Causas Associadas: *</label>
+        <label for="cidCausasAssociadas">CID 10 Causas Associadas:</label>
         <input type="text" id="cidCausasAssociadas" maxlength="4">
 		
 		<h2>4. Procedimento Solicitado</h2>
@@ -643,6 +643,12 @@
         
         <label for="nomeProfissional">Nome do Profissional Solicitante: *</label>
         <input type="text" id="nomeProfissional">
+
+        <div style="text-align: right; margin-top: 10px; margin-bottom: 20px;">
+        <a href="#" onclick="limparMemoria(); return false;" style="font-size: 13px; color: #d9534f; text-decoration: underline; cursor: pointer; transition: color 0.3s;" onmouseover="this.style.color='#c9302c'" onmouseout="this.style.color='#d9534f'">
+            [ Limpar dados salvos neste dispositivo ]
+        </a>
+    </div>
 		
 		<label for="dataSolicitacao">Data da Solicitação: *</label>
         <input type="date" id="dataSolicitacao">
@@ -716,7 +722,7 @@
 
 <script>
 	
-	// --- SISTEMA DE TEMA (CLARO/ESCURO) ---
+// --- SISTEMA DE TEMA (CLARO/ESCURO) ---
     function alternarTema() {
 	const corpo = document.body;
 	const botao = document.getElementById('btnTema');
@@ -745,6 +751,50 @@
         document.body.classList.add('dark-mode');
     }
 
+// --- SISTEMA DE MEMÓRIA (LOCALSTORAGE) ---
+    // Lista dos IDs dos campos estáticos que queremos lembrar
+    const camposMemoria = [
+        'nomeEstabelecimento', 
+        'cnesEstabelecimento', 
+        'clinica', 
+        'tipoDocumentoProfissional', 
+        'numeroDocProfissional', 
+        'nomeProfissional'
+    ];
+
+    function salvarDadosFixos() {
+        // Varre a lista e salva o valor atual de cada campo no navegador
+        camposMemoria.forEach(id => {
+            const elemento = document.getElementById(id);
+            if (elemento && elemento.value.trim() !== '') {
+                localStorage.setItem('aih_mem_' + id, elemento.value);
+            }
+        });
+    }
+
+    function carregarDadosFixos() {
+        // Varre a lista e, se houver dado salvo, preenche o campo automaticamente
+        camposMemoria.forEach(id => {
+            const valorSalvo = localStorage.getItem('aih_mem_' + id);
+            const elemento = document.getElementById(id);
+            if (valorSalvo && elemento) {
+                elemento.value = valorSalvo;
+            }
+        });
+    }
+
+    function limparMemoria() {
+        // Apaga do cofre do navegador e limpa os campos na tela
+        camposMemoria.forEach(id => {
+            localStorage.removeItem('aih_mem_' + id);
+            const elemento = document.getElementById(id);
+            if (elemento) {
+                elemento.value = '';
+            }
+        });
+        alert('Memória limpa com sucesso. Os dados do profissional e do hospital foram desvinculados deste computador.');
+    }
+
 // O window.onload é um gatilho. Ele diz: "Navegador, assim que terminar de ler o HTML, execute isso:"
 window.onload = function() {
 	// Atualiza o texto do botão caso o modo escuro esteja salvo na memória
@@ -756,6 +806,9 @@ window.onload = function() {
     if (!localStorage.getItem('cookiesAceitos')) {
         document.getElementById('cookie-banner').style.display = 'flex';
     }
+
+    // Dispara a busca pela memória salva no dispositivo
+    carregarDadosFixos();
 
     let hoje = new Date(); // Captura o relógio interno do computador no momento exato
     
@@ -887,7 +940,7 @@ window.onload = function() {
     iniciarAutocompleteSincronizado('diagnosticoInicial', 'listaDiagnostico');
     iniciarAutocompleteSincronizado('buscaCidPrincipal', 'listaCidPrincipal');
 
-    // Fechar os menus caso o médico clique em qualquer lugar fora da caixa
+    // Fechar os menus caso o usuário clique em qualquer lugar fora da caixa
     document.addEventListener('click', function(e) {
         if (e.target.id !== 'diagnosticoInicial' && e.target.id !== 'buscaCidPrincipal') {
             document.getElementById('listaDiagnostico').innerHTML = '';
@@ -1044,7 +1097,7 @@ window.onload = function() {
     iniciarAutocompleteProcedimento('descricaoProcedimento', 'listaDescricaoProcedimento');
     iniciarAutocompleteProcedimento('buscaCodigoProcedimento', 'listaCodigoProcedimento');
 
-    // Fechar os menus caso o médico clique em qualquer lugar fora da caixa
+    // Fechar os menus caso o usuário clique em qualquer lugar fora da caixa
     document.addEventListener('click', function(e) {
         if (e.target.id !== 'diagnosticoInicial' && e.target.id !== 'buscaCidPrincipal') {
             document.getElementById('listaDiagnostico').innerHTML = '';
@@ -1219,8 +1272,10 @@ async function capturarDados() {
         bloquearComErro(cidBuscaElem, "Erro de Validação: Você deve selecionar uma doença válida na lista suspensa do CID 10 Principal.");
         return;
     }
-	
     // --- FIM DA VALIDAÇÃO ---
+
+    // Se o código chegou até aqui, não há erros. Vamos salvar os dados fixos para a função de memória.
+    salvarDadosFixos();
 
     // Captura os dados digitados
 	let nomeEstabelecimento = document.getElementById('nomeEstabelecimento').value;
