@@ -19,6 +19,7 @@
 
    <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preenchimento AIH</title>
 
     <link rel="icon" href="data:,">
@@ -327,6 +328,44 @@
             color: #e0e0e0;
         }
 
+        /* --- OTMIZAÇÃO RESPONSIVA --- */
+    @media (max-width: 768px) {
+    body {
+        padding: 15px 10px; /* Reduz o padding lateral para ganhar espaço */
+    }
+
+    form {
+        padding: 20px; /* Formulário mais compacto em telas pequenas */
+        border-radius: 8px;
+    }
+
+    h1 {
+        font-size: 22px; /* Títulos menores para não quebrar a linha */
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    /* Ajuste para botões e inputs terem um tamanho mínimo de clique confortável */
+    input, select, textarea, button {
+        font-size: 16px; /* Evita zoom automático do iPhone/Android ao focar no campo */
+        padding: 15px; 
+    }
+
+    .cabecalho-principal {
+        flex-direction: column; /* Coloca logo em cima e menu embaixo */
+        gap: 15px;
+    }
+
+    .rodape-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -335,11 +374,11 @@
     <button id="btnTema" onclick="alternarTema()">🌙 Modo Escuro</button>
 
     <header class="cabecalho-principal">
-            <div class="logo">AIH Fácil</div>
-            <nav>
-                <a href="index.html">Início</a>
-                <a href="#guia-preenchimento">Guia de Preenchimento</a> 
-            </nav>
+        <div class="logo">AIH Fácil</div>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="#guia-preenchimento">Guia de Preenchimento</a>
+        </nav>
         </header>
 
     <h1>Plataforma de Preenchimento da AIH</h1>
