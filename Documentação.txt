@@ -41,3 +41,7 @@
 04 de junho de 2026
 - Adicionada função de memória para manter dados do estabelecimento e do profissional (facilitar preenchimentos futuros).
 - Lançamento da versão 2.2
+
+09 de junho de 2026
+- Implementação dos ajustes de interface para dispositivos móveis e tablets.
+- Lançamento da versão 2.3
