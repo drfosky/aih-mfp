@@ -49,3 +49,7 @@
 09 de junho de 2026
 - Implementação do ajuste com otimização para SEO dos títulos das páginas e descrições de metadados.
 - Lançamento da versão 2.4
+
+15 de junho de 2026
+- Publicação do primeito artigo "História da AIH" + otimizações variadas para SEO.
+- Lançamento da versão 2.5
