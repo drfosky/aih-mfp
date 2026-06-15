@@ -52,4 +52,6 @@
 
 15 de junho de 2026
 - Publicação do primeito artigo "História da AIH" + otimizações variadas para SEO.
+- Arrumado bug visual no Safari do iOS na box das datas.
+- Adicionado indicador de "Todos os direitos reservados." no footer de todas as páginas.
 - Lançamento da versão 2.5
