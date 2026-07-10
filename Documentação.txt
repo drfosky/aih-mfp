@@ -55,3 +55,7 @@
 - Arrumado bug visual no Safari do iOS na box das datas.
 - Adicionado indicador de "Todos os direitos reservados." no footer de todas as páginas.
 - Lançamento da versão 2.5
+
+10 de julho de 2026
+- Lançamento do sistema de criação de APAC como segunda feature do site.
+- Lançamento da versão 3.0
