@@ -14,10 +14,6 @@
   });
 </script>
 
-<!--Script Grow Mediavine--> 
-<script data-grow-initializer="">!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");(e.type="text/javascript"),(e.src="https://faves.grow.me/main.js"),(e.defer=!0),e.setAttribute("data-grow-faves-site-id","U2l0ZTo0YjRmMTc3My01ZjVjLTRiODAtOTVkZS0zZGNiMWRlMGNkZTM=");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();
-</script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -59,6 +55,8 @@
             width: 100%;
             max-width: 650px; /* Largura perfeita para leitura confortável em coluna única */
             box-sizing: border-box;
+            position: relative;
+            z-index: 5;
         }
 
         /* Estilo dos rótulos */
@@ -484,10 +482,82 @@
             fill: #e0e0e0; /* Cinza clarinho (quase branco) */
         }
 
+        /* --- BOTÕES DE NAVEGAÇÃO (HUB CLÍNICO FLUTUANTE) --- */
+        .abas-navegacao {
+            display: flex;
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto 25px auto;
+            padding: 0;
+            box-sizing: border-box;
+            gap: 15px; 
+            position: relative;
+            z-index: 10;
+        }
+
+        .aba {
+            flex: 1;
+            text-align: center; 
+            padding: 15px 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 10px;
+            background-color: #ffffff;
+            color: #888888;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* O botão da página atual fica totalmente preenchido com a cor principal */
+        .aba.ativa {
+            background-color: #0056b3; 
+            color: #ffffff;
+            border: 2px solid #0056b3;
+            box-shadow: 0 6px 15px rgba(0, 86, 179, 0.25);
+        }
+        
+        .aba.inativa:hover {
+            background-color: #f8fbff;
+            color: #0056b3;
+            border-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* --- DARK MODE PARA OS BOTÕES FLUTUANTES --- */
+        body.dark-mode .aba.inativa {
+            background-color: #2c2c2c;
+            color: #bbbbbb;
+            border: 2px solid #444444;
+        }
+        body.dark-mode .aba.ativa {
+            background-color: #66b3ff;
+            color: #121212;
+            border: 2px solid #66b3ff;
+            box-shadow: 0 6px 15px rgba(102, 179, 255, 0.2);
+        }
+        body.dark-mode .aba.inativa:hover {
+            background-color: #383838;
+            color: #66b3ff;
+            border-color: #66b3ff;
+        }
+
         /* --- OTMIZAÇÃO RESPONSIVA --- */
         @media (max-width: 768px) {
     body {
         padding: 15px 10px; /* Reduz o padding lateral para ganhar espaço */
+        .abas-navegacao {
+            flex-direction: row; /* Mantém os botões lado a lado no celular */
+            gap: 10px;
+        }
+        .aba {
+            padding: 12px 5px; /* Reduz o padding interno para evitar quebra de texto */
+            font-size: 14px; /* Fonte levemente menor para mobile */
+        }
+        .aba.ativa {
+            padding-bottom: 15px;
+        }
     }
 
     form {
@@ -526,9 +596,6 @@
 </head>
 <body>
 
-    <!--Desabilitar o widget GROW visualmente-->
-    <div id="hide-grow-widget"></div>
-
     <!-- Caixa flutuante para o Tooltip do Guia -->
     <div id="tooltip-guia"></div>
 
@@ -559,13 +626,19 @@
             </svg>
         </div>
         <nav>
-            <a href="index.html">Início</a>
+            <a href="index.html">Gerador AIH</a>
+            <a href="apac.html">Gerador APAC</a>
             <a href="#guia-preenchimento">Guia de Preenchimento</a>
             <a href="blog/1-historia-da-aih.html">Artigos</a>
         </nav>
     </header>
 
-    <h1>Plataforma de Preenchimento da AIH</h1>
+        <h1>Plataforma de Preenchimento da AIH</h1>
+
+    <div class="abas-navegacao">
+            <a href="index.html" class="aba ativa">Gerador de AIH</a>
+            <a href="apac.html" class="aba inativa">Gerador de APAC</a>
+        </div>
     
     <form>
         <h2>1. Identificação do Estabelecimento de Saúde</h2>
