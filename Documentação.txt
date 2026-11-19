@@ -59,3 +59,8 @@
 10 de julho de 2026
 - Lançamento do sistema de criação de APAC como segunda feature do site.
 - Lançamento da versão 3.0
+
+19 de novembro de 2026
+- Lançamento do sistema de busca isolada de CID e código SIGTAP
+- Sistema de conferência cruzada entre CID e SIGTAP
+- Lançamento da versão 4.0
