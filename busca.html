@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTV56CZEQ4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FTV56CZEQ4', {
+          'cookie_domain': 'aihfacil.com.br'
+      });
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Consulta Integrada SIGTAP e CID-10 por Família | AIH Fácil</title>
+    <meta name="description" content="Pesquise qualquer código CID-10 ou procedimento SIGTAP do SUS. Visualize procedimentos compatíveis, toda a família CID-10 relacionada e gere a AIH ou APAC em PDF.">
+    <link rel="canonical" href="https://aihfacil.com.br/busca.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Dados Estruturados Schema.org para Motores de Busca e IAs -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Busca Integrada SIGTAP, CID-10 e Famílias Diagnósticas - AIH Fácil",
+      "description": "Ferramenta de consulta cruzada entre procedimentos da Tabela SIGTAP, diagnósticos CID-10 compatíveis e famílias de doenças no SUS.",
+      "url": "https://aihfacil.com.br/busca.html",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Médicos, Residentes, Auditores e Faturistas do SUS"
+      }
+    }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333333;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        h1, h2, h3 { color: #0056b3; }
+        h1 { text-align: center; margin-bottom: 30px; }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15);
+        }
+
+        button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover { background-color: #004494; }
+        button:active { transform: scale(0.98); }
+
+        #btnTema {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: auto;
+            margin-top: 0;
+            padding: 10px 15px;
+            background-color: #ffffff;
+            color: #333333;
+            border: 1px solid #cccccc;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        #btnTema:hover { background-color: #f0f0f0; }
+
+        .cabecalho-principal {
+            width: 100%;
+            max-width: 840px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .cabecalho-principal nav a {
+            text-decoration: none;
+            color: #555555;
+            font-weight: bold;
+            margin-left: 16px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .cabecalho-principal nav a:hover { color: #0056b3; }
+
+        .rodape-principal {
+            width: 100%;
+            max-width: 840px;
+            margin-top: 50px;
+            padding: 30px 0;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+        }
+        .rodape-links { margin-bottom: 15px; }
+        .rodape-links a {
+            text-decoration: none;
+            color: #555555;
+            margin: 0 12px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .rodape-links a:hover { color: #0056b3; text-decoration: underline; }
+        .rodape-creditos p { margin: 5px 0; font-size: 12px; color: #888888; }
+
+        .logo-aih { fill: #0056b3; transition: fill 0.3s; }
+        .logo-facil { fill: #555555; transition: fill 0.3s; }
+
+        .abas-navegacao {
+            display: flex;
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto 25px auto;
+            padding: 0;
+            box-sizing: border-box;
+            gap: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .aba {
+            flex: 1;
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 10px;
+            background-color: #ffffff;
+            color: #888888;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .aba.ativa {
+            background-color: #0056b3;
+            color: #ffffff;
+            border: 2px solid #0056b3;
+            box-shadow: 0 6px 15px rgba(0, 86, 179, 0.25);
+        }
+
+        .aba.inativa:hover {
+            background-color: #f8fbff;
+            color: #0056b3;
+            border-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* --- MOTOR DE BUSCA E AUTOCOMPLETE --- */
+        .busca-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .busca-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .busca-container input {
+            font-size: 16px;
+            padding: 14px;
+        }
+
+        .busca-container button {
+            width: auto;
+            margin-top: 0;
+            padding: 0 28px;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #cccccc;
+            border-top: none;
+            z-index: 99;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 290px;
+            overflow-y: auto;
+            background-color: #ffffff;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.16);
+            border-radius: 0 0 8px 8px;
+        }
+
+        .autocomplete-items div {
+            padding: 11px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid #eeeeee;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .autocomplete-items div:hover,
+        .autocomplete-items div.autocomplete-active {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+
+        .tipo-sugestao {
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background-color: #e9ecef;
+            color: #333333;
+            flex-shrink: 0;
+        }
+
+        .autocomplete-items div:hover .tipo-sugestao,
+        .autocomplete-items div.autocomplete-active .tipo-sugestao {
+            background-color: #ffffff;
+            color: #0056b3;
+        }
+
+        /* --- SELETOR DE MÚLTIPLOS CORRESPONDENTES --- */
+        .barra-correspondentes {
+            background-color: #f8fbff;
+            border: 1px solid #d0dfef;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-top: 18px;
+            margin-bottom: 22px;
+        }
+
+        .barra-correspondentes p {
+            margin: 0 0 10px 0;
+            font-size: 13px;
+            font-weight: bold;
+            color: #444444;
+        }
+
+        .lista-chips-cid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip-cid-opcao {
+            background-color: #ffffff;
+            color: #0056b3;
+            border: 1px solid #0056b3;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .chip-cid-opcao:hover,
+        .chip-cid-opcao.ativo {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+
+        /* --- CARD DO REGISTRO PRINCIPAL ESCOLHIDO --- */
+        .card-principal-selecionado {
+            background-color: #eef4fb;
+            border: 1px solid #b8d4f5;
+            border-left: 6px solid #0056b3;
+            border-radius: 8px;
+            padding: 22px;
+            margin-top: 18px;
+            margin-bottom: 26px;
+        }
+
+        .badges-topo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .badge-destaque {
+            background-color: #0056b3;
+            color: #ffffff;
+            font-family: monospace;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .badge-familia {
+            background-color: #ffffff;
+            color: #0056b3;
+            border: 1px solid #b8d4f5;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .card-principal-selecionado h3 {
+            margin: 6px 0 14px 0;
+            font-size: 20px;
+            color: #004494;
+        }
+
+        .acoes-principal {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* --- CARDS DE PROCEDIMENTOS E FAMÍLIA --- */
+        .card-resultado {
+            background-color: #f8fbff;
+            border-left: 4px solid #0056b3;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 25px;
+        }
+
+        .card-resultado h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #0056b3;
+            font-size: 18px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .filtro-interno {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            font-size: 13px;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+        }
+
+        .lista-resultados {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .lista-resultados li {
+            padding: 12px 8px;
+            border-bottom: 1px solid #eeeeee;
+            color: #444444;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .lista-resultados li:last-child { border-bottom: none; }
+
+        .lista-resultados li.cid-familia-atual {
+            background-color: #e6f4ea;
+            border-radius: 6px;
+        }
+
+        .tag-atual {
+            background-color: #137333;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .link-entidade {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .link-entidade:hover strong.nome-entidade {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .tag-codigo {
+            background-color: #e9ecef;
+            color: #333333;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 13px;
+            font-family: monospace;
+        }
+
+        .acoes-item {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        .btn-acao-direta {
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 7px 12px;
+            border-radius: 5px;
+            background-color: #0056b3;
+            color: #ffffff;
+            transition: background 0.2s;
+            display: inline-block;
+        }
+        .btn-acao-direta:hover { background-color: #003d82; }
+
+        .btn-acao-secundaria {
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 11px;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #0056b3;
+            border: 1px solid #0056b3;
+            transition: all 0.2s;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .btn-acao-secundaria:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+
+        .grid-catalogos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .box-catalogo {
+            display: block;
+            text-decoration: none;
+            background-color: #f8fbff;
+            border: 1px solid #d0dfef;
+            border-radius: 8px;
+            padding: 18px;
+            color: #333333;
+            transition: border-color 0.2s, transform 0.15s;
+        }
+        .box-catalogo:hover {
+            border-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .box-catalogo strong {
+            display: block;
+            color: #0056b3;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        /* --- MODO ESCURO --- */
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #66b3ff; }
+        body.dark-mode input { background-color: #2c2c2c; color: #ffffff; border-color: #444444; }
+        body.dark-mode #btnTema { background-color: #2c2c2c; color: #ffffff; border-color: #66b3ff; }
+        body.dark-mode .cabecalho-principal, body.dark-mode .rodape-principal { border-color: #444444; }
+        body.dark-mode .cabecalho-principal nav a, body.dark-mode .rodape-links a { color: #bbbbbb; }
+        body.dark-mode .cabecalho-principal nav a:hover, body.dark-mode .rodape-links a:hover { color: #66b3ff; }
+        body.dark-mode main, body.dark-mode section { background-color: #1e1e1e !important; color: #e0e0e0; }
+        body.dark-mode .logo-aih { fill: #66b3ff; }
+        body.dark-mode .logo-facil { fill: #e0e0e0; }
+        body.dark-mode .aba.inativa { background-color: #2c2c2c; color: #bbbbbb; border-color: #444444; }
+        body.dark-mode .aba.ativa { background-color: #66b3ff; color: #121212; border-color: #66b3ff; }
+        body.dark-mode .autocomplete-items { background-color: #2c2c2c; border-color: #444444; }
+        body.dark-mode .autocomplete-items div { border-color: #444444; }
+        body.dark-mode .autocomplete-items div:hover,
+        body.dark-mode .autocomplete-items div.autocomplete-active { background-color: #66b3ff; color: #121212; }
+        body.dark-mode .tipo-sugestao { background-color: #383838; color: #e0e0e0; }
+        body.dark-mode .barra-correspondentes,
+        body.dark-mode .card-principal-selecionado { background-color: #252525; border-color: #444444; border-left-color: #66b3ff; }
+        body.dark-mode .badge-familia { background-color: #1e1e1e; color: #66b3ff; border-color: #444444; }
+        body.dark-mode .chip-cid-opcao { background-color: #1e1e1e; color: #66b3ff; border-color: #66b3ff; }
+        body.dark-mode .chip-cid-opcao:hover,
+        body.dark-mode .chip-cid-opcao.ativo { background-color: #66b3ff; color: #121212; }
+        body.dark-mode .card-resultado { background-color: #252525; border-left-color: #66b3ff; }
+        body.dark-mode .card-resultado h3 { color: #66b3ff; border-color: #444444; }
+        body.dark-mode .lista-resultados li { color: #bbbbbb; border-color: #444444; }
+        body.dark-mode .lista-resultados li.cid-familia-atual { background-color: #172e21; }
+        body.dark-mode .link-entidade:hover strong.nome-entidade { color: #66b3ff; }
+        body.dark-mode .tag-codigo { background-color: #333333; color: #e0e0e0; }
+        body.dark-mode .btn-acao-secundaria { background-color: #2c2c2c; color: #66b3ff; border-color: #66b3ff; }
+        body.dark-mode .box-catalogo { background-color: #252525; border-color: #444444; color: #e0e0e0; }
+        body.dark-mode .box-catalogo strong { color: #66b3ff; }
+
+        @media (max-width: 768px) {
+            body { padding: 15px 10px; }
+            .abas-navegacao { flex-direction: row; gap: 10px; }
+            .aba { padding: 12px 5px; font-size: 14px; }
+            h1 { font-size: 22px; margin-bottom: 20px; }
+            h2 { font-size: 18px; }
+            .busca-container { flex-direction: column; }
+            .busca-container button { width: 100%; padding: 15px; }
+            .cabecalho-principal { flex-direction: column; gap: 15px; }
+            .cabecalho-principal nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .cabecalho-principal nav a { margin-left: 0; }
+            .rodape-links { display: flex; flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <button id="btnTema" onclick="alternarTema()">🌙 Modo Escuro</button>
+
+    <header class="cabecalho-principal">
+        <div class="logo">
+            <a href="index.html" style="text-decoration:none;">
+                <svg viewBox="0 0 160 50" width="140" height="45" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIH Fácil">
+                    <text x="0" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="40" font-weight="900" class="logo-aih">AIH</text>
+                    <text x="75" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="26" font-weight="600" class="logo-facil">Fácil</text>
+                </svg>
+            </a>
+        </div>
+        <nav>
+            <a href="index.html">Gerador AIH</a>
+            <a href="apac.html">Gerador APAC</a>
+            <a href="busca.html" style="color:var(--primary, #0056b3);">Busca Integrada</a>
+            <a href="sigtap/index.html">Tabela SIGTAP</a>
+            <a href="cid/index.html">Tabela CID-10</a>
+        </nav>
+    </header>
+
+    <h1>Consulta Integrada de Procedimentos SIGTAP, CID-10 e Famílias</h1>
+
+    <div class="abas-navegacao">
+        <a href="index.html" class="aba inativa">Gerador de AIH</a>
+        <a href="apac.html" class="aba inativa">Gerador de APAC</a>
+        <a href="busca.html" class="aba ativa">Busca Integrada</a>
+    </div>
+
+    <main style="max-width: 840px; width: 100%; background-color: #ffffff; padding: 36px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); box-sizing: border-box; margin-bottom: 35px;">
+        <h2>Validador de Compatibilidade SUS (CID-10 × SIGTAP × Família)</h2>
+        <p style="color: #666; margin-bottom: 16px;">Pesquise pelo código CID-10 (ex: <strong>J18.9</strong> ou <strong>J189</strong>), nome da doença (ex: <strong>Pneumonia</strong>) ou código/nome de procedimento SIGTAP. Ao selecionar um CID, exibimos os procedimentos autorizados e toda a família de subcategorias relacionadas logo abaixo.</p>
+
+        <div class="busca-container">
+            <div class="busca-wrapper">
+                <input type="text" id="inputBuscaGeral" placeholder="Digite CID (ex: J18.9, I64), doença (ex: Pneumonia) ou SIGTAP (ex: 0303140151)..." autocomplete="off">
+                <div id="listaSugestoesBusca" class="autocomplete-items"></div>
+            </div>
+            <button type="button" id="btnPesquisar" onclick="executarBuscaIntegrada()">Pesquisar</button>
+        </div>
+
+        <p id="statusCarregamento" style="font-size: 13px; color: #0056b3; display: none;">Carregando bases oficiais completas do DATASUS...</p>
+
+        <!-- Barra de alternância quando a busca textual encontra vários CIDs -->
+        <div id="barraMultiplosCids" class="barra-correspondentes" style="display: none;">
+            <p>Diagnósticos correspondentes encontrados (clique para definir o CID principal):</p>
+            <div id="chipsMultiplosCids" class="lista-chips-cid"></div>
+        </div>
+
+        <!-- Painel Principal de Resultados -->
+        <div id="painelResultados" style="display: none;">
+            <!-- 1. Registro Principal Escolhido -->
+            <div id="cardPrincipalSelecionado" class="card-principal-selecionado"></div>
+
+            <!-- 2. Procedimentos SIGTAP Compatíveis (ou CIDs compatíveis no modo procedimento) -->
+            <div class="card-resultado" id="cardBlocoMeio">
+                <h3 id="tituloBlocoMeio">Procedimentos (SIGTAP) Compatíveis</h3>
+                <input type="text" id="filtroBlocoMeio" class="filtro-interno" style="display:none;" placeholder="Filtrar nesta lista por código ou nome..." onkeyup="filtrarListaInterna('filtroBlocoMeio', 'listaBlocoMeio')">
+                <ul class="lista-resultados" id="listaBlocoMeio"></ul>
+            </div>
+
+            <!-- 3. Família Completa de Doenças (ex: Família J18) abaixo dos procedimentos -->
+            <div class="card-resultado" id="cardBlocoFamilia">
+                <h3 id="tituloBlocoFamilia">Todos os Códigos CID-10 da Família</h3>
+                <p id="subtituloBlocoFamilia" style="font-size:13px; color:#666; margin-top:-4px; margin-bottom:12px;"></p>
+                <ul class="lista-resultados" id="listaBlocoFamilia"></ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Acesso Direto aos Catálogos Estáticos Completos (SEO & Navegação) -->
+    <section style="max-width: 840px; width: 100%; background-color: #ffffff; padding: 36px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); box-sizing: border-box; margin-bottom: 40px;">
+        <h2>Catálogos Completos do SUS Indexados</h2>
+        <p style="font-size:14px; color:#666;">Acesse as tabelas oficiais completas do DATASUS organizadas por grupo clínico/cirúrgico ou por capítulo da CID-10:</p>
+        <div class="grid-catalogos">
+            <a class="box-catalogo" href="sigtap/index.html">
+                <strong>📋 Tabela Unificada SIGTAP Completa</strong>
+                <span>Consulte todos os 4.984 procedimentos do SUS e suas respectivas compatibilidades diagnósticas.</span>
+            </a>
+            <a class="box-catalogo" href="cid/index.html">
+                <strong>🩺 Tabela CID-10 Completa por Família</strong>
+                <span>Navegue pelos 12.451 códigos CID-10, suas subcategorias irmãs e procedimentos aceitos.</span>
+            </a>
+        </div>
+    </section>
+
+    <footer class="rodape-principal">
+        <div class="rodape-links">
+            <a href="index.html">Gerador de AIH</a>
+            <a href="apac.html">Gerador de APAC</a>
+            <a href="busca.html">Busca Integrada</a>
+            <a href="sigtap/index.html">Tabela SIGTAP</a>
+            <a href="cid/index.html">Tabela CID-10</a>
+            <a href="sobre.html">Sobre a Ferramenta</a>
+            <a href="privacidade.html">Política de Privacidade</a>
+            <a href="termos.html">Termos de Uso</a>
+            <a href="contato.html">Contato</a>
+        </div>
+        <div class="rodape-creditos">
+            <p>&copy; 2026 AIH Fácil. Desenvolvido sob o selo MFP. Todos os direitos reservados.</p>
+            <p>Esta ferramenta não salva quaisquer tipos de dados ou informações sensíveis de pacientes.</p>
+        </div>
+    </footer>
+
+<script>
+    function alternarTema() {
+        const corpo = document.body;
+        const botao = document.getElementById('btnTema');
+        corpo.classList.toggle('dark-mode');
+        if (corpo.classList.contains('dark-mode')) {
+            botao.innerText = '☀️ Modo Claro';
+            localStorage.setItem('temaPreferencia', 'escuro');
+        } else {
+            botao.innerText = '🌙 Modo Escuro';
+            localStorage.setItem('temaPreferencia', 'claro');
+        }
+    }
+
+    if (localStorage.getItem('temaPreferencia') === 'escuro') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('btnTema').innerText = '☀️ Modo Claro';
+    }
+
+    // --- UTILITÁRIOS DE FORMATAÇÃO E SLUG (IDÊNTICOS AO GERADOR PYTHON) ---
+    function normalizarTexto(str) {
+        return String(str || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().trim();
+    }
+
+    function gerarSlug(texto, tamanhoMax = 68) {
+        const semAcento = String(texto || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const limpo = semAcento.replace(/[^a-zA-Z0-9\s-]/g, '').trim().toLowerCase();
+        const slug = limpo.replace(/[\s-]+/g, '-').slice(0, tamanhoMax).replace(/^-+|-+$/g, '');
+        return slug || 'registro-sus';
+    }
+
+    function formatarCodigoCidVisual(cid) {
+        const limpo = String(cid || '').replace(/\./g, '').trim().toUpperCase();
+        if (limpo.length === 4 && limpo[3] !== 'X') {
+            return `${limpo.slice(0, 3)}.${limpo[3]}`;
+        }
+        return limpo;
+    }
+
+    function formatarCodigoSigtap(cod) {
+        const digitos = String(cod || '').replace(/\D/g, '');
+        if (digitos.length === 10) {
+            return `${digitos.slice(0, 2)}.${digitos.slice(2, 4)}.${digitos.slice(4, 6)}.${digitos.slice(6, 9)}-${digitos[9]}`;
+        }
+        return cod;
+    }
+
+    function extrairFamiliaCid(cid) {
+        const limpo = String(cid || '').replace(/\./g, '').trim().toUpperCase();
+        return limpo.length >= 3 ? limpo.slice(0, 3) : limpo;
+    }
+
+    // --- ESTRUTURAS DE DADOS EM MEMÓRIA ---
+    let bancoCids = [];
+    let mapaCidPorCodigo = new Map();
+    let cidsPorFamilia = new Map();
+
+    let bancoProcedimentos = [];
+    let mapaProcPorCodigo = new Map();
+
+    let mapaProcParaCids = new Map();
+    let mapaCidParaProcs = new Map();
+    let bancosProntos = false;
+
+    async function inicializarBancos() {
+        const statusEl = document.getElementById('statusCarregamento');
+        statusEl.style.display = 'block';
+        try {
+            const [resCid, resSigtap, resRelacional] = await Promise.all([
+                fetch('cid10-csv-teste1.json'),
+                fetch('sigtap.json'),
+                fetch('rl_procedimento_cid.json')
+            ]);
+
+            // 1. CID-10 + Famílias
+            const dadosCid = await resCid.json();
+            dadosCid.forEach(doenca => {
+                const partes = doenca[Object.keys(doenca)[0]].split(';');
+                if (partes.length < 5) return;
+                const codigo = partes[0].replace(/\./g, '').trim().toUpperCase();
+                const nome = partes[4].trim();
+                if (!codigo || !nome) return;
+
+                const visual = formatarCodigoCidVisual(codigo);
+                const familia = extrairFamiliaCid(codigo);
+                const slug = `${codigo.toLowerCase()}-${gerarSlug(nome)}.html`;
+                const obj = {
+                    codigo: codigo,
+                    visual: visual,
+                    nome: nome,
+                    familia: familia,
+                    slug: slug,
+                    busca: normalizarTexto(`${codigo} ${visual} ${nome}`)
+                };
+                bancoCids.push(obj);
+                mapaCidPorCodigo.set(codigo, obj);
+
+                if (!cidsPorFamilia.has(familia)) cidsPorFamilia.set(familia, []);
+                cidsPorFamilia.get(familia).push(obj);
+            });
+
+            cidsPorFamilia.forEach(lista => lista.sort((a, b) => a.codigo.localeCompare(b.codigo)));
+
+            // 2. SIGTAP
+            const txtSigtap = await resSigtap.text();
+            txtSigtap.split(/\r?\n/).forEach(linha => {
+                if (linha.trim() === '') return;
+                const codigo = linha.substring(0, 10).trim();
+                const nome = linha.substring(10, 260).trim();
+                if (codigo && nome) {
+                    const visual = formatarCodigoSigtap(codigo);
+                    const slug = `${codigo}-${gerarSlug(nome)}.html`;
+                    const obj = {
+                        codigo: codigo,
+                        visual: visual,
+                        nome: nome,
+                        slug: slug,
+                        busca: normalizarTexto(`${codigo} ${visual} ${nome}`)
+                    };
+                    bancoProcedimentos.push(obj);
+                    mapaProcPorCodigo.set(codigo, obj);
+                }
+            });
+
+            // 3. Relacional
+            const dadosRel = await resRelacional.json();
+            dadosRel.forEach(r => {
+                const cid = String(r.cid || '').replace(/\./g, '').trim().toUpperCase();
+                const proc = String(r.proc || '').trim();
+                if (!cid || !proc) return;
+
+                if (!mapaProcParaCids.has(proc)) mapaProcParaCids.set(proc, []);
+                mapaProcParaCids.get(proc).push(cid);
+
+                if (!mapaCidParaProcs.has(cid)) mapaCidParaProcs.set(cid, []);
+                mapaCidParaProcs.get(cid).push(proc);
+            });
+
+            bancosProntos = true;
+            statusEl.style.display = 'none';
+
+            // Verifica parâmetro ?q= ou ?cid= ou ?proc= na URL
+            const params = new URLSearchParams(window.location.search);
+            const cidUrl = (params.get('cid') || '').replace(/\./g, '').trim().toUpperCase();
+            const procUrl = (params.get('proc') || '').replace(/\D/g, '').trim();
+            const queryUrl = params.get('q');
+
+            if (cidUrl && mapaCidPorCodigo.has(cidUrl)) {
+                selecionarCidPrincipal(mapaCidPorCodigo.get(cidUrl));
+            } else if (procUrl && mapaProcPorCodigo.has(procUrl)) {
+                selecionarProcedimentoPrincipal(mapaProcPorCodigo.get(procUrl));
+            } else if (queryUrl) {
+                document.getElementById('inputBuscaGeral').value = queryUrl;
+                executarBuscaIntegrada();
+            }
+        } catch (erro) {
+            console.error("Erro ao carregar bases do DATASUS:", erro);
+            statusEl.innerText = "Erro ao carregar as bases oficiais. Recarregue a página.";
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', inicializarBancos);
+
+    // --- AUTOCOMPLETE NO CAMPO DE BUSCA ---
+    function configurarAutocompleteBusca() {
+        const input = document.getElementById('inputBuscaGeral');
+        const lista = document.getElementById('listaSugestoesBusca');
+        let indiceFoco = -1;
+
+        input.addEventListener('input', function() {
+            if (!bancosProntos) return;
+            const termo = normalizarTexto(this.value);
+            const termoSemPonto = termo.replace(/\./g, '');
+            lista.innerHTML = '';
+            indiceFoco = -1;
+
+            if (!termo || termo.length < 2) return;
+
+            const cidsMatch = bancoCids.filter(c =>
+                c.codigo.startsWith(termoSemPonto) || c.busca.includes(termo)
+            ).slice(0, 12);
+
+            const procsMatch = bancoProcedimentos.filter(p =>
+                (p.codigo.startsWith(termo.replace(/\D/g, '')) && termo.replace(/\D/g, '').length >= 3) ||
+                p.busca.includes(termo)
+            ).slice(0, 10);
+
+            cidsMatch.forEach(cid => {
+                const div = document.createElement('div');
+                div.innerHTML = `<span><strong>${cid.visual}</strong> — ${cid.nome}</span><span class="tipo-sugestao">CID-10 · Fam. ${cid.familia}</span>`;
+                div.addEventListener('click', () => {
+                    lista.innerHTML = '';
+                    document.getElementById('barraMultiplosCids').style.display = 'none';
+                    selecionarCidPrincipal(cid);
+                });
+                lista.appendChild(div);
+            });
+
+            procsMatch.forEach(proc => {
+                const div = document.createElement('div');
+                div.innerHTML = `<span><strong>${proc.visual}</strong> — ${proc.nome}</span><span class="tipo-sugestao">SIGTAP</span>`;
+                div.addEventListener('click', () => {
+                    lista.innerHTML = '';
+                    document.getElementById('barraMultiplosCids').style.display = 'none';
+                    selecionarProcedimentoPrincipal(proc);
+                });
+                lista.appendChild(div);
+            });
+        });
+
+        input.addEventListener('keydown', function(e) {
+            const itens = lista.getElementsByTagName('div');
+            if (e.key === 'ArrowDown' && itens.length > 0) {
+                e.preventDefault();
+                indiceFoco = (indiceFoco + 1) % itens.length;
+                destacarItem(itens);
+            } else if (e.key === 'ArrowUp' && itens.length > 0) {
+                e.preventDefault();
+                indiceFoco = (indiceFoco - 1 + itens.length) % itens.length;
+                destacarItem(itens);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (indiceFoco > -1 && itens[indiceFoco]) {
+                    itens[indiceFoco].click();
+                } else {
+                    lista.innerHTML = '';
+                    executarBuscaIntegrada();
+                }
+            } else if (e.key === 'Escape') {
+                lista.innerHTML = '';
+                indiceFoco = -1;
+            }
+        });
+
+        function destacarItem(itens) {
+            for (let i = 0; i < itens.length; i++) itens[i].classList.remove('autocomplete-active');
+            if (indiceFoco >= 0 && itens[indiceFoco]) {
+                itens[indiceFoco].classList.add('autocomplete-active');
+                itens[indiceFoco].scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target !== input) lista.innerHTML = '';
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', configurarAutocompleteBusca);
+
+    function selecionarCidPorCodigo(codigo) {
+        if (!bancosProntos) return;
+        const limpo = String(codigo || '').replace(/\./g, '').trim().toUpperCase();
+        const obj = mapaCidPorCodigo.get(limpo);
+        if (obj) {
+            document.getElementById('barraMultiplosCids').style.display = 'none';
+            selecionarCidPrincipal(obj);
+        }
+    }
+
+    // --- EXIBIÇÃO PRINCIPAL MODO CID-10 (CID -> PROCEDIMENTOS -> FAMÍLIA DO CID) ---
+    function selecionarCidPrincipal(cidObj) {
+        document.getElementById('inputBuscaGeral').value = `${cidObj.visual} - ${cidObj.nome}`;
+
+        document.querySelectorAll('.chip-cid-opcao').forEach(btn => {
+            btn.classList.toggle('ativo', btn.getAttribute('data-cid') === cidObj.codigo);
+        });
+
+        const codigosProcs = mapaCidParaProcs.get(cidObj.codigo) || [];
+        const procsCompativeis = codigosProcs
+            .map(cod => mapaProcPorCodigo.get(cod))
+            .filter(Boolean);
+
+        const primeiroProc = procsCompativeis.length > 0 ? procsCompativeis[0].codigo : '';
+        const queryProc = primeiroProc ? `&proc=${primeiroProc}` : '';
+
+        // 1. Card Principal do CID Escolhido
+        const cardPrincipal = document.getElementById('cardPrincipalSelecionado');
+        cardPrincipal.innerHTML = `
+            <div class="badges-topo">
+                <span class="badge-destaque">CID-10: ${cidObj.visual} (${cidObj.codigo})</span>
+                <span class="badge-familia">Família ${cidObj.familia}</span>
+            </div>
+            <h3>${cidObj.nome}</h3>
+            <div class="acoes-principal">
+                <a class="btn-acao-direta" href="index.html?cid=${cidObj.codigo}${queryProc}">Gerar AIH com ${cidObj.visual} →</a>
+                <a class="btn-acao-secundaria" href="apac.html?cid=${cidObj.codigo}${queryProc}">Gerar APAC</a>
+                <a class="btn-acao-secundaria" href="cid/${cidObj.slug}">Abrir Página Completa do CID</a>
+            </div>
+        `;
+
+        // 2. Card do Meio: Procedimentos SIGTAP Compatíveis
+        const tituloMeio = document.getElementById('tituloBlocoMeio');
+        const filtroMeio = document.getElementById('filtroBlocoMeio');
+        const listaMeio = document.getElementById('listaBlocoMeio');
+
+        tituloMeio.innerText = `Procedimentos (SIGTAP) Compatíveis com ${cidObj.visual} (${procsCompativeis.length})`;
+        filtroMeio.value = '';
+        filtroMeio.style.display = procsCompativeis.length > 6 ? 'block' : 'none';
+        listaMeio.innerHTML = '';
+
+        if (procsCompativeis.length === 0) {
+            listaMeio.innerHTML = `<li>Nenhum procedimento restritivo exclusivo vinculado a <strong>${cidObj.visual}</strong> na tabela relacional do DATASUS. Você pode abrir a AIH ou APAC com este CID e selecionar o procedimento clínico/cirúrgico correspondente.</li>`;
+        } else {
+            procsCompativeis.forEach(proc => {
+                const li = document.createElement('li');
+                li.setAttribute('data-busca', proc.busca);
+                li.innerHTML = `
+                    <div>
+                        <a class="link-entidade" href="sigtap/${proc.slug}">
+                            <span class="tag-codigo">${proc.visual}</span>
+                            <strong class="nome-entidade">${proc.nome}</strong>
+                        </a>
+                    </div>
+                    <div class="acoes-item">
+                        <a class="btn-acao-direta" href="index.html?proc=${proc.codigo}&cid=${cidObj.codigo}">Gerar AIH →</a>
+                        <a class="btn-acao-secundaria" href="apac.html?proc=${proc.codigo}&cid=${cidObj.codigo}">APAC</a>
+                    </div>
+                `;
+                listaMeio.appendChild(li);
+            });
+        }
+
+        // 3. Card Inferior (Abaixo dos Procedimentos): Todos os CIDs da Família (ex: J18)
+        const familiaLista = cidsPorFamilia.get(cidObj.familia) || [cidObj];
+        const cardFamilia = document.getElementById('cardBlocoFamilia');
+        const tituloFamilia = document.getElementById('tituloBlocoFamilia');
+        const subtituloFamilia = document.getElementById('subtituloBlocoFamilia');
+        const listaFamilia = document.getElementById('listaBlocoFamilia');
+
+        cardFamilia.style.display = 'block';
+        tituloFamilia.innerText = `Todos os Códigos CID-10 da Família ${cidObj.familia} (${familiaLista.length} subcategorias)`;
+        subtituloFamilia.innerText = `Subcategorias pertencentes à família ${cidObj.familia} na CID-10. Clique em qualquer subcategoria para visualizar seus procedimentos compatíveis:`;
+        listaFamilia.innerHTML = '';
+
+        familiaLista.forEach(irmao => {
+            const ehAtual = irmao.codigo === cidObj.codigo;
+            const li = document.createElement('li');
+            if (ehAtual) li.className = 'cid-familia-atual';
+
+            const badgeAtual = ehAtual ? '<span class="tag-atual">CID Principal Escolhido</span>' : '';
+            const btnTrocar = ehAtual
+                ? ''
+                : `<button type="button" class="btn-acao-secundaria" style="margin:0; width:auto;" onclick="selecionarCidPorCodigo('${irmao.codigo}')">Ver Procedimentos</button>`;
+
+            li.innerHTML = `
+                <div>
+                    <a class="link-entidade" href="cid/${irmao.slug}">
+                        <span class="tag-codigo">${irmao.visual}</span>
+                        <strong class="nome-entidade">${irmao.nome}</strong>
+                    </a>${badgeAtual}
+                </div>
+                <div class="acoes-item">
+                    ${btnTrocar}
+                    <a class="btn-acao-direta" href="index.html?cid=${irmao.codigo}">AIH →</a>
+                    <a class="btn-acao-secundaria" href="apac.html?cid=${irmao.codigo}">APAC</a>
+                </div>
+            `;
+            listaFamilia.appendChild(li);
+        });
+
+        document.getElementById('painelResultados').style.display = 'block';
+    }
+
+    // --- EXIBIÇÃO PRINCIPAL MODO PROCEDIMENTO SIGTAP ---
+    function selecionarProcedimentoPrincipal(procObj) {
+        document.getElementById('inputBuscaGeral').value = `${procObj.visual} - ${procObj.nome}`;
+
+        const codigosCids = mapaProcParaCids.get(procObj.codigo) || [];
+        const cidsCompativeis = codigosCids
+            .map(cod => mapaCidPorCodigo.get(cod))
+            .filter(Boolean);
+
+        const primeiroCid = cidsCompativeis.length > 0 ? cidsCompativeis[0].codigo : '';
+        const queryCid = primeiroCid ? `&cid=${primeiroCid}` : '';
+
+        // 1. Card Principal do Procedimento
+        const cardPrincipal = document.getElementById('cardPrincipalSelecionado');
+        cardPrincipal.innerHTML = `
+            <div class="badges-topo">
+                <span class="badge-destaque">SIGTAP: ${procObj.visual} (${procObj.codigo})</span>
+                <span class="badge-familia">${cidsCompativeis.length} CID(s) compatível(is)</span>
+            </div>
+            <h3>${procObj.nome}</h3>
+            <div class="acoes-principal">
+                <a class="btn-acao-direta" href="index.html?proc=${procObj.codigo}${queryCid}">Gerar AIH com ${procObj.codigo} →</a>
+                <a class="btn-acao-secundaria" href="apac.html?proc=${procObj.codigo}${queryCid}">Gerar APAC</a>
+                <a class="btn-acao-secundaria" href="sigtap/${procObj.slug}">Abrir Página Completa do SIGTAP</a>
+            </div>
+        `;
+
+        // 2. Card do Meio: CIDs Compatíveis
+        const tituloMeio = document.getElementById('tituloBlocoMeio');
+        const filtroMeio = document.getElementById('filtroBlocoMeio');
+        const listaMeio = document.getElementById('listaBlocoMeio');
+
+        tituloMeio.innerText = `Diagnósticos (CID-10) Compatíveis com ${procObj.codigo} (${cidsCompativeis.length})`;
+        filtroMeio.value = '';
+        filtroMeio.style.display = cidsCompativeis.length > 6 ? 'block' : 'none';
+        listaMeio.innerHTML = '';
+
+        const familiasRelacionadas = new Set();
+
+        if (cidsCompativeis.length === 0) {
+            listaMeio.innerHTML = `<li>Este procedimento não possui lista restritiva de CID-10 na tabela relacional oficial do DATASUS.</li>`;
+        } else {
+            cidsCompativeis.forEach(cid => {
+                familiasRelacionadas.add(cid.familia);
+                const li = document.createElement('li');
+                li.setAttribute('data-busca', cid.busca);
+                li.innerHTML = `
+                    <div>
+                        <a class="link-entidade" href="cid/${cid.slug}">
+                            <span class="tag-codigo">${cid.visual}</span>
+                            <strong class="nome-entidade">${cid.nome}</strong>
+                        </a>
+                    </div>
+                    <div class="acoes-item">
+                        <button type="button" class="btn-acao-secundaria" style="margin:0; width:auto;" onclick="selecionarCidPorCodigo('${cid.codigo}')">Família ${cid.familia}</button>
+                        <a class="btn-acao-direta" href="index.html?proc=${procObj.codigo}&cid=${cid.codigo}">Gerar AIH →</a>
+                        <a class="btn-acao-secundaria" href="apac.html?proc=${procObj.codigo}&cid=${cid.codigo}">APAC</a>
+                    </div>
+                `;
+                listaMeio.appendChild(li);
+            });
+        }
+
+        // 3. Card Inferior: Famílias de Doenças Relacionadas
+        const cardFamilia = document.getElementById('cardBlocoFamilia');
+        const tituloFamilia = document.getElementById('tituloBlocoFamilia');
+        const subtituloFamilia = document.getElementById('subtituloBlocoFamilia');
+        const listaFamilia = document.getElementById('listaBlocoFamilia');
+
+        if (familiasRelacionadas.size === 0) {
+            cardFamilia.style.display = 'none';
+        } else {
+            cardFamilia.style.display = 'block';
+            const listaFams = Array.from(familiasRelacionadas).sort().slice(0, 15);
+            tituloFamilia.innerText = `Famílias CID-10 Relacionadas (${listaFams.join(', ')})`;
+            subtituloFamilia.innerText = `Subcategorias pertencentes às famílias diagnósticas vinculadas a este procedimento:`;
+            listaFamilia.innerHTML = '';
+
+            listaFams.forEach(fam => {
+                const membros = cidsPorFamilia.get(fam) || [];
+                membros.forEach(m => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div>
+                            <a class="link-entidade" href="cid/${m.slug}">
+                                <span class="tag-codigo">${m.visual}</span>
+                                <strong class="nome-entidade">${m.nome}</strong>
+                            </a>
+                        </div>
+                        <div class="acoes-item">
+                            <button type="button" class="btn-acao-secundaria" style="margin:0; width:auto;" onclick="selecionarCidPorCodigo('${m.codigo}')">Selecionar CID</button>
+                            <a class="btn-acao-direta" href="index.html?cid=${m.codigo}">AIH →</a>
+                        </div>
+                    `;
+                    listaFamilia.appendChild(li);
+                });
+            });
+        }
+
+        document.getElementById('painelResultados').style.display = 'block';
+    }
+
+    // --- MOTOR DE PESQUISA POR TEXTO LIVRE OU CÓDIGO ---
+    function executarBuscaIntegrada() {
+        if (!bancosProntos) return;
+
+        const inputBruto = document.getElementById('inputBuscaGeral').value;
+        const termo = normalizarTexto(inputBruto);
+        const termoSemPonto = termo.replace(/\./g, '');
+        const apenasDigitos = termo.replace(/\D/g, '');
+        const barraMultiplos = document.getElementById('barraMultiplosCids');
+        const chipsMultiplos = document.getElementById('chipsMultiplosCids');
+
+        barraMultiplos.style.display = 'none';
+        chipsMultiplos.innerHTML = '';
+
+        if (!termo) {
+            document.getElementById('painelResultados').style.display = 'none';
+            return;
+        }
+
+        // 1. Checa correspondência exata de código CID (ex: J189 ou J18.9)
+        if (mapaCidPorCodigo.has(termoSemPonto)) {
+            selecionarCidPrincipal(mapaCidPorCodigo.get(termoSemPonto));
+            return;
+        }
+
+        // 2. Checa correspondência exata de código SIGTAP (10 dígitos)
+        if (apenasDigitos.length === 10 && mapaProcPorCodigo.has(apenasDigitos)) {
+            selecionarProcedimentoPrincipal(mapaProcPorCodigo.get(apenasDigitos));
+            return;
+        }
+
+        // 3. Checa se digitou apenas uma família CID de 3 caracteres (ex: J18)
+        if (/^[A-Z]\d{2}$/.test(termoSemPonto) && cidsPorFamilia.has(termoSemPonto)) {
+            const membrosFam = cidsPorFamilia.get(termoSemPonto);
+            if (membrosFam.length > 1) {
+                barraMultiplos.style.display = 'block';
+                membrosFam.forEach((c, idx) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'chip-cid-opcao' + (idx === 0 ? ' ativo' : '');
+                    btn.setAttribute('data-cid', c.codigo);
+                    btn.innerText = `${c.visual} - ${c.nome}`;
+                    btn.onclick = () => selecionarCidPrincipal(c);
+                    chipsMultiplos.appendChild(btn);
+                });
+            }
+            selecionarCidPrincipal(membrosFam[0]);
+            return;
+        }
+
+        // 4. Busca textual em CIDs e Procedimentos
+        const cidsEncontrados = bancoCids.filter(c => c.busca.includes(termo));
+        const procsEncontrados = bancoProcedimentos.filter(p => p.busca.includes(termo));
+
+        if (cidsEncontrados.length > 0) {
+            if (cidsEncontrados.length > 1) {
+                barraMultiplos.style.display = 'block';
+                cidsEncontrados.slice(0, 20).forEach((c, idx) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'chip-cid-opcao' + (idx === 0 ? ' ativo' : '');
+                    btn.setAttribute('data-cid', c.codigo);
+                    btn.innerText = `${c.visual} - ${c.nome}`;
+                    btn.onclick = () => selecionarCidPrincipal(c);
+                    chipsMultiplos.appendChild(btn);
+                });
+            }
+            selecionarCidPrincipal(cidsEncontrados[0]);
+        } else if (procsEncontrados.length > 0) {
+            selecionarProcedimentoPrincipal(procsEncontrados[0]);
+        } else {
+            document.getElementById('cardPrincipalSelecionado').innerHTML = `
+                <h3>Nenhum diagnóstico CID-10 ou procedimento SIGTAP encontrado para "${inputBruto}"</h3>
+                <p style="margin:0; font-size:14px;">Verifique a grafia ou pesquise pelo código oficial (ex: <strong>J18.9</strong>, <strong>I64</strong> ou <strong>0303140151</strong>).</p>
+            `;
+            document.getElementById('tituloBlocoMeio').innerText = 'Procedimentos Compatíveis (0)';
+            document.getElementById('listaBlocoMeio').innerHTML = '';
+            document.getElementById('cardBlocoFamilia').style.display = 'none';
+            document.getElementById('painelResultados').style.display = 'block';
+        }
+    }
+
+    function filtrarListaInterna(idInput, idLista) {
+        const termo = normalizarTexto(document.getElementById(idInput).value);
+        document.querySelectorAll('#' + idLista + ' li').forEach(li => {
+            const busca = li.getAttribute('data-busca') || '';
+            li.style.display = busca.includes(termo) ? 'flex' : 'none';
+        });
+    }
+</script>
+</body>
+</html>

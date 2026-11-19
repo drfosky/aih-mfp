@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /conversor.html
+
+Sitemap: https://aihfacil.com.br/sitemap.xml

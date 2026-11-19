@@ -1,184 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTV56CZEQ4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTV56CZEQ4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FTV56CZEQ4', {
+          'cookie_domain': 'aihfacil.com.br'
+      });
+    </script>
 
-	gtag('config', 'G-FTV56CZEQ4', {
-      'cookie_domain': 'aihfacil.com.br'
-  });
-</script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4317101804049955"
-     crossorigin="anonymous"></script>
-
-     <meta name="google-adsense-account" content="ca-pub-4317101804049955">
-
-   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>AIH Fácil | Contato</title>
-    <meta name="description" content="Entre em contato com a equipe AIH Fácil através do nosso e-mail oficial. Estamos abertos a parcerias e feedbacks contínuos para facilitar a rotina clínica no SUS.">
-
-    <link rel="icon" href="data:,">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <title>Contato e Parcerias Institucionais | AIH Fácil</title>
+    <meta name="description" content="Entre em contato com a equipe do AIH Fácil para suporte técnico, sugestões de melhorias ou propostas de implantação institucional em hospitais e secretarias de saúde.">
+    <link rel="canonical" href="https://aihfacil.com.br/contato.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <style>
-        /* Estilo geral da página - Centralizando o conteúdo */
         body {
-            font-family: 'Segoe UI', Arial, sans-serif; /* Fonte mais moderna */
-            background-color: #f0f4f8; /* Fundo leve e limpo */
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f0f4f8;
             color: #333333;
-            padding: 40px 20px; /* Mais respiro no topo e rodapé */
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centraliza o formulário horizontalmente */
+            align-items: center;
             margin: 0;
+            line-height: 1.6;
         }
-
-        h1, h2 {
-            color: #0056b3;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        /* Estilo do Card do formulário */
-        form {
-            background-color: #ffffff;
-            padding: 40px; /* Aumentamos o respiro interno */
-            border-radius: 12px; /* Bordas mais suaves */
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* Sombra mais elegante e profunda */
-            width: 100%;
-            max-width: 650px; /* Largura perfeita para leitura confortável em coluna única */
-            box-sizing: border-box;
-        }
-
-        /* Estilo dos rótulos */
-        label {
-            display: block;
-            font-weight: bold;
-            margin-top: 20px; /* Aumentado levemente para respirar na coluna única */
-            margin-bottom: 8px;
-            color: #444444; /* Cor levemente mais suave para leitura */
-        }
-
-        /* Estilo das caixas de texto, áreas de texto e menu suspenso */
-        input, select, textarea {
-            width: 100%; 
-            padding: 12px; /* Entradas levemente mais altas (melhor conforto de clique) */
-            border: 1px solid #cccccc;
-            border-radius: 6px; /* Bordas mais arredondadas */
-            box-sizing: border-box; 
-            font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 14px;
-            transition: border-color 0.3s, box-shadow 0.3s; /* Animação suave no foco */
-        }
-
-        /* UX: Feedback visual quando o usuário clica no campo */
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #0056b3;
-            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15); /* "Aura" azul ao redor do campo ativo */
-        }
-
-        /* Estilo para os contadores de caracteres */
-        .contador {
-            font-size: 12px;
-            color: #666666;
-            text-align: right;
-            margin-top: 4px;
-            margin-bottom: 10px;
-        }
-
-        /* --- ESTILOS DE VALIDAÇÃO DE ERRO --- */
-        #mensagemErro {
-            display: none; 
-            background-color: #ffe6e6; 
-            color: #cc0000; 
-            padding: 15px;
-            margin-top: 25px;
-            margin-bottom: 20px;
-            border-left: 5px solid #cc0000; 
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .campo-invalido {
-            border: 2px solid #cc0000 !important; 
-            background-color: #fffaf0 !important; 
-        }
-
-        /* --- ESTILOS DO BOTÃO --- */
-        button {
-            background-color: #0056b3;
-            color: white;
-            border: none;
-            padding: 15px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-            transition: background-color 0.3s, transform 0.1s; /* Animação de clique */
-        }
-
-        button:hover {
-            background-color: #004494; /* Escurece ao passar o mouse */
-        }
-
-        button:active {
-            transform: scale(0.98); /* Botão "afunda" quando clicado */
-        }
-
-        /* --- ESTILOS DO AUTOCOMPLETE (MENU SUSPENSO) --- */
-        .autocomplete-container {
-            position: relative;
-            display: block;
-        }
-        .autocomplete-items {
-            position: absolute;
-            border: 1px solid #cccccc;
-            border-bottom: none;
-            border-top: none;
-            z-index: 99; 
-            top: 100%;
-            left: 0;
-            right: 0;
-            max-height: 250px; 
-            overflow-y: auto;
-            background-color: #ffffff;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Sombra destacada pro menu */
-            border-radius: 0 0 6px 6px;
-        }
-        .autocomplete-items div {
-            padding: 12px;
-            cursor: pointer;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-            transition: background-color 0.2s;
-        }
-        .autocomplete-items div:hover {
-            background-color: #0056b3;
-            color: #ffffff; 
-        }
-        
-		/* --- ESTILOS DO BOTÃO DE TEMA --- */
+        h1, h2, h3 { color: #0056b3; }
+        h1 { text-align: center; margin-bottom: 30px; }
         #btnTema {
             position: absolute;
             top: 20px;
             right: 20px;
             width: auto;
-            margin-top: 0;
             padding: 10px 15px;
             background-color: #ffffff;
             color: #333333;
@@ -186,18 +46,14 @@
             border-radius: 30px;
             font-size: 14px;
             font-weight: bold;
+            cursor: pointer;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
         }
-
-        #btnTema:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* --- ESTILOS DO CABEÇALHO (HEADER) --- */
+        #btnTema:hover { background-color: #f0f0f0; }
         .cabecalho-principal {
             width: 100%;
-            max-width: 800px;
+            max-width: 840px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -205,204 +61,117 @@
             margin-bottom: 20px;
             border-bottom: 2px solid #e0e0e0;
         }
-
-        .cabecalho-principal .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0056b3;
-        }
-
         .cabecalho-principal nav a {
             text-decoration: none;
             color: #555555;
             font-weight: bold;
-            margin-left: 20px;
+            margin-left: 16px;
+            font-size: 14px;
             transition: color 0.3s;
         }
-
-        .cabecalho-principal nav a:hover {
-            color: #0056b3;
+        .cabecalho-principal nav a:hover { color: #0056b3; }
+        .logo-aih { fill: #0056b3; transition: fill 0.3s; }
+        .logo-facil { fill: #555555; transition: fill 0.3s; }
+        .box-email {
+            background-color: #f0f4f8;
+            padding: 22px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 24px 0;
+            border: 1px solid #d0dfef;
         }
-
-        /* --- ESTILOS DO RODAPÉ (FOOTER) --- */
         .rodape-principal {
             width: 100%;
-            max-width: 800px;
+            max-width: 840px;
             margin-top: 50px;
             padding: 30px 0;
             border-top: 2px solid #e0e0e0;
             text-align: center;
         }
-
-        .rodape-links {
-            margin-bottom: 15px;
-        }
-
+        .rodape-links { margin-bottom: 15px; }
         .rodape-links a {
             text-decoration: none;
             color: #555555;
-            margin: 0 15px;
+            margin: 0 12px;
             font-size: 14px;
             transition: color 0.3s;
         }
+        .rodape-links a:hover { color: #0056b3; text-decoration: underline; }
+        .rodape-creditos p { margin: 5px 0; font-size: 12px; color: #888888; }
 
-        .rodape-links a:hover {
-            color: #0056b3;
-            text-decoration: underline;
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #66b3ff; }
+        body.dark-mode #btnTema { background-color: #2c2c2c; color: #ffffff; border-color: #66b3ff; }
+        body.dark-mode .cabecalho-principal, body.dark-mode .rodape-principal { border-color: #444444; }
+        body.dark-mode .cabecalho-principal nav a, body.dark-mode .rodape-links a { color: #bbbbbb; }
+        body.dark-mode .cabecalho-principal nav a:hover, body.dark-mode .rodape-links a:hover { color: #66b3ff; }
+        body.dark-mode main { background-color: #1e1e1e !important; color: #e0e0e0; }
+        body.dark-mode .box-email { background-color: #252525; border-color: #444444; }
+        body.dark-mode .logo-aih { fill: #66b3ff; }
+        body.dark-mode .logo-facil { fill: #e0e0e0; }
+
+        @media (max-width: 768px) {
+            body { padding: 15px 10px; }
+            h1 { font-size: 22px; margin-bottom: 20px; }
+            h2 { font-size: 18px; }
+            .cabecalho-principal { flex-direction: column; gap: 15px; }
+            .cabecalho-principal nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+            .cabecalho-principal nav a { margin-left: 0; }
+            .rodape-links { display: flex; flex-direction: column; gap: 10px; }
         }
-
-        .rodape-creditos p {
-            margin: 5px 0;
-            font-size: 12px;
-            color: #888888;
-        }
-
-        /* --- MODO ESCURO (Acionado via JavaScript) --- */
-        body.dark-mode {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-
-        body.dark-mode form {
-            background-color: #1e1e1e;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-        }
-
-        body.dark-mode h1, body.dark-mode h2 {
-            color: #66b3ff; /* Azul mais claro para destacar no fundo escuro */
-        }
-
-        body.dark-mode label {
-            color: #bbbbbb;
-        }
-
-        body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
-            background-color: #2c2c2c;
-            color: #ffffff;
-            border: 1px solid #444444;
-        }
-
-        body.dark-mode input:focus, body.dark-mode select:focus, body.dark-mode textarea:focus {
-            border-color: #66b3ff;
-            box-shadow: 0 0 0 3px rgba(102, 179, 255, 0.15);
-        }
-
-        body.dark-mode .autocomplete-items {
-            background-color: #2c2c2c;
-            border-color: #444444;
-        }
-
-        body.dark-mode .autocomplete-items div {
-            border-bottom: 1px solid #444444;
-        }
-
-        body.dark-mode .autocomplete-items div:hover {
-            background-color: #66b3ff;
-            color: #121212;
-        }
-
-        body.dark-mode #btnTema {
-            background-color: #2c2c2c;
-            color: #ffffff;
-            border-color: #66b3ff;
-        }
-
-        body.dark-mode .cabecalho-principal, 
-        body.dark-mode .rodape-principal {
-            border-color: #444444;
-        }
-
-        body.dark-mode .cabecalho-principal .logo {
-            color: #66b3ff;
-        }
-
-        body.dark-mode .cabecalho-principal nav a,
-        body.dark-mode .rodape-links a {
-            color: #bbbbbb;
-        }
-
-        body.dark-mode .cabecalho-principal nav a:hover,
-        body.dark-mode .rodape-links a:hover {
-            color: #66b3ff;
-        }
-		
-        body.dark-mode main {
-            background-color: #1e1e1e !important;
-            color: #e0e0e0;
-        }
-
-        /* --- OTMIZAÇÃO RESPONSIVA --- */
-    @media (max-width: 768px) {
-    body {
-        padding: 15px 10px; /* Reduz o padding lateral para ganhar espaço */
-    }
-
-    form {
-        padding: 20px; /* Formulário mais compacto em telas pequenas */
-        border-radius: 8px;
-    }
-
-    h1 {
-        font-size: 22px; /* Títulos menores para não quebrar a linha */
-        margin-bottom: 20px;
-    }
-
-    h2 {
-        font-size: 18px;
-    }
-
-    /* Ajuste para botões e inputs terem um tamanho mínimo de clique confortável */
-    input, select, textarea, button {
-        font-size: 16px; /* Evita zoom automático do iPhone/Android ao focar no campo */
-        padding: 15px; 
-    }
-
-    .cabecalho-principal {
-        flex-direction: column; /* Coloca logo em cima e menu embaixo */
-        gap: 15px;
-    }
-
-    .rodape-links {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
     </style>
 </head>
-
 <body>
+    <script>
+        if (localStorage.getItem('temaPreferencia') === 'escuro') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
 
-	<!-- Botão de alternância de tema -->
     <button id="btnTema" onclick="alternarTema()">🌙 Modo Escuro</button>
 
     <header class="cabecalho-principal">
-        <div class="logo">AIH Fácil</div>
+        <div class="logo">
+            <a href="index.html" style="text-decoration:none;">
+                <svg viewBox="0 0 160 50" width="140" height="45" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIH Fácil">
+                    <text x="0" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="40" font-weight="900" class="logo-aih">AIH</text>
+                    <text x="75" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="26" font-weight="600" class="logo-facil">Fácil</text>
+                </svg>
+            </a>
+        </div>
         <nav>
-            <a href="index.html">Início</a>
-            <a href="#guia-preenchimento">Guia de Preenchimento</a>
-            <a href="blog/1-historia-da-aih.html">Artigos</a> 
+            <a href="index.html">Gerador AIH</a>
+            <a href="apac.html">Gerador APAC</a>
+            <a href="busca.html">Busca Integrada</a>
+            <a href="sigtap/index.html">Tabela SIGTAP</a>
+            <a href="cid/index.html">Tabela CID-10</a>
+            <a href="cid/index.html">Tabela CID-10</a>
+            <a href="index.html#guia-preenchimento">Guia</a>
         </nav>
-        </header>
+    </header>
 
-    <h1>Plataforma de Preenchimento da AIH</h1>
+    <h1>Contato e Parcerias Institucionais</h1>
 
-    <main style="max-width: 800px; width: 100%; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); box-sizing: border-box; margin-bottom: 40px;">
-        <h2>Contato</h2>
-        <p>Estamos sempre abertos a sugestões, relatos de bugs ou propostas de parcerias para melhorar ainda mais o ecossistema médico.</p>
+    <main style="max-width: 840px; width: 100%; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); box-sizing: border-box; margin-bottom: 40px;">
+        <h2>Fale com a Equipe do AIH Fácil</h2>
+        <p>Estamos abertos a sugestões de aprimoramento clínico, relatos técnicos e propostas de cooperação para expandir a eficiência documental no ecossistema de saúde.</p>
         
-        <p>Para entrar em contato com a equipe de desenvolvimento do <strong>AIH Fácil</strong>, por favor, envie um e-mail para:</p>
-        
-        <div style="background-color: #f0f4f8; padding: 20px; border-radius: 8px; text-align: center; margin-top: 20px;">
-            <h3 style="margin: 0; color: #0056b3;">contato@aihfacil.com.br</h3>
+        <div class="box-email">
+            <h3 style="margin: 0;"><a href="mailto:contato@aihfacil.com.br" style="color: inherit; text-decoration: none;">contato@aihfacil.com.br</a></h3>
         </div>
 
-        <p style="margin-top: 30px; font-size: 14px; color: #666666;">Responderemos o mais breve possível. Lembre-se de não enviar nenhum dado confidencial de pacientes nos e-mails de suporte.</p>
+        <h3>Implantação Customizada e Parcerias (Hospitais, OSS e Secretarias de Saúde)</h3>
+        <p>Para gestores hospitalares, Centrais de Regulação, Organizações Sociais de Saúde (OSS) e Secretarias Municipais ou Estaduais de Saúde interessadas em versões customizadas com fluxos regulatórios locais, protocolos clínicos padronizados por unidade ou patrocínio institucional, entre em contato através do nosso e-mail oficial acima.</p>
+
+        <p style="margin-top: 30px; font-size: 13px; color: #777777;">Importante: Em conformidade com a LGPD e o sigilo médico, nunca envie dados identificáveis ou prontuários de pacientes em mensagens de suporte.</p>
     </main>
-	
+    
     <footer class="rodape-principal">
         <div class="rodape-links">
+            <a href="index.html">Gerador de AIH</a>
+            <a href="apac.html">Gerador de APAC</a>
+            <a href="busca.html">Busca Integrada</a>
+            <a href="sigtap/index.html">Tabela SIGTAP</a>
             <a href="sobre.html">Sobre a Ferramenta</a>
             <a href="privacidade.html">Política de Privacidade</a>
             <a href="termos.html">Termos de Uso</a>
@@ -414,31 +183,22 @@
         </div>
     </footer>
 
-<script>
-        // --- SISTEMA DE TEMA (CLARO/ESCURO) ---
+    <script>
         function alternarTema() {
             const corpo = document.body;
             const botao = document.getElementById('btnTema');
-            
-            // Liga ou desliga a classe 'dark-mode'
             corpo.classList.toggle('dark-mode');
-            
-            // Checa se o modo escuro está ativado no momento
             if (corpo.classList.contains('dark-mode')) {
                 botao.innerText = '☀️ Modo Claro';
-                localStorage.setItem('temaPreferencia', 'escuro'); // Salva no navegador
+                localStorage.setItem('temaPreferencia', 'escuro');
             } else {
                 botao.innerText = '🌙 Modo Escuro';
-                localStorage.setItem('temaPreferencia', 'claro'); // Salva no navegador
+                localStorage.setItem('temaPreferencia', 'claro');
             }
         }
-
-        // Checa a memória do navegador assim que o script carrega (evita piscar a tela branca)
-        if (localStorage.getItem('temaPreferencia') === 'escuro') {
-            document.body.classList.add('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
             document.getElementById('btnTema').innerText = '☀️ Modo Claro';
         }
     </script>
-
 </body>
 </html>

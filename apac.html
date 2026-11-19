@@ -1,43 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTV56CZEQ4"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTV56CZEQ4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-	gtag('config', 'G-FTV56CZEQ4', {
-      'cookie_domain': 'aihfacil.com.br'
-  });
-</script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4317101804049955"
-     crossorigin="anonymous"></script>
-
-     <meta name="google-adsense-account" content="ca-pub-4317101804049955">
+      gtag('config', 'G-FTV56CZEQ4', {
+          'cookie_domain': 'aihfacil.com.br'
+      });
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>AIH Fácil | Gerador Automatizado de APAC do SUS</title>
-    <meta name="description" content="Gere a sua Autorização de Procedimentos Ambulatoriais (APAC) do SUS de forma rápida e segura.">
+    <title>AIH Fácil | Gerador Automatizado de APAC do SUS com Validação SIGTAP e CID-10</title>
+    <meta name="description" content="Preencha e gere a Autorização de Procedimentos Ambulatoriais (APAC) do SUS em PDF com autocompletar CID-10, famílias diagnósticas, múltiplos procedimentos secundários e validação SIGTAP.">
+    <link rel="canonical" href="https://aihfacil.com.br/apac.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <meta property="og:title" content="AIH Fácil | Gerador Automatizado de APAC do SUS">
+    <meta property="og:description" content="Emita a Autorização de Procedimentos Ambulatoriais (APAC) do SUS em PDF com validação cruzada entre CID-10 e Tabela SIGTAP.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aihfacil.com.br/apac.html">
+
+    <!-- Dados Estruturados Schema.org para Motores de Busca e IAs -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "AIH Fácil - Gerador Automatizado de APAC do SUS",
+      "url": "https://aihfacil.com.br/apac.html",
+      "applicationCategory": "MedicalApplication",
+      "operatingSystem": "Web Browser",
+      "description": "Ferramenta web gratuita para preenchimento da Autorização de Procedimentos Ambulatoriais (APAC) do SUS com suporte a múltiplos procedimentos secundários e validação SIGTAP × CID-10.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Médicos, Especialistas Ambulatoriais, Auditores e Faturistas do SUS"
+      }
+    }
+    </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 
     <style>
         /* Estilo geral da página - Centralizando o conteúdo */
         body {
-            font-family: 'Segoe UI', Arial, sans-serif; /* Fonte mais moderna */
-            background-color: #f0f4f8; /* Fundo leve e limpo */
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f0f4f8;
             color: #333333;
-            padding: 40px 20px; /* Mais respiro no topo e rodapé */
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centraliza o formulário horizontalmente */
+            align-items: center;
             margin: 0;
         }
 
@@ -53,11 +75,11 @@
         /* Estilo do Card do formulário */
         form {
             background-color: #ffffff;
-            padding: 40px; /* Aumentamos o respiro interno */
-            border-radius: 12px; /* Bordas mais suaves */
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* Sombra mais elegante e profunda */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
             width: 100%;
-            max-width: 650px; /* Largura perfeita para leitura confortável em coluna única */
+            max-width: 650px;
             box-sizing: border-box;
             position: relative;
             z-index: 5;
@@ -67,28 +89,27 @@
         label {
             display: block;
             font-weight: bold;
-            margin-top: 20px; /* Aumentado levemente para respirar na coluna única */
+            margin-top: 20px;
             margin-bottom: 8px;
-            color: #444444; /* Cor levemente mais suave para leitura */
+            color: #444444;
         }
 
         /* Estilo das caixas de texto, áreas de texto e menu suspenso */
         input, select, textarea {
             width: 100%; 
-            padding: 12px; /* Entradas levemente mais altas (melhor conforto de clique) */
+            padding: 12px;
             border: 1px solid #cccccc;
-            border-radius: 6px; /* Bordas mais arredondadas */
+            border-radius: 6px;
             box-sizing: border-box; 
             font-family: 'Segoe UI', Arial, sans-serif;
             font-size: 14px;
-            transition: border-color 0.3s, box-shadow 0.3s; /* Animação suave no foco */
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        /* UX: Feedback visual quando o usuário clica no campo */
         input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: #0056b3;
-            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15); /* "Aura" azul ao redor do campo ativo */
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15);
         }
 
         /* Estilo para os contadores de caracteres */
@@ -100,6 +121,65 @@
             margin-bottom: 10px;
         }
 
+        /* --- PAINEL DE SUBCATEGORIAS DA FAMÍLIA CID-10 (PRINCIPAL, SECUNDÁRIO E ASSOCIADAS) --- */
+        .painel-familia-cid {
+            display: none;
+            margin-top: 10px;
+            padding: 12px 14px;
+            background-color: #f8fbff;
+            border: 1px solid #d0dfef;
+            border-left: 4px solid #0056b3;
+            border-radius: 6px;
+        }
+
+        .cabecalho-familia-cid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        .cabecalho-familia-cid a {
+            color: #0056b3;
+            text-decoration: underline;
+            font-size: 12px;
+        }
+
+        .chips-familia-cid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chip-subcid {
+            background-color: #ffffff;
+            color: #333333;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            padding: 4px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+        }
+
+        .chip-subcid:hover {
+            border-color: #0056b3;
+            color: #0056b3;
+        }
+
+        .chip-subcid.ativo {
+            background-color: #0056b3;
+            color: #ffffff;
+            border-color: #0056b3;
+            font-weight: bold;
+        }
+
         /* --- ESTILOS DOS PROCEDIMENTOS DINÂMICOS --- */
         .botoes-dinamicos {
             display: flex;
@@ -109,9 +189,15 @@
         }
 
         .btn-secundario, .btn-remover {
-            margin: 0; /* O espaçamento agora é controlado pela caixa flexível acima */
-            flex: 1; /* Faz os botões dividirem o espaço 50/50 */
+            margin: 0;
+            flex: 1;
             box-shadow: none;
+            padding: 14px 18px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
         }
 
         .btn-secundario {
@@ -128,7 +214,6 @@
         }
         .btn-remover:hover { background-color: #fce8e8; }
 
-        /* Dark Mode dos novos botões */
         body.dark-mode .btn-secundario {
             background-color: #1e1e1e;
             color: #66b3ff;
@@ -155,7 +240,7 @@
             border-left-color: #66b3ff;
         }
 
-        /* --- ESTILOS DE VALIDAÇÃO DE ERRO --- */
+        /* --- ESTILOS DE VALIDAÇÃO E COMPATIBILIDADE SUS --- */
         #mensagemErro {
             display: none; 
             background-color: #ffe6e6; 
@@ -173,8 +258,56 @@
             background-color: #fffaf0 !important; 
         }
 
-        /* --- ESTILOS DO BOTÃO --- */
-        button {
+        #avisoCompatibilidadeSus {
+            display: none;
+            margin-top: 10px;
+            padding: 12px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.45;
+            font-weight: 600;
+        }
+
+        #avisoCompatibilidadeSus.status-compativel {
+            background-color: #e6f4ea;
+            color: #137333;
+            border-left: 4px solid #137333;
+        }
+
+        #avisoCompatibilidadeSus.status-alerta {
+            background-color: #fef7e0;
+            color: #9a5200;
+            border-left: 4px solid #f9ab00;
+        }
+
+        .links-ficha-tecnica {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 6px;
+            font-size: 12px;
+        }
+
+        .links-ficha-tecnica a {
+            color: inherit;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        #feedbackGeracaoPdf {
+            display: none;
+            background-color: #e6f4ea;
+            color: #137333;
+            padding: 12px 15px;
+            margin-top: 20px;
+            border-left: 5px solid #137333;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* --- ESTILOS DO BOTÃO PRINCIPAL --- */
+        button.btn-gerar-principal {
             background-color: #0056b3;
             color: white;
             border: none;
@@ -185,15 +318,15 @@
             cursor: pointer;
             width: 100%;
             margin-top: 20px;
-            transition: background-color 0.3s, transform 0.1s; /* Animação de clique */
+            transition: background-color 0.3s, transform 0.1s;
         }
 
-        button:hover {
-            background-color: #004494; /* Escurece ao passar o mouse */
+        button.btn-gerar-principal:hover {
+            background-color: #004494;
         }
 
-        button:active {
-            transform: scale(0.98); /* Botão "afunda" quando clicado */
+        button.btn-gerar-principal:active {
+            transform: scale(0.98);
         }
 
         /* --- ESTILOS DO AUTOCOMPLETE (MENU SUSPENSO) --- */
@@ -210,10 +343,10 @@
             top: 100%;
             left: 0;
             right: 0;
-            max-height: 250px; 
+            max-height: 260px; 
             overflow-y: auto;
             background-color: #ffffff;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Sombra destacada pro menu */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
             border-radius: 0 0 6px 6px;
         }
         .autocomplete-items div {
@@ -221,14 +354,32 @@
             cursor: pointer;
             border-bottom: 1px solid #eee;
             font-size: 14px;
-            transition: background-color 0.2s;
+            transition: background-color 0.15s;
+            line-height: 1.4;
         }
-        .autocomplete-items div:hover {
+        .autocomplete-items div:hover,
+        .autocomplete-items div.autocomplete-active {
             background-color: #0056b3;
             color: #ffffff; 
         }
+        .badge-compat {
+            display: inline-block;
+            background-color: #e6f4ea;
+            color: #137333;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .autocomplete-items div:hover .badge-compat,
+        .autocomplete-items div.autocomplete-active .badge-compat {
+            background-color: #ffffff;
+            color: #0056b3;
+        }
         
-		/* --- ESTILOS DO BOTÃO DE TEMA --- */
+        /* --- ESTILOS DO BOTÃO DE TEMA --- */
         #btnTema {
             position: absolute;
             top: 20px;
@@ -242,6 +393,7 @@
             border-radius: 30px;
             font-size: 14px;
             font-weight: bold;
+            cursor: pointer;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
         }
@@ -253,7 +405,7 @@
         /* --- ESTILOS DO CABEÇALHO (HEADER) --- */
         .cabecalho-principal {
             width: 100%;
-            max-width: 800px;
+            max-width: 840px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -272,7 +424,8 @@
             text-decoration: none;
             color: #555555;
             font-weight: bold;
-            margin-left: 20px;
+            margin-left: 16px;
+            font-size: 14px;
             transition: color 0.3s;
         }
 
@@ -283,7 +436,7 @@
         /* --- ESTILOS DO RODAPÉ (FOOTER) --- */
         .rodape-principal {
             width: 100%;
-            max-width: 800px;
+            max-width: 840px;
             margin-top: 50px;
             padding: 30px 0;
             border-top: 2px solid #e0e0e0;
@@ -297,7 +450,7 @@
         .rodape-links a {
             text-decoration: none;
             color: #555555;
-            margin: 0 15px;
+            margin: 0 12px;
             font-size: 14px;
             transition: color 0.3s;
         }
@@ -316,7 +469,7 @@
         /* --- CAIXA FLUTUANTE (TOOLTIP DO GUIA) --- */
         #tooltip-guia {
             position: absolute;
-            display: none; /* Fica escondido por padrão */
+            display: none;
             background-color: #ffffff;
             color: #333333;
             border: 2px solid #0056b3;
@@ -325,8 +478,8 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.2);
             font-size: 13px;
             width: 320px;
-            z-index: 9999; /* Garante que fique acima de todos os menus */
-            pointer-events: none; /* CRÍTICO: Faz o mouse "atravessar" a caixa */
+            z-index: 9999;
+            pointer-events: none;
             opacity: 0;
             transition: opacity 0.2s ease;
         }
@@ -341,11 +494,11 @@
             color: #333333;
             padding: 20px;
             box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
-            display: none; /* Escondido por padrão, o JS decide se mostra */
+            display: none;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            z-index: 10000; /* Garante que fique acima de tudo na página */
+            z-index: 10000;
             box-sizing: border-box;
             border-top: 4px solid #0056b3;
         }
@@ -364,13 +517,17 @@
         }
 
         .cookie-banner button {
+            background-color: #0056b3;
+            color: #ffffff;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
             width: auto;
             margin-top: 0;
             padding: 10px 30px;
             border-radius: 30px;
         }
 
-        /* Adaptação para telas maiores (Desktop) */
         @media (min-width: 768px) {
             .cookie-banner {
                 flex-direction: row;
@@ -386,9 +543,9 @@
 
         /* --- ESPAÇOS PUBLICITÁRIOS LATERAIS (DESKTOP) --- */
         .anuncio-lateral {
-            display: none; /* Oculto por padrão (ficará invisível em celulares e tablets) */
+            display: none;
             width: 160px;
-            height: 600px; /* Formato clássico de banner vertical AdSense */
+            height: 600px;
             background-color: #e9ecef;
             border: 2px dashed #cccccc;
             border-radius: 8px;
@@ -398,13 +555,12 @@
             text-transform: uppercase;
             padding: 10px;
             box-sizing: border-box;
-            position: fixed; /* Mantém o banner parado enquanto a página rola */
+            position: fixed;
             top: 50%;
-            transform: translateY(-50%); /* Centraliza perfeitamente no meio da tela */
+            transform: translateY(-50%);
             z-index: 100;
         }
 
-        /* Ativa as laterais APENAS em telas grandes (maiores que 1150px) para não sobrepor o formulário */
         @media (min-width: 1150px) {
             .anuncio-lateral {
                 display: flex;
@@ -414,23 +570,21 @@
             }
         }
 
-        /* Posições individuais */
         .anuncio-lateral.esquerdo { left: 20px; }
         .anuncio-lateral.direito { right: 20px; }
 
-        /* --- ESPAÇOS PUBLICITÁRIOS OCULTOS (PLANEJAMENTO FUTURO) --- */
         .anuncio-oculto {
-            display: none !important; /* Trava absoluta: Nunca será mostrado até decidirmos mudar */
+            display: none !important;
         }
 
         /* --- ESTILOS DA LOGO SVG --- */
         .logo-aih {
-            fill: #0056b3; /* Nosso Azul Principal */
+            fill: #0056b3;
             transition: fill 0.3s;
         }
         
         .logo-facil {
-            fill: #555555; /* Cinza Escuro */
+            fill: #555555;
             transition: fill 0.3s;
         }
 
@@ -446,7 +600,7 @@
         }
 
         body.dark-mode h1, body.dark-mode h2 {
-            color: #66b3ff; /* Azul mais claro para destacar no fundo escuro */
+            color: #66b3ff;
         }
 
         body.dark-mode label {
@@ -464,6 +618,34 @@
             box-shadow: 0 0 0 3px rgba(102, 179, 255, 0.15);
         }
 
+        body.dark-mode .painel-familia-cid {
+            background-color: #252525;
+            border-color: #444444;
+            border-left-color: #66b3ff;
+        }
+
+        body.dark-mode .cabecalho-familia-cid,
+        body.dark-mode .cabecalho-familia-cid a {
+            color: #66b3ff;
+        }
+
+        body.dark-mode .chip-subcid {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border-color: #444444;
+        }
+
+        body.dark-mode .chip-subcid:hover {
+            border-color: #66b3ff;
+            color: #66b3ff;
+        }
+
+        body.dark-mode .chip-subcid.ativo {
+            background-color: #66b3ff;
+            color: #121212;
+            border-color: #66b3ff;
+        }
+
         body.dark-mode .autocomplete-items {
             background-color: #2c2c2c;
             border-color: #444444;
@@ -473,9 +655,39 @@
             border-bottom: 1px solid #444444;
         }
 
-        body.dark-mode .autocomplete-items div:hover {
+        body.dark-mode .autocomplete-items div:hover,
+        body.dark-mode .autocomplete-items div.autocomplete-active {
             background-color: #66b3ff;
             color: #121212;
+        }
+
+        body.dark-mode .badge-compat {
+            background-color: #1e3a29;
+            color: #81c995;
+        }
+
+        body.dark-mode .autocomplete-items div:hover .badge-compat,
+        body.dark-mode .autocomplete-items div.autocomplete-active .badge-compat {
+            background-color: #121212;
+            color: #66b3ff;
+        }
+
+        body.dark-mode #avisoCompatibilidadeSus.status-compativel {
+            background-color: #172e21;
+            color: #81c995;
+            border-left-color: #81c995;
+        }
+
+        body.dark-mode #avisoCompatibilidadeSus.status-alerta {
+            background-color: #33270d;
+            color: #fdd663;
+            border-left-color: #fdd663;
+        }
+
+        body.dark-mode #feedbackGeracaoPdf {
+            background-color: #172e21;
+            color: #81c995;
+            border-left-color: #81c995;
         }
 
         body.dark-mode #btnTema {
@@ -526,7 +738,7 @@
         body.dark-mode .cookie-banner a {
             color: #66b3ff;
         }
-		
+        
         body.dark-mode .anuncio-lateral {
             background-color: #1e1e1e;
             border-color: #444444;
@@ -534,11 +746,11 @@
         }
 
         body.dark-mode .logo-aih {
-            fill: #66b3ff; /* Azul mais claro e brilhante para leitura no escuro */
+            fill: #66b3ff;
         }
         
         body.dark-mode .logo-facil {
-            fill: #e0e0e0; /* Cinza clarinho (quase branco) */
+            fill: #e0e0e0;
         }
 
         /* --- BOTÕES DE NAVEGAÇÃO (HUB CLÍNICO FLUTUANTE) --- */
@@ -569,7 +781,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        /* O botão da página atual fica totalmente preenchido com a cor principal */
         .aba.ativa {
             background-color: #0056b3; 
             color: #ffffff;
@@ -602,55 +813,67 @@
             border-color: #66b3ff;
         }
 
-        /* --- OTMIZAÇÃO RESPONSIVA --- */
+        /* --- OTIMIZAÇÃO RESPONSIVA --- */
         @media (max-width: 768px) {
-    body {
-        padding: 15px 10px; /* Reduz o padding lateral para ganhar espaço */
-        .abas-navegacao {
-            flex-direction: row; /* Mantém os botões lado a lado no celular */
-            gap: 10px;
+            body {
+                padding: 15px 10px;
+            }
+
+            .abas-navegacao {
+                flex-direction: row;
+                gap: 10px;
+            }
+
+            .aba {
+                padding: 12px 5px;
+                font-size: 14px;
+            }
+
+            .aba.ativa {
+                padding-bottom: 15px;
+            }
+
+            form {
+                padding: 20px;
+                border-radius: 8px;
+            }
+
+            h1 {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            input, select, textarea, button.btn-gerar-principal {
+                font-size: 16px;
+                padding: 15px; 
+            }
+
+            .cabecalho-principal {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .cabecalho-principal nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .cabecalho-principal nav a {
+                margin-left: 0;
+            }
+
+            .rodape-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
         }
-        .aba {
-            padding: 12px 5px; /* Reduz o padding interno para evitar quebra de texto */
-            font-size: 14px; /* Fonte levemente menor para mobile */
-        }
-        .aba.ativa {
-            padding-bottom: 15px;
-        }
-    }
-
-    form {
-        padding: 20px; /* Formulário mais compacto em telas pequenas */
-        border-radius: 8px;
-    }
-
-    h1 {
-        font-size: 22px; /* Títulos menores para não quebrar a linha */
-        margin-bottom: 20px;
-    }
-
-    h2 {
-        font-size: 18px;
-    }
-
-    /* Ajuste para botões e inputs terem um tamanho mínimo de clique confortável */
-    input, select, textarea, button {
-        font-size: 16px; /* Evita zoom automático do iPhone/Android ao focar no campo */
-        padding: 15px; 
-    }
-
-    .cabecalho-principal {
-        flex-direction: column; /* Coloca logo em cima e menu embaixo */
-        gap: 15px;
-    }
-
-    .rodape-links {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
     </style>
 </head>
 <body>
@@ -660,7 +883,7 @@
 
     <!-- Banner de Consentimento de Cookies -->
     <div id="cookie-banner" class="cookie-banner">
-        <p>Nós utilizamos cookies e tecnologias semelhantes de acordo com a nossa <a href="privacidade.html">Política de Privacidade</a> para melhorar a sua experiência, analisar o tráfego e exibir anúncios relevantes. Ao continuar navegando, você concorda com estas condições.</p>
+        <p>Nós utilizamos cookies e tecnologias semelhantes de acordo com a nossa <a href="privacidade.html">Política de Privacidade</a> para melhorar a sua experiência e analisar o tráfego. Ao continuar navegando, você concorda com estas condições.</p>
         <button id="btn-aceitar-cookies" onclick="aceitarCookies()">Aceitar e Fechar</button>
     </div>
 
@@ -671,40 +894,42 @@
         <span>Espaço Reservado (Direita)</span>
     </div>
     
-	<!-- Botão de alternância de tema -->
+    <!-- Botão de alternância de tema -->
     <button id="btnTema" onclick="alternarTema()">🌙 Modo Escuro</button>
 
     <header class="cabecalho-principal">
         <div class="logo">
-            <!-- A Nova Logo em Código SVG -->
-            <svg viewBox="0 0 160 50" width="140" height="45" xmlns="http://www.w3.org/2000/svg">
-                <!-- "AIH" em fonte mais espessa e dominante -->
-                <text x="0" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="40" font-weight="900" class="logo-aih">AIH</text>
-                <!-- "Fácil" em fonte um pouco menor e mais leve -->
-                <text x="75" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="26" font-weight="600" class="logo-facil">Fácil</text>
-            </svg>
+            <a href="index.html" style="text-decoration:none;">
+                <svg viewBox="0 0 160 50" width="140" height="45" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIH Fácil">
+                    <text x="0" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="40" font-weight="900" class="logo-aih">AIH</text>
+                    <text x="75" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="26" font-weight="600" class="logo-facil">Fácil</text>
+                </svg>
+            </a>
         </div>
         <nav>
             <a href="index.html">Gerador AIH</a>
-            <a href="apac.html">Gerador APAC</a>
-            <a href="#guia-preenchimento">Guia de Preenchimento</a>
-            <a href="blog/1-historia-da-aih.html">Artigos</a>
+            <a href="apac.html" style="color:var(--primary, #0056b3);">Gerador APAC</a>
+            <a href="busca.html">Busca Integrada</a>
+            <a href="sigtap/index.html">Tabela SIGTAP</a>
+            <a href="cid/index.html">Tabela CID-10</a>
+            <a href="#guia-preenchimento">Guia</a>
         </nav>
     </header>
 
-        <h1>Plataforma de Preenchimento da APAC</h1>
+    <h1>Plataforma de Preenchimento da APAC</h1>
 
-        <div class="abas-navegacao">
-            <a href="index.html" class="aba inativa">Gerador de AIH</a>
-            <a href="apac.html" class="aba ativa">Gerador de APAC</a>
-        </div>
+    <div class="abas-navegacao">
+        <a href="index.html" class="aba inativa">Gerador de AIH</a>
+        <a href="apac.html" class="aba ativa">Gerador de APAC</a>
+        <a href="busca.html" class="aba inativa">Busca Integrada</a>
+    </div>
     
-    <form id="apacForm">
+    <form id="apacForm" onsubmit="return false;">
         <h2>1. Identificação do Estabelecimento de Saúde</h2>
         <label for="nomeEstabelecimento">Nome do Estabelecimento Solicitante: *</label>
         <input type="text" id="nomeEstabelecimento">
-		
-		<label for="cnesEstabelecimento">Código CNES do Estabelecimento:</label>
+        
+        <label for="cnesEstabelecimento">Código CNES do Estabelecimento:</label>
         <input type="number" id="cnesEstabelecimento">
         
         <h2>2. Identificação do Paciente</h2>
@@ -737,22 +962,22 @@
         <input type="text" id="municipioResidencia">
 
         <label for="uf">UF:</label>
-        <input type="text" id="uf">
+        <input type="text" id="uf" maxlength="2">
 
         <label for="cep">CEP:</label>
-        <input type="text" id="cep">
-		
-		<h2>3. Procedimento Solicitado</h2>
+        <input type="text" id="cep" maxlength="8">
+        
+        <h2>3. Procedimento Solicitado</h2>
         <label for="descricaoProcedimento">Nome do Procedimento Principal: *</label>
         <div class="autocomplete-container">
-            <input type="text" id="descricaoProcedimento" maxlength="50" autocomplete="off" placeholder="Digite o nome do procedimento ou código...">
+            <input type="text" id="descricaoProcedimento" maxlength="50" autocomplete="off" placeholder="Digite o nome do procedimento ou clique para ver compatíveis...">
             <div id="listaDescricaoProcedimento" class="autocomplete-items"></div>
         </div>
 
         <div class="campo-grupo">
-                <label for="qtdeProcedimento">Quantidade: *</label>
-                <input type="number" id="qtdeProcedimento" name="qtdeProcedimento" required min="1" max="99" value="1">
-            </div>
+            <label for="qtdeProcedimento">Quantidade: *</label>
+            <input type="number" id="qtdeProcedimento" name="qtdeProcedimento" required min="1" max="99" value="1">
+        </div>
 
         <label for="buscaCodigoProcedimento">Código do Procedimento (SIGTAP): *</label>
         <div class="autocomplete-container">
@@ -761,6 +986,8 @@
         </div>
         
         <input type="hidden" id="codigoProcedimento">
+
+        <div id="avisoCompatibilidadeSus" role="status" aria-live="polite"></div>
 
         <h2>4. Procedimento(s) Secundário(s)</h2>
         <div id="containerProcedimentosSecundarios"></div>
@@ -774,42 +1001,54 @@
                 - Remover Último
             </button>
         </div>
-		
+        
         <h2>5. Justificativa do(s) Procedimento(s) Solicitado(s)</h2>
-            <div class="campo-grupo">
-                <label for="descricaoDiagnostico">Descrição do Diagnóstico *</label>
-                <textarea id="descricaoDiagnostico" name="descricaoDiagnostico" rows="3" maxlength="60" required placeholder="Descreva o quadro clínico que justifica o procedimento ambulatorial..."></textarea>
-                <div id="cont-descricaoDiagnostico" class="contador">0 / 60</div>
-            </div>
+        <div class="campo-grupo">
+            <label for="descricaoDiagnostico">Descrição do Diagnóstico *</label>
+            <textarea id="descricaoDiagnostico" name="descricaoDiagnostico" rows="3" maxlength="60" required placeholder="Descreva o quadro clínico que justifica o procedimento ambulatorial..."></textarea>
+            <div id="cont-descricaoDiagnostico" class="contador">0 / 60</div>
+        </div>
 
-            <div class="campo-grupo">
-                <label for="observacoesApac">Observações *</label>
-                <textarea id="observacoesApac" name="observacoesApac" rows="2" maxlength="650" required placeholder="Informações adicionais relevantes (Opcional)"></textarea>
-                <div id="cont-observacoesApac" class="contador">0 / 650</div>
-            </div>
+        <div class="campo-grupo">
+            <label for="observacoesApac">Observações *</label>
+            <textarea id="observacoesApac" name="observacoesApac" rows="2" maxlength="650" required placeholder="Informações adicionais relevantes (Opcional)"></textarea>
+            <div id="cont-observacoesApac" class="contador">0 / 650</div>
+        </div>
 
         <label for="diagnosticoInicial">Diagnóstico Inicial: *</label>
         <div class="autocomplete-container">
             <input type="text" id="diagnosticoInicial" maxlength="40" autocomplete="off" placeholder="Digite o nome da doença ou código...">
             <div id="listaDiagnostico" class="autocomplete-items"></div>
         </div>
-            <div id="listaDiagnostico" class="autocomplete-items"></div>
 
-		<label for="buscaCidPrincipal">CID 10 Principal: *</label>
+        <label for="buscaCidPrincipal">CID 10 Principal: *</label>
         <div class="autocomplete-container">
-            <input type="text" id="buscaCidPrincipal" placeholder="Digite o código (ex: J15) ou o nome da doença..." autocomplete="off">
+            <input type="text" id="buscaCidPrincipal" placeholder="Digite o código (ex: C50.9 ou N18) ou o nome da doença..." autocomplete="off">
             <div id="listaCidPrincipal" class="autocomplete-items"></div>
         </div>
         
         <input type="hidden" id="cidPrincipal">
 
+        <!-- Seletor Rápido das Subcategorias da Família CID-10 Principal -->
+        <div id="painelFamiliaCid" class="painel-familia-cid" aria-live="polite"></div>
+
         <label for="cidSecundario">CID 10 Secundário:</label>
-        <input type="text" id="cidSecundario" maxlength="4">
+        <div class="autocomplete-container">
+            <input type="text" id="cidSecundario" placeholder="Digite o código (ex: I10) ou o nome da doença..." autocomplete="off">
+            <div id="listaCidSecundario" class="autocomplete-items"></div>
+        </div>
+        <!-- Seletor Rápido das Subcategorias da Família CID-10 Secundário -->
+        <div id="painelFamiliaCidSecundario" class="painel-familia-cid" aria-live="polite"></div>
 
         <label for="cidCausasAssociadas">CID 10 Causas Associadas:</label>
-        <input type="text" id="cidCausasAssociadas" maxlength="4">
+        <div class="autocomplete-container">
+            <input type="text" id="cidCausasAssociadas" placeholder="Digite o código (ex: E11.9) ou o nome da doença..." autocomplete="off">
+            <div id="listaCidCausasAssociadas" class="autocomplete-items"></div>
+        </div>
+        <!-- Seletor Rápido das Subcategorias da Família CID-10 Causas Associadas -->
+        <div id="painelFamiliaCidCausasAssociadas" class="painel-familia-cid" aria-live="polite"></div>
 
-		<h2>6. Identificação do Profissional Solicitante</h2>
+        <h2>6. Identificação do Profissional Solicitante</h2>
 
         <label for="tipoDocumentoProfissional">Tipo de Documento do Profissional: *</label>
         <select id="tipoDocumentoProfissional">
@@ -825,28 +1064,29 @@
         <input type="text" id="nomeProfissional">
 
         <div style="text-align: right; margin-top: 10px; margin-bottom: 20px;">
-        <a href="#" onclick="limparMemoria(); return false;" style="font-size: 13px; color: #d9534f; text-decoration: underline; cursor: pointer; transition: color 0.3s;" onmouseover="this.style.color='#c9302c'" onmouseout="this.style.color='#d9534f'">
-            [ Limpar dados salvos neste dispositivo ]
-        </a>
-    </div>
-		
-		<label for="dataSolicitacao">Data da Solicitação: *</label>
+            <a href="#" onclick="limparMemoria(); return false;" style="font-size: 13px; color: #d9534f; text-decoration: underline; cursor: pointer; transition: color 0.3s;" onmouseover="this.style.color='#c9302c'" onmouseout="this.style.color='#d9534f'">
+                [ Limpar dados salvos neste dispositivo ]
+            </a>
+        </div>
+        
+        <label for="dataSolicitacao">Data da Solicitação: *</label>
         <input type="date" id="dataSolicitacao">
 
-		<div id="mensagemErro"></div>
+        <div id="mensagemErro"></div>
+        <div id="feedbackGeracaoPdf" role="status" aria-live="polite"></div>
 
-        <button type="button" onclick="capturarDados()">Gerar APAC</button>
+        <button type="button" class="btn-gerar-principal" onclick="capturarDados()">Gerar APAC</button>
 
         <p>(*) Todos os itens marcados com o símbolo são de preenchimento obrigatório.</p>
 
     </form>
 
     <div class="anuncio-oculto">
-    Espaço Reservado (Abaixo do Botão Gerar AIH)
+        Espaço Reservado (Abaixo do Botão Gerar APAC)
     </div>
 
     <!-- Guia de Preenchimento -->
-    <section id="guia-preenchimento" style="max-width: 800px; width: 100%; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); box-sizing: border-box; margin-top: 40px; margin-bottom: 40px;">
+    <section id="guia-preenchimento" style="max-width: 840px; width: 100%; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); box-sizing: border-box; margin-top: 40px; margin-bottom: 40px;">
         <h2>Guia Completo: Como Preencher a APAC do SUS</h2>
         <p>A Autorização de Procedimentos Ambulatoriais (APAC) é o documento fundamental para o faturamento e registro de atendimentos de alta complexidade no Sistema Único de Saúde (SUS). O preenchimento correto evita glosas e garante o repasse adequado de recursos financeiros.</p>
 
@@ -858,34 +1098,39 @@
             <li id="texto-guia-est" style="margin-bottom: 10px;"><strong>Identificação do Estabelecimento:</strong> Insira o nome do estabelecimento e o código CNES (Cadastro Nacional de Estabelecimentos de Saúde) correspondente com exatos 7 dígitos.</li>
             <li id="texto-guia-paciente" style="margin-bottom: 10px;"><strong>Dados do Paciente:</strong> O Cartão Nacional de Saúde (CNS) é obrigatório e deve conter 15 dígitos válidos. Fique atento à exatidão da data de nascimento e demais dados demográficos para evitar duplicidades cadastrais.</li>
             <li id="texto-guia-diagnostico" style="margin-bottom: 10px;"><strong>Descrição do Diagnóstico:</strong> Relate o quadro clínico de forma objetiva. Descreva as condições atuais do paciente que embasam tecnicamente a necessidade do procedimento ambulatorial solicitado.</li>
-            <li id="texto-guia-observacoes" style="margin-bottom: 10px;"><strong>Observações</strong> Utilize este espaço para incluir informações adicionais relevantes ao processamento da autorização ou ressalvas clínicas específicas.</li>
+            <li id="texto-guia-observacoes" style="margin-bottom: 10px;"><strong>Observações:</strong> Utilize este espaço para incluir informações adicionais relevantes ao processamento da autorização ou ressalvas clínicas específicas.</li>
         </ul>
         
         <h3>3. Classificação Internacional de Doenças (CID-10)</h3>
-        <p>A plataforma integra a base oficial do DATASUS para autocompletar os códigos. É crucial entender a hierarquia técnica:</p>
-    <div id="texto-guia-cid">
-        <ul>
-            <li style="margin-bottom: 10px;"><strong>Diagnóstico Inicial:</strong> O nome da doença primária que gera o quadro patológico e motivou a solicitação.</li>
-            <li style="margin-bottom: 10px;"><strong>CID Principal:</strong> A condição primária exata que justifica o procedimento ambulatorial.</li>
-            <li style="margin-bottom: 10px;"><strong>CID Secundário / Causas Associadas:</strong> Comorbidades crônicas ou situações agravantes que influenciam o manejo clínico.</li>
-        </ul>
-    </div>
+        <p>A plataforma integra a base oficial completa do DATASUS (12.451 diagnósticos) para autocompletar os códigos e exibir as subcategorias da mesma família diagnóstica. É crucial entender a hierarquia técnica:</p>
+        <div id="texto-guia-cid">
+            <ul>
+                <li style="margin-bottom: 10px;"><strong>Diagnóstico Inicial:</strong> O nome da doença primária que gera o quadro patológico e motivou a solicitação.</li>
+                <li style="margin-bottom: 10px;"><strong>CID Principal:</strong> A condição primária exata que justifica o procedimento ambulatorial.</li>
+                <li style="margin-bottom: 10px;"><strong>CID Secundário / Causas Associadas:</strong> Comorbidades crônicas ou situações agravantes que influenciam o manejo clínico.</li>
+            </ul>
+        </div>
 
         <h3>4. Procedimentos e Tabela SIGTAP</h3>
-    <div id="texto-guia-sigtap">
-        <p>O Sistema de Gerenciamento da Tabela de Procedimentos (SIGTAP) define os códigos de 10 dígitos. Utilize a busca inteligente para localizar o procedimento principal. Se necessário, adicione até 5 <strong>Procedimentos Secundários</strong>. Insira a <strong>Quantidade</strong> exata de cada item, respeitando sempre a concordância técnica com o CID-10 apontado e os limites do Ministério da Saúde.</p>
-    </div>
+        <div id="texto-guia-sigtap">
+            <p>O Sistema de Gerenciamento da Tabela de Procedimentos (SIGTAP) define os códigos de 10 dígitos. Utilize a busca inteligente para localizar o procedimento principal. Se necessário, adicione até 5 <strong>Procedimentos Secundários</strong>. Insira a <strong>Quantidade</strong> exata de cada item, respeitando sempre a concordância técnica com o CID-10 apontado e os limites do Ministério da Saúde.</p>
+        </div>
 
         <h3>5. Validação Legal</h3>
         <p>O documento gerado em PDF pela nossa plataforma não dispensa a etapa de validação. Ele deve ser impresso e carimbado pelo profissional de saúde solicitante, ou assinado digitalmente da forma que lhe for preferida, informando seu respectivo conselho de classe e associando forma de assinatura legalmente viável para atestar a veracidade das informações clínicas prestadas.</p>
     </section>
 
     <div class="anuncio-oculto">
-            Espaço Reservado (Fim da Página)
-        </div>
+        Espaço Reservado (Fim da Página)
+    </div>
 
     <footer class="rodape-principal">
         <div class="rodape-links">
+            <a href="index.html">Gerador de AIH</a>
+            <a href="apac.html">Gerador de APAC</a>
+            <a href="busca.html">Busca Integrada</a>
+            <a href="sigtap/index.html">Tabela SIGTAP</a>
+            <a href="cid/index.html">Tabela CID-10</a>
             <a href="sobre.html">Sobre a Ferramenta</a>
             <a href="privacidade.html">Política de Privacidade</a>
             <a href="termos.html">Termos de Uso</a>
@@ -898,232 +1143,579 @@
     </footer>
 
 <script>
-	
 // --- SISTEMA DE TEMA (CLARO/ESCURO) ---
-    function alternarTema() {
-	const corpo = document.body;
-	const botao = document.getElementById('btnTema');
+function alternarTema() {
+    const corpo = document.body;
+    const botao = document.getElementById('btnTema');
     
-    // Liga ou desliga a classe 'dark-mode'
     corpo.classList.toggle('dark-mode');
     
-    // Checa se o modo escuro está ativado no momento
     if (corpo.classList.contains('dark-mode')) {
         botao.innerText = '☀️ Modo Claro';
-        localStorage.setItem('temaPreferencia', 'escuro'); // Salva no navegador
+        localStorage.setItem('temaPreferencia', 'escuro');
     } else {
         botao.innerText = '🌙 Modo Escuro';
-        localStorage.setItem('temaPreferencia', 'claro'); // Salva no navegador
+        localStorage.setItem('temaPreferencia', 'claro');
     }
-    }
+}
 
-    // --- SISTEMA DE CONSENTIMENTO DE COOKIES ---
-    function aceitarCookies() {
-        localStorage.setItem('cookiesAceitos', 'sim');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
+// --- SISTEMA DE CONSENTIMENTO DE COOKIES ---
+function aceitarCookies() {
+    localStorage.setItem('cookiesAceitos', 'sim');
+    document.getElementById('cookie-banner').style.display = 'none';
+}
 
-    // Checa a memória do navegador assim que o script carrega (evita piscar a tela branca)
-    if (localStorage.getItem('temaPreferencia') === 'escuro') {
-        document.body.classList.add('dark-mode');
-    }
+if (localStorage.getItem('temaPreferencia') === 'escuro') {
+    document.body.classList.add('dark-mode');
+}
 
 // --- SISTEMA DE MEMÓRIA (LOCALSTORAGE) ---
-    // Lista dos IDs dos campos estáticos que queremos lembrar
-    const camposMemoria = [
-        'nomeEstabelecimento', 
-        'cnesEstabelecimento', 
-        'tipoDocumentoProfissional', 
-        'numeroDocProfissional', 
-        'nomeProfissional'
-    ];
+const camposMemoria = [
+    'nomeEstabelecimento', 
+    'cnesEstabelecimento', 
+    'tipoDocumentoProfissional', 
+    'numeroDocProfissional', 
+    'nomeProfissional'
+];
 
-    function salvarDadosFixos() {
-        // Varre a lista e salva o valor atual de cada campo no navegador
-        camposMemoria.forEach(id => {
-            const elemento = document.getElementById(id);
-            if (elemento && elemento.value.trim() !== '') {
-                localStorage.setItem('apac_mem_' + id, elemento.value);
+function salvarDadosFixos() {
+    camposMemoria.forEach(id => {
+        const elemento = document.getElementById(id);
+        if (elemento && elemento.value.trim() !== '') {
+            localStorage.setItem('apac_mem_' + id, elemento.value);
+        }
+    });
+}
+
+function carregarDadosFixos() {
+    camposMemoria.forEach(id => {
+        const valorSalvo = localStorage.getItem('apac_mem_' + id);
+        const elemento = document.getElementById(id);
+        if (valorSalvo && elemento) {
+            elemento.value = valorSalvo;
+        }
+    });
+}
+
+function limparMemoria() {
+    camposMemoria.forEach(id => {
+        localStorage.removeItem('apac_mem_' + id);
+        const elemento = document.getElementById(id);
+        if (elemento) {
+            elemento.value = '';
+        }
+    });
+    alert('Memória limpa com sucesso. Os dados do profissional e do hospital foram desvinculados deste computador.');
+}
+
+// ============================================================================
+// MOTOR BIDIRECIONAL INTELIGENTE (CID-10 <-> SIGTAP) + FAMÍLIAS + DEEP LINKING
+// ============================================================================
+let bancoCids = [];
+let mapaCidPorCodigo = new Map();
+let cidsPorFamilia = new Map(); // 'C50' -> [cidObj1, cidObj2, ...]
+let bancoProcedimentos = [];
+let mapaProcPorCodigo = new Map();
+let mapaCidParaProcs = new Map(); // CID -> Set(codigosSIGTAP)
+let mapaProcParaCids = new Map(); // codigoSIGTAP -> Set(codigosCID)
+
+function normalizarBusca(texto) {
+    return String(texto || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+}
+
+function gerarSlugSeo(texto, tamanhoMax = 68) {
+    const semAcento = String(texto || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const limpo = semAcento.replace(/[^a-zA-Z0-9\s-]/g, '').trim().toLowerCase();
+    const slug = limpo.replace(/[\s-]+/g, '-').slice(0, tamanhoMax).replace(/^-+|-+$/g, '');
+    return slug || 'registro-sus';
+}
+
+function formatarCidVisual(cid) {
+    const limpo = String(cid || '').replace(/\./g, '').trim().toUpperCase();
+    if (limpo.length === 4 && limpo[3] !== 'X') {
+        return `${limpo.slice(0, 3)}.${limpo[3]}`;
+    }
+    return limpo;
+}
+
+function extrairFamiliaCid(cid) {
+    const limpo = String(cid || '').replace(/\./g, '').trim().toUpperCase();
+    return limpo.length >= 3 ? limpo.slice(0, 3) : limpo;
+}
+
+async function inicializarBasesClinicas() {
+    const [resCid, resSigtap, resRel] = await Promise.allSettled([
+        fetch('cid10-csv-teste1.json'),
+        fetch('sigtap.json'),
+        fetch('rl_procedimento_cid.json')
+    ]);
+
+    // 1. Carrega CID-10 e agrupa por família (3 caracteres)
+    if (resCid.status === 'fulfilled' && resCid.value.ok) {
+        try {
+            const dadosBrutosCid = await resCid.value.json();
+            dadosBrutosCid.forEach(doenca => {
+                const partes = doenca[Object.keys(doenca)[0]].split(';');
+                if (partes.length < 5) return;
+                const codigo = (partes[0] || '').replace(/\./g, '').trim().toUpperCase();
+                const nome = (partes[4] || '').trim();
+                if (!codigo || !nome) return;
+
+                const visual = formatarCidVisual(codigo);
+                const familia = extrairFamiliaCid(codigo);
+                const slug = `${codigo.toLowerCase()}-${gerarSlugSeo(nome)}.html`;
+                const obj = {
+                    codigo: codigo,
+                    visual: visual,
+                    nome: nome,
+                    familia: familia,
+                    slug: slug,
+                    busca: normalizarBusca(`${codigo} ${visual} ${nome}`)
+                };
+                bancoCids.push(obj);
+                mapaCidPorCodigo.set(codigo, obj);
+
+                if (!cidsPorFamilia.has(familia)) cidsPorFamilia.set(familia, []);
+                cidsPorFamilia.get(familia).push(obj);
+            });
+
+            cidsPorFamilia.forEach(lista => lista.sort((a, b) => a.codigo.localeCompare(b.codigo)));
+        } catch (erroCid) {
+            console.error("Erro ao processar cid10-csv-teste1.json:", erroCid);
+        }
+    }
+
+    // 2. Carrega SIGTAP Posicional
+    if (resSigtap.status === 'fulfilled' && resSigtap.value.ok) {
+        try {
+            const textoBrutoSigtap = await resSigtap.value.text();
+            const linhasSigtap = textoBrutoSigtap.split(/\r?\n/);
+            bancoProcedimentos = [];
+            linhasSigtap.forEach(linha => {
+                if (linha.trim() === '') return;
+                const codigoBruto = linha.substring(0, 10).trim();
+                const nomeBruto = linha.substring(10, 260).trim();
+                if (codigoBruto !== '') {
+                    const obj = {
+                        codigo: codigoBruto,
+                        nome: nomeBruto,
+                        slug: `${codigoBruto}-${gerarSlugSeo(nomeBruto)}.html`,
+                        busca: normalizarBusca(codigoBruto + ' ' + nomeBruto)
+                    };
+                    bancoProcedimentos.push(obj);
+                    mapaProcPorCodigo.set(codigoBruto, obj);
+                }
+            });
+        } catch (erroSigtap) {
+            console.error("Erro ao processar sigtap.json:", erroSigtap);
+        }
+    }
+
+    // 3. Carrega Vínculos Relacionais (Hash Lookup O(1))
+    if (resRel.status === 'fulfilled' && resRel.value.ok) {
+        try {
+            const dadosRel = await resRel.value.json();
+            dadosRel.forEach(item => {
+                const cid = String(item.cid || '').replace(/\./g, '').trim().toUpperCase();
+                const proc = String(item.proc || '').trim();
+                if (!cid || !proc) return;
+
+                if (!mapaCidParaProcs.has(cid)) mapaCidParaProcs.set(cid, new Set());
+                mapaCidParaProcs.get(cid).add(proc);
+
+                if (!mapaProcParaCids.has(proc)) mapaProcParaCids.set(proc, new Set());
+                mapaProcParaCids.get(proc).add(cid);
+            });
+        } catch (erroRel) {
+            console.warn("Aviso: rl_procedimento_cid.json indisponível no momento:", erroRel);
+        }
+    }
+
+    // 4. Aplica Deep Linking via URL (?proc=...&cid=...)
+    aplicarParametrosUrlSeo();
+}
+
+// Menu inferior de subcategorias da família CID-10 (Principal, Secundário e Causas Associadas)
+function renderizarPainelFamiliaGenerico(idPainel, cidObj, aoSelecionarIrmao) {
+    const painel = document.getElementById(idPainel);
+    if (!painel || !cidObj) {
+        if (painel) painel.style.display = 'none';
+        return;
+    }
+
+    const membrosFamilia = cidsPorFamilia.get(cidObj.familia) || [cidObj];
+    painel.innerHTML = '';
+
+    const topo = document.createElement('div');
+    topo.className = 'cabecalho-familia-cid';
+    topo.innerHTML = `
+        <span>Família CID-10 ${cidObj.familia} (${membrosFamilia.length} subcategoria${membrosFamilia.length > 1 ? 's' : ''})</span>
+        <a href="cid/${cidObj.slug}" target="_blank" rel="noopener noreferrer">Ver ficha completa de ${cidObj.visual} ↗</a>
+    `;
+    painel.appendChild(topo);
+
+    if (membrosFamilia.length > 1) {
+        const containerChips = document.createElement('div');
+        containerChips.className = 'chips-familia-cid';
+
+        membrosFamilia.forEach(irmao => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'chip-subcid' + (irmao.codigo === cidObj.codigo ? ' ativo' : '');
+            btn.title = irmao.nome;
+            btn.textContent = `${irmao.visual} — ${irmao.nome}`;
+            btn.addEventListener('click', () => aoSelecionarIrmao(irmao));
+            containerChips.appendChild(btn);
+        });
+
+        painel.appendChild(containerChips);
+    }
+
+    painel.style.display = 'block';
+}
+
+function verificarCompatibilidadeCruzada() {
+    const cidAtual = document.getElementById('cidPrincipal').value.trim().toUpperCase();
+    const procAtual = document.getElementById('codigoProcedimento').value.trim();
+    const boxAviso = document.getElementById('avisoCompatibilidadeSus');
+    if (!boxAviso) return;
+
+    if (!cidAtual || !procAtual || mapaCidParaProcs.size === 0) {
+        boxAviso.style.display = 'none';
+        boxAviso.className = '';
+        return;
+    }
+
+    const cidObj = mapaCidPorCodigo.get(cidAtual);
+    const procObj = mapaProcPorCodigo.get(procAtual);
+    const linksHtml = (cidObj && procObj)
+        ? `<div class="links-ficha-tecnica">
+             <a href="sigtap/${procObj.slug}" target="_blank" rel="noopener noreferrer">Consultar ficha SIGTAP ${procAtual} ↗</a>
+             <a href="cid/${cidObj.slug}" target="_blank" rel="noopener noreferrer">Consultar ficha CID ${cidObj.visual} ↗</a>
+           </div>`
+        : '';
+
+    const procsAceitos = mapaCidParaProcs.get(cidAtual);
+    if (procsAceitos && procsAceitos.has(procAtual)) {
+        boxAviso.style.display = 'block';
+        boxAviso.className = 'status-compativel';
+        boxAviso.innerHTML = `✓ Compatibilidade Validada no SUS: O procedimento ${procAtual} é oficialmente autorizado para o CID ${cidObj ? cidObj.visual : cidAtual}.${linksHtml}`;
+    } else if (mapaProcParaCids.has(procAtual)) {
+        boxAviso.style.display = 'block';
+        boxAviso.className = 'status-alerta';
+        boxAviso.innerHTML = `⚠️ Atenção Regulatória: O CID ${cidObj ? cidObj.visual : cidAtual} não consta na relação padrão do DATASUS para o procedimento ${procAtual}. Confirme se a regulação local exige outro CID principal.${linksHtml}`;
+    } else {
+        boxAviso.style.display = 'none';
+        boxAviso.className = '';
+    }
+}
+
+function selecionarCidOficial(cidObj) {
+    const campoDiagnostico = document.getElementById('diagnosticoInicial');
+    const campoCidVisivel = document.getElementById('buscaCidPrincipal');
+    const campoCidEscondido = document.getElementById('cidPrincipal');
+
+    campoDiagnostico.value = cidObj.nome.substring(0, 40);
+    campoCidVisivel.value = cidObj.codigo;
+    campoDiagnostico.dispatchEvent(new Event('input'));
+    campoCidEscondido.value = cidObj.codigo;
+
+    campoDiagnostico.classList.remove('campo-invalido');
+    campoCidVisivel.classList.remove('campo-invalido');
+    document.getElementById('listaDiagnostico').innerHTML = '';
+    document.getElementById('listaCidPrincipal').innerHTML = '';
+
+    renderizarPainelFamiliaGenerico('painelFamiliaCid', cidObj, selecionarCidOficial);
+    verificarCompatibilidadeCruzada();
+}
+
+function selecionarProcedimentoOficial(procObj) {
+    const campoDescricao = document.getElementById('descricaoProcedimento');
+    const campoCodigoVisivel = document.getElementById('buscaCodigoProcedimento');
+    const campoCodigoEscondido = document.getElementById('codigoProcedimento');
+
+    campoDescricao.value = procObj.nome.substring(0, 50);
+    campoCodigoVisivel.value = procObj.codigo;
+    campoCodigoEscondido.value = procObj.codigo;
+
+    campoDescricao.classList.remove('campo-invalido');
+    campoCodigoVisivel.classList.remove('campo-invalido');
+    document.getElementById('listaDescricaoProcedimento').innerHTML = '';
+    document.getElementById('listaCodigoProcedimento').innerHTML = '';
+
+    verificarCompatibilidadeCruzada();
+}
+
+function aplicarParametrosUrlSeo() {
+    const params = new URLSearchParams(window.location.search);
+    const procParam = (params.get('proc') || '').replace(/\D/g, '');
+    const cidParam = (params.get('cid') || '').replace(/\./g, '').trim().toUpperCase();
+
+    if (cidParam) {
+        const cidEncontrado = mapaCidPorCodigo.get(cidParam);
+        if (cidEncontrado) selecionarCidOficial(cidEncontrado);
+    }
+
+    if (procParam) {
+        const procEncontrado = mapaProcPorCodigo.get(procParam);
+        if (procEncontrado) selecionarProcedimentoOficial(procEncontrado);
+    }
+}
+
+function configurarNavegacaoTecladoAutocomplete(campoInput, listaElemento) {
+    let indiceFoco = -1;
+
+    campoInput.addEventListener('keydown', function(e) {
+        const itens = listaElemento.getElementsByTagName('div');
+        if (!itens || itens.length === 0) {
+            indiceFoco = -1;
+            return;
+        }
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            indiceFoco = (indiceFoco + 1) % itens.length;
+            atualizarDestaque(itens);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            indiceFoco = (indiceFoco - 1 + itens.length) % itens.length;
+            atualizarDestaque(itens);
+        } else if (e.key === 'Enter' && indiceFoco > -1) {
+            e.preventDefault();
+            itens[indiceFoco].click();
+            indiceFoco = -1;
+        } else if (e.key === 'Escape') {
+            listaElemento.innerHTML = '';
+            indiceFoco = -1;
+        }
+    });
+
+    function atualizarDestaque(itens) {
+        for (let i = 0; i < itens.length; i++) {
+            itens[i].classList.remove('autocomplete-active');
+        }
+        if (indiceFoco >= 0 && itens[indiceFoco]) {
+            itens[indiceFoco].classList.add('autocomplete-active');
+            itens[indiceFoco].scrollIntoView({ block: 'nearest' });
+        }
+    }
+}
+
+function iniciarAutocompleteSincronizado(idCampoBusca, idLista) {
+    const campoBusca = document.getElementById(idCampoBusca);
+    const lista = document.getElementById(idLista);
+    const campoCidEscondido = document.getElementById('cidPrincipal');
+
+    function renderizarOpcoesCid() {
+        const valor = normalizarBusca(campoBusca.value);
+        const procSelecionado = document.getElementById('codigoProcedimento').value.trim();
+        const cidsCompat = procSelecionado ? mapaProcParaCids.get(procSelecionado) : null;
+
+        lista.innerHTML = '';
+        if (!valor && !cidsCompat) return;
+
+        let candidatos = [];
+        if (!valor && cidsCompat) {
+            candidatos = bancoCids.filter(c => cidsCompat.has(c.codigo)).slice(0, 50);
+        } else {
+            candidatos = bancoCids.filter(c => c.busca.includes(valor));
+            if (cidsCompat) {
+                candidatos.sort((a, b) => (cidsCompat.has(b.codigo) ? 1 : 0) - (cidsCompat.has(a.codigo) ? 1 : 0));
             }
+            candidatos = candidatos.slice(0, 60);
+        }
+
+        candidatos.forEach(cid => {
+            const ehCompativel = cidsCompat && cidsCompat.has(cid.codigo);
+            const item = document.createElement('div');
+            const badge = ehCompativel ? `<span class="badge-compat">✓ Compatível</span>` : '';
+            item.innerHTML = `<strong>${cid.visual}</strong> - ${cid.nome}${badge}`;
+            item.addEventListener('click', () => selecionarCidOficial(cid));
+            lista.appendChild(item);
         });
     }
 
-    function carregarDadosFixos() {
-        // Varre a lista e, se houver dado salvo, preenche o campo automaticamente
-        camposMemoria.forEach(id => {
-            const valorSalvo = localStorage.getItem('apac_mem_' + id);
-            const elemento = document.getElementById(id);
-            if (valorSalvo && elemento) {
-                elemento.value = valorSalvo;
+    campoBusca.addEventListener('input', function() {
+        campoCidEscondido.value = '';
+        document.getElementById('painelFamiliaCid').style.display = 'none';
+        verificarCompatibilidadeCruzada();
+        renderizarOpcoesCid();
+    });
+
+    campoBusca.addEventListener('focus', function() {
+        if (!campoCidEscondido.value) {
+            renderizarOpcoesCid();
+        }
+    });
+
+    configurarNavegacaoTecladoAutocomplete(campoBusca, lista);
+}
+
+// Autocompletar + Painel de Família CID-10 para CID Secundário e CID Causas Associadas
+function iniciarAutocompleteCidAuxiliar(idInput, idLista, idPainelFamilia) {
+    const campo = document.getElementById(idInput);
+    const lista = document.getElementById(idLista);
+    if (!campo || !lista) return;
+
+    function aplicarCidAuxiliar(cidObj) {
+        campo.value = cidObj.codigo;
+        campo.classList.remove('campo-invalido');
+        lista.innerHTML = '';
+        renderizarPainelFamiliaGenerico(idPainelFamilia, cidObj, aplicarCidAuxiliar);
+    }
+
+    campo.addEventListener('input', function() {
+        const valorRaw = this.value;
+        const valorBusca = normalizarBusca(valorRaw);
+        const codigoLimpo = valorRaw.replace(/\./g, '').trim().toUpperCase();
+
+        lista.innerHTML = '';
+
+        if (mapaCidPorCodigo.has(codigoLimpo)) {
+            renderizarPainelFamiliaGenerico(idPainelFamilia, mapaCidPorCodigo.get(codigoLimpo), aplicarCidAuxiliar);
+        } else {
+            const painel = document.getElementById(idPainelFamilia);
+            if (painel) painel.style.display = 'none';
+        }
+
+        if (!valorBusca) return;
+
+        const candidatos = bancoCids
+            .filter(c => c.busca.includes(valorBusca))
+            .slice(0, 60);
+
+        candidatos.forEach(cid => {
+            const item = document.createElement('div');
+            item.innerHTML = `<strong>${cid.visual}</strong> - ${cid.nome}`;
+            item.addEventListener('click', () => aplicarCidAuxiliar(cid));
+            lista.appendChild(item);
+        });
+    });
+
+    configurarNavegacaoTecladoAutocomplete(campo, lista);
+}
+
+function iniciarAutocompleteProcedimento(idCampoBusca, idLista) {
+    const campoBusca = document.getElementById(idCampoBusca);
+    const lista = document.getElementById(idLista);
+    const campoCodigoEscondido = document.getElementById('codigoProcedimento');
+
+    function renderizarOpcoesProc() {
+        const valor = normalizarBusca(campoBusca.value);
+        const cidSelecionado = document.getElementById('cidPrincipal').value.trim().toUpperCase();
+        const procsCompat = cidSelecionado ? mapaCidParaProcs.get(cidSelecionado) : null;
+
+        lista.innerHTML = '';
+        if (!valor && !procsCompat) return;
+
+        let candidatos = [];
+        if (!valor && procsCompat) {
+            candidatos = bancoProcedimentos.filter(p => procsCompat.has(p.codigo)).slice(0, 50);
+        } else {
+            candidatos = bancoProcedimentos.filter(p => p.busca.includes(valor));
+            if (procsCompat) {
+                candidatos.sort((a, b) => (procsCompat.has(b.codigo) ? 1 : 0) - (procsCompat.has(a.codigo) ? 1 : 0));
             }
+            candidatos = candidatos.slice(0, 60);
+        }
+
+        candidatos.forEach(proc => {
+            const ehCompativel = procsCompat && procsCompat.has(proc.codigo);
+            const item = document.createElement('div');
+            const badge = ehCompativel ? `<span class="badge-compat">✓ Compatível com ${formatarCidVisual(cidSelecionado)}</span>` : '';
+            item.innerHTML = `<strong>${proc.codigo}</strong> - ${proc.nome}${badge}`;
+            item.addEventListener('click', () => selecionarProcedimentoOficial(proc));
+            lista.appendChild(item);
         });
     }
 
-    function limparMemoria() {
-        // Apaga do cofre do navegador e limpa os campos na tela
-        camposMemoria.forEach(id => {
-            localStorage.removeItem('apac_mem_' + id);
-            const elemento = document.getElementById(id);
-            if (elemento) {
-                elemento.value = '';
-            }
-        });
-        alert('Memória limpa com sucesso. Os dados do profissional e do hospital foram desvinculados deste computador.');
-    }
+    campoBusca.addEventListener('input', function() {
+        campoCodigoEscondido.value = '';
+        verificarCompatibilidadeCruzada();
+        renderizarOpcoesProc();
+    });
 
-// O window.onload é um gatilho. Ele diz: "Navegador, assim que terminar de ler o HTML, execute isso:"
+    campoBusca.addEventListener('focus', function() {
+        if (!campoCodigoEscondido.value) {
+            renderizarOpcoesProc();
+        }
+    });
+
+    configurarNavegacaoTecladoAutocomplete(campoBusca, lista);
+}
+
 window.onload = function() {
-	// Atualiza o texto do botão caso o modo escuro esteja salvo na memória
     if (document.body.classList.contains('dark-mode')) {
         document.getElementById('btnTema').innerText = '☀️ Modo Claro';
     }
-	
-    // Exibe o banner de cookies se o usuário ainda não tiver aceitado
+    
     if (!localStorage.getItem('cookiesAceitos')) {
         document.getElementById('cookie-banner').style.display = 'flex';
     }
 
-    // Dispara a busca pela memória salva no dispositivo
     carregarDadosFixos();
 
-    let hoje = new Date(); // Captura o relógio interno do computador no momento exato
-    
-    let ano = hoje.getFullYear(); // Pega o ano (ex: 2026)
-    
-    // Na programação, os meses começam no zero (Janeiro = 0, Fevereiro = 1). 
-    // Por isso somamos + 1. O "padStart(2, '0')" garante que o mês 5 vire "05".
+    let hoje = new Date();
+    let ano = hoje.getFullYear();
     let mes = String(hoje.getMonth() + 1).padStart(2, '0'); 
-    
-    let dia = String(hoje.getDate()).padStart(2, '0'); // O mesmo para o dia
-    
-    // O campo HTML do tipo "date" exige que o formato seja escrito em inglês (AAAA-MM-DD)
-    let dataFormatadaPadrao = ano + '-' + mes + '-' + dia;
-    
-    // Injeta a data formatada diretamente na caixa de texto na tela
-    document.getElementById('dataSolicitacao').value = dataFormatadaPadrao;
+    let dia = String(hoje.getDate()).padStart(2, '0');
+    document.getElementById('dataSolicitacao').value = ano + '-' + mes + '-' + dia;
 
-    // --- ATIVANDO OS CONTADORES DE CARACTERES ---
-    iniciarContador('observacoesApac', 'cont-observacoesApac', 650);
-    iniciarContador('descricaoDiagnostico', 'cont-descricaoDiagnostico', 60);
-
-    // NOVA FUNÇÃO: Preparando o "Ouvinte" de digitação
     function iniciarContador(idCampo, idContador, limite) {
         let campo = document.getElementById(idCampo);
         let contador = document.getElementById(idContador);
+        if (!campo || !contador) return;
 
-            if (!campo || !contador) return;
-
-        // O 'addEventListener' escuta especificamente o evento 'input' (quando qualquer tecla é digitada ou apagada)
         campo.addEventListener('input', function() {
-            let quantidadeDigitada = campo.value.length; // Conta quantas letras existem no campo agora
-            
-            // Atualiza o texto na tela
+            let quantidadeDigitada = campo.value.length;
             contador.innerText = quantidadeDigitada + " / " + limite;
             
-            // Bônus de UX: Se chegar no limite, o texto fica vermelho para alertar o médico
             if (quantidadeDigitada >= limite) {
                 contador.style.color = "red";
                 contador.style.fontWeight = "bold";
             } else {
-                contador.style.color = "#666666"; // Volta pro cinza se ele apagar letras
+                contador.style.color = "#666666";
                 contador.style.fontWeight = "normal";
             }
         });
     }
-	
-// --- BANCO DE DADOS DE CIDS (Amostra do MVP) ---
-// Regra SUS: CIDs de 3 letras ganham um "X" no final para preencher os 4 quadradinhos
-// --- O NOSSO BANCO DE DADOS AGORA COMEÇA VAZIO ---
-    let bancoCids = [];
 
-    // --- NOVA FUNÇÃO QUE CONSOME A API / ARQUIVO JSON ---
-    async function carregarBancoCids() {
-    try {
-        let resposta = await fetch('cid10-csv-teste1.json');
-        let dadosBrutos = await resposta.json();
-        
-        bancoCids = dadosBrutos.map(doenca => {
-            let partes = doenca[Object.keys(doenca)[0]].split(';');
-            return {
-                codigo: partes[0],
-                nome: partes[4]
-            };
-        });
-        
-        console.log("Banco de CIDs carregado com sucesso! Total:", bancoCids.length);
-    } catch (erro) {
-        console.error("Erro ao carregar o arquivo:", erro);
-    }
-}
+    iniciarContador('observacoesApac', 'cont-observacoesApac', 650);
+    iniciarContador('descricaoDiagnostico', 'cont-descricaoDiagnostico', 60);
 
-    // Chama a função para carregar os dados assim que a página abrir
-    carregarBancoCids();    // (Mantenha o seu array const bancoCids = [...] exatamente como está)
+    // Carrega CID, SIGTAP e Relacional e aplica Deep Linking
+    inicializarBasesClinicas();
 
-    // NOVA LÓGICA DE AUTOCOMPLETE DUPLO E SINCRONIZADO
-    function iniciarAutocompleteSincronizado(idCampoBusca, idLista) {
-        let campoBusca = document.getElementById(idCampoBusca);
-        let lista = document.getElementById(idLista);
-        let campoDiagnostico = document.getElementById('diagnosticoInicial');
-        let campoCidVisivel = document.getElementById('buscaCidPrincipal');
-        let campoCidEscondido = document.getElementById('cidPrincipal');
-
-        // Escuta a digitação no campo
-        campoBusca.addEventListener('input', function() {
-            let valor = this.value.toLowerCase();
-            lista.innerHTML = '';
-            campoCidEscondido.value = ''; // Reseta o código oficial se o médico alterar o texto
-
-            if (!valor) return;
-
-            let resultados = bancoCids.filter(cid => 
-                cid.codigo.toLowerCase().includes(valor) || 
-                cid.nome.toLowerCase().includes(valor)
-            );
-
-            resultados.forEach(cid => {
-                let item = document.createElement('div');
-                item.innerHTML = `<strong>${cid.codigo}</strong> - ${cid.nome}`;
-                
-                // O QUE ACONTECE AO CLICAR NA DOENÇA?
-                item.addEventListener('click', function() {
-                    
-                    // 1. Injeta o Nome da Doença no campo de Diagnóstico
-                    campoDiagnostico.value = cid.nome;
-                    
-                    // 2. Injeta o Código do CID no campo visível do formulário
-                    campoCidVisivel.value = cid.codigo;
-                    
-                    // 3. Força o contador de caracteres a recalcular PRIMEIRO!
-                    campoDiagnostico.dispatchEvent(new Event('input'));
-                    
-                    // 4. Salva o Código invisível DEPOIS do evento, para não ser apagado por acidente!
-                    campoCidEscondido.value = cid.codigo;
-                    
-                    // 5. Remove qualquer alerta de erro vermelho dos campos
-                    campoDiagnostico.classList.remove('campo-invalido');
-                    campoCidVisivel.classList.remove('campo-invalido');
-                    
-                    // 6. Fecha ambos os menus suspensos
-                    document.getElementById('listaDiagnostico').innerHTML = '';
-                    document.getElementById('listaCidPrincipal').innerHTML = '';
-                });
-                
-                lista.appendChild(item);
-            });
-        });
-    }
-
-    // Ativamos a mesma inteligência para os DOIS campos do formulário
+    // Ativa autocompletes bidirecionais (Principal, Secundário e Causas Associadas)
     iniciarAutocompleteSincronizado('diagnosticoInicial', 'listaDiagnostico');
     iniciarAutocompleteSincronizado('buscaCidPrincipal', 'listaCidPrincipal');
+    iniciarAutocompleteCidAuxiliar('cidSecundario', 'listaCidSecundario', 'painelFamiliaCidSecundario');
+    iniciarAutocompleteCidAuxiliar('cidCausasAssociadas', 'listaCidCausasAssociadas', 'painelFamiliaCidCausasAssociadas');
 
-    // Fechar os menus caso o usuário clique em qualquer lugar fora da caixa
+    // Ativa autocompletes de Procedimento SIGTAP
+    iniciarAutocompleteProcedimento('descricaoProcedimento', 'listaDescricaoProcedimento');
+    iniciarAutocompleteProcedimento('buscaCodigoProcedimento', 'listaCodigoProcedimento');
+
+    // Fecha os menus caso o usuário clique em qualquer lugar fora das caixas
     document.addEventListener('click', function(e) {
         if (e.target.id !== 'diagnosticoInicial' && e.target.id !== 'buscaCidPrincipal') {
             document.getElementById('listaDiagnostico').innerHTML = '';
             document.getElementById('listaCidPrincipal').innerHTML = '';
         }
-        // Fecha as listas dos procedimentos secundários gerados dinamicamente
+        if (e.target.id !== 'cidSecundario') {
+            document.getElementById('listaCidSecundario').innerHTML = '';
+        }
+        if (e.target.id !== 'cidCausasAssociadas') {
+            document.getElementById('listaCidCausasAssociadas').innerHTML = '';
+        }
+        if (e.target.id !== 'descricaoProcedimento' && e.target.id !== 'buscaCodigoProcedimento') {
+            document.getElementById('listaDescricaoProcedimento').innerHTML = '';
+            document.getElementById('listaCodigoProcedimento').innerHTML = '';
+        }
         if (!e.target.id.includes('ProcSec')) {
             let todasListasDin = document.querySelectorAll('[id^="listaDescricaoProcSec"], [id^="listaCodigoProcSec"]');
             todasListasDin.forEach(lista => lista.innerHTML = '');
@@ -1133,7 +1725,6 @@ window.onload = function() {
     // --- SISTEMA DE CAIXA FLUTUANTE (TOOLTIP DE AJUDA) ---
     const tooltip = document.getElementById('tooltip-guia');
 
-    // Mapeamento: Liga o ID do formulário ao ID do texto do Guia.
     const mapeamentoGuia = {
         'nomeEstabelecimento': 'texto-guia-est',
         'cnesEstabelecimento': 'texto-guia-est',
@@ -1156,264 +1747,168 @@ window.onload = function() {
         'qtdeProcedimento': 'texto-guia-sigtap'           
     };
 
-    // Percorre todos os campos mapeados
     for (let idCampo in mapeamentoGuia) {
         let campo = document.getElementById(idCampo);
         if (campo) {
-            // Evento 1: O mouse ENTRA na caixa do formulário
             campo.addEventListener('mouseenter', function() {
                 let idTextoGuia = mapeamentoGuia[idCampo];
                 let elementoTexto = document.getElementById(idTextoGuia);
                 
                 if (elementoTexto) {
-                    tooltip.innerHTML = elementoTexto.innerHTML; // Puxa todo o HTML do guia
+                    tooltip.innerHTML = elementoTexto.innerHTML;
                     tooltip.style.display = 'block';
-                    setTimeout(() => tooltip.style.opacity = '1', 10); // Animação suave
+                    setTimeout(() => tooltip.style.opacity = '1', 10);
                 }
             });
 
-            // Evento 2: O mouse SE MOVE dentro da caixa do formulário
             campo.addEventListener('mousemove', function(e) {
-                // Posiciona a caixa flutuante 15 pixels abaixo e à direita do ponteiro
                 tooltip.style.left = (e.pageX + 15) + 'px';
                 tooltip.style.top = (e.pageY + 15) + 'px';
             });
 
-            // Evento 3: O mouse SAI da caixa do formulário
             campo.addEventListener('mouseleave', function() {
                 tooltip.style.opacity = '0';
-                setTimeout(() => tooltip.style.display = 'none', 200); // Esconde após animação
+                setTimeout(() => tooltip.style.display = 'none', 200);
             });
         }
     }
-
 };
 
-// --- O BANCO DE DADOS DO SIGTAP AGORA COMEÇA VAZIO ---
-    let bancoProcedimentos = [];
+// --- LÓGICA DE MÚLTIPLOS PROCEDIMENTOS SECUNDÁRIOS DINÂMICOS ---
+let contadorProcSec = 0;
 
-// --- FUNÇÃO QUE CONSOME O ARQUIVO BRUTO DO SIGTAP ---
-    async function carregarBancoProcedimentos() {
-        try {
-            // Lemos o arquivo como TEXTO puro, pois ele é um arquivo posicional do DATASUS
-            let resposta = await fetch('sigtap.json');
-            let textoBruto = await resposta.text();
-            
-            // Quebramos o texto gigante em uma lista, separando linha por linha (Enter)
-            let linhas = textoBruto.split('\n');
-            
-            bancoProcedimentos = [];
+function adicionarProcedimentoSecundario() {
+    if (contadorProcSec >= 5) return;
 
-            // Lemos cada linha individualmente
-            linhas.forEach(linha => {
-                // Ignora linhas vazias no final do documento
-                if (linha.trim() === '') return;
+    contadorProcSec++;
 
-                // REGRA DATASUS: Os primeiros 10 caracteres sempre são o Código (0 a 10)
-                let codigoBruto = linha.substring(0, 10).trim();
-                
-                // REGRA DATASUS: A descrição tem exatos 250 caracteres (da posição 10 até a 260)
-                // O ".trim()" no final joga fora todos os espaços vazios que sobrarem.
-                let nomeBruto = linha.substring(10, 260).trim();
+    const container = document.getElementById('containerProcedimentosSecundarios');
+    const div = document.createElement('div');
+    div.className = 'bloco-procedimento-secundario';
+    div.id = `blocoProcSec${contadorProcSec}`;
 
-                // Salva no nosso banco se houver um código válido
-                if (codigoBruto !== '') {
-                    bancoProcedimentos.push({
-                        codigo: codigoBruto,
-                        nome: nomeBruto
-                    });
-                }
-            });
-            
-            console.log("Banco SIGTAP Posicional carregado com sucesso! Total:", bancoProcedimentos.length);
-        } catch (erro) {
-            console.error("Erro ao carregar o arquivo sigtap.json:", erro);
+    div.innerHTML = `
+        <h3 style="font-size: 15px; color: #666; margin-top: 5px; margin-bottom: 15px;">Procedimento Secundário ${contadorProcSec}</h3>
+        
+        <label for="descricaoProcSec${contadorProcSec}">Nome do Procedimento Secundário: *</label>
+        <div class="autocomplete-container">
+            <input type="text" id="descricaoProcSec${contadorProcSec}" maxlength="50" autocomplete="off" placeholder="Digite o nome ou código...">
+            <div id="listaDescricaoProcSec${contadorProcSec}" class="autocomplete-items"></div>
+        </div>
+
+        <div class="campo-grupo">
+            <label for="qtdeProcSec${contadorProcSec}">Quantidade: *</label>
+            <input type="number" id="qtdeProcSec${contadorProcSec}" required min="1" max="99" value="1">
+        </div>
+
+        <label for="buscaCodigoProcSec${contadorProcSec}">Código do Procedimento (SIGTAP): *</label>
+        <div class="autocomplete-container">
+            <input type="text" id="buscaCodigoProcSec${contadorProcSec}" placeholder="Digite o código..." autocomplete="off">
+            <div id="listaCodigoProcSec${contadorProcSec}" class="autocomplete-items"></div>
+        </div>
+        
+        <input type="hidden" id="codigoProcSec${contadorProcSec}">
+    `;
+
+    container.appendChild(div);
+    ativarBuscadorSecundario(contadorProcSec);
+
+    document.getElementById('btnRemoverProcSec').style.display = 'block';
+
+    if (contadorProcSec === 5) {
+        document.getElementById('btnAdicionarProcSec').style.display = 'none';
+    }
+}
+
+function removerProcedimentoSecundario() {
+    if (contadorProcSec > 0) {
+        let blocoParaRemover = document.getElementById(`blocoProcSec${contadorProcSec}`);
+        if (blocoParaRemover) {
+            blocoParaRemover.remove();
+        }
+        
+        contadorProcSec--;
+        document.getElementById('btnAdicionarProcSec').style.display = 'block';
+
+        if (contadorProcSec === 0) {
+            document.getElementById('btnRemoverProcSec').style.display = 'none';
         }
     }
-    // Chama a função para carregar os dados assim que a página abrir
-    carregarBancoProcedimentos();
+}
 
-    // --- NOVA LÓGICA DE AUTOCOMPLETE PARA PROCEDIMENTOS ---
-    function iniciarAutocompleteProcedimento(idCampoBusca, idLista) {
+function ativarBuscadorSecundario(index) {
+    let idDescricao = `descricaoProcSec${index}`;
+    let idListaDesc = `listaDescricaoProcSec${index}`;
+    let idCodigoVisivel = `buscaCodigoProcSec${index}`;
+    let idListaCod = `listaCodigoProcSec${index}`;
+    let idCodigoEscondido = `codigoProcSec${index}`;
+
+    function configurarCampo(idCampoBusca, idLista) {
         let campoBusca = document.getElementById(idCampoBusca);
         let lista = document.getElementById(idLista);
-        let campoDescricao = document.getElementById('descricaoProcedimento');
-        let campoCodigoVisivel = document.getElementById('buscaCodigoProcedimento');
-        let campoCodigoEscondido = document.getElementById('codigoProcedimento');
+        let campoDescricao = document.getElementById(idDescricao);
+        let campoCodigoVisivel = document.getElementById(idCodigoVisivel);
+        let campoCodigoEscondido = document.getElementById(idCodigoEscondido);
 
-        campoBusca.addEventListener('input', function() {
-            let valor = this.value.toLowerCase();
+        function renderizarSecundario() {
+            let valor = normalizarBusca(campoBusca.value);
+            let cidSelecionado = document.getElementById('cidPrincipal').value.trim().toUpperCase();
+            let procsCompat = cidSelecionado ? mapaCidParaProcs.get(cidSelecionado) : null;
+
             lista.innerHTML = '';
-            campoCodigoEscondido.value = ''; // Apaga o invisível se houver alteração
+            if (!valor && !procsCompat) return;
 
-            if (!valor) return;
-
-            let resultados = bancoProcedimentos.filter(proc => 
-                proc.codigo.includes(valor) || 
-                proc.nome.toLowerCase().includes(valor)
-            );
+            let resultados = [];
+            if (!valor && procsCompat) {
+                resultados = bancoProcedimentos.filter(proc => procsCompat.has(proc.codigo)).slice(0, 40);
+            } else {
+                resultados = bancoProcedimentos.filter(proc => proc.busca.includes(valor));
+                if (procsCompat) {
+                    resultados.sort((a, b) => (procsCompat.has(b.codigo) ? 1 : 0) - (procsCompat.has(a.codigo) ? 1 : 0));
+                }
+                resultados = resultados.slice(0, 50);
+            }
 
             resultados.forEach(proc => {
+                let ehCompativel = procsCompat && procsCompat.has(proc.codigo);
                 let item = document.createElement('div');
-                item.innerHTML = `<strong>${proc.codigo}</strong> - ${proc.nome}`;
+                let badge = ehCompativel ? `<span class="badge-compat">✓ Compatível</span>` : '';
+                item.innerHTML = `<strong>${proc.codigo}</strong> - ${proc.nome}${badge}`;
                 
                 item.addEventListener('click', function() {
-                    campoDescricao.value = proc.nome;
+                    campoDescricao.value = proc.nome.substring(0, 50);
                     campoCodigoVisivel.value = proc.codigo;
-                    
-                    campoCodigoEscondido.value = proc.codigo;         // 2. Salva o código seguro
+                    campoCodigoEscondido.value = proc.codigo;
                     
                     campoDescricao.classList.remove('campo-invalido');
                     campoCodigoVisivel.classList.remove('campo-invalido');
                     
-                    document.getElementById('listaDescricaoProcedimento').innerHTML = '';
-                    document.getElementById('listaCodigoProcedimento').innerHTML = '';
+                    document.getElementById(idListaDesc).innerHTML = '';
+                    document.getElementById(idListaCod).innerHTML = '';
                 });
-                
                 lista.appendChild(item);
             });
+        }
+
+        campoBusca.addEventListener('input', function() {
+            campoCodigoEscondido.value = '';
+            renderizarSecundario();
         });
-    }
 
-    // Ativa os dois campos de procedimento
-    iniciarAutocompleteProcedimento('descricaoProcedimento', 'listaDescricaoProcedimento');
-    iniciarAutocompleteProcedimento('buscaCodigoProcedimento', 'listaCodigoProcedimento');
-
-    // Fechar os menus caso o usuário clique em qualquer lugar fora da caixa
-    document.addEventListener('click', function(e) {
-        if (e.target.id !== 'diagnosticoInicial' && e.target.id !== 'buscaCidPrincipal') {
-            document.getElementById('listaDiagnostico').innerHTML = '';
-            document.getElementById('listaCidPrincipal').innerHTML = '';
-        }
-        if (e.target.id !== 'descricaoProcedimento' && e.target.id !== 'buscaCodigoProcedimento') {
-            document.getElementById('listaDescricaoProcedimento').innerHTML = '';
-            document.getElementById('listaCodigoProcedimento').innerHTML = '';
-        }
-    });
-	
-    // --- LÓGICA DE MÚLTIPLOS PROCEDIMENTOS SECUNDÁRIOS DINÂMICOS ---
-    let contadorProcSec = 0;
-
-    function adicionarProcedimentoSecundario() {
-        if (contadorProcSec >= 5) return; // Trava de segurança extra
-
-        contadorProcSec++;
-
-        const container = document.getElementById('containerProcedimentosSecundarios');
-        const div = document.createElement('div');
-        div.className = 'bloco-procedimento-secundario';
-        div.id = `blocoProcSec${contadorProcSec}`;
-
-        div.innerHTML = `
-            <h3 style="font-size: 15px; color: #666; margin-top: 5px; margin-bottom: 15px;">Procedimento Secundário ${contadorProcSec}</h3>
-            
-            <label for="descricaoProcSec${contadorProcSec}">Nome do Procedimento Secundário: *</label>
-            <div class="autocomplete-container">
-                <input type="text" id="descricaoProcSec${contadorProcSec}" maxlength="50" autocomplete="off" placeholder="Digite o nome ou código...">
-                <div id="listaDescricaoProcSec${contadorProcSec}" class="autocomplete-items"></div>
-            </div>
-
-            <div class="campo-grupo">
-                <label for="qtdeProcSec${contadorProcSec}">Quantidade: *</label>
-                <input type="number" id="qtdeProcSec${contadorProcSec}" required min="1" max="99" value="1">
-            </div>
-
-            <label for="buscaCodigoProcSec${contadorProcSec}">Código do Procedimento (SIGTAP): *</label>
-            <div class="autocomplete-container">
-                <input type="text" id="buscaCodigoProcSec${contadorProcSec}" placeholder="Digite o código..." autocomplete="off">
-                <div id="listaCodigoProcSec${contadorProcSec}" class="autocomplete-items"></div>
-            </div>
-            
-            <input type="hidden" id="codigoProcSec${contadorProcSec}">
-        `;
-
-        container.appendChild(div);
-        ativarBuscadorSecundario(contadorProcSec);
-
-        // LÓGICA DE VISIBILIDADE DOS BOTÕES:
-        // Como adicionamos pelo menos um bloco, mostramos o botão de remover
-        document.getElementById('btnRemoverProcSec').style.display = 'block';
-
-        // Se chegou no limite de 5, escondemos o botão de adicionar
-        if (contadorProcSec === 5) {
-            document.getElementById('btnAdicionarProcSec').style.display = 'none';
-        }
-    }
-
-    // NOVA FUNÇÃO: Remove o último procedimento inserido
-    function removerProcedimentoSecundario() {
-        if (contadorProcSec > 0) {
-            // Localiza e destroi a última caixa gerada
-            let blocoParaRemover = document.getElementById(`blocoProcSec${contadorProcSec}`);
-            if (blocoParaRemover) {
-                blocoParaRemover.remove();
+        campoBusca.addEventListener('focus', function() {
+            if (!campoCodigoEscondido.value) {
+                renderizarSecundario();
             }
-            
-            contadorProcSec--;
+        });
 
-            // Como removemos um bloco, obrigatoriamente temos menos de 5. 
-            // Então garantimos que o botão de adicionar volte a aparecer.
-            document.getElementById('btnAdicionarProcSec').style.display = 'block';
-
-            // Se voltarmos a zero (nenhum bloco secundário), escondemos o botão de remover
-            if (contadorProcSec === 0) {
-                document.getElementById('btnRemoverProcSec').style.display = 'none';
-            }
-        }
+        configurarNavegacaoTecladoAutocomplete(campoBusca, lista);
     }
 
-    // [A sua função ativarBuscadorSecundario(index) continua intocada logo aqui embaixo]
+    configurarCampo(idDescricao, idListaDesc);
+    configurarCampo(idCodigoVisivel, idListaCod);
+}
 
-    // Função que acopla o banco de dados do SIGTAP aos campos recém-criados
-    function ativarBuscadorSecundario(index) {
-        let idDescricao = `descricaoProcSec${index}`;
-        let idListaDesc = `listaDescricaoProcSec${index}`;
-        let idCodigoVisivel = `buscaCodigoProcSec${index}`;
-        let idListaCod = `listaCodigoProcSec${index}`;
-        let idCodigoEscondido = `codigoProcSec${index}`;
-
-        function configurarCampo(idCampoBusca, idLista) {
-            let campoBusca = document.getElementById(idCampoBusca);
-            let lista = document.getElementById(idLista);
-            let campoDescricao = document.getElementById(idDescricao);
-            let campoCodigoVisivel = document.getElementById(idCodigoVisivel);
-            let campoCodigoEscondido = document.getElementById(idCodigoEscondido);
-
-            campoBusca.addEventListener('input', function() {
-                let valor = this.value.toLowerCase();
-                lista.innerHTML = '';
-                campoCodigoEscondido.value = '';
-
-                if (!valor) return;
-
-                let resultados = bancoProcedimentos.filter(proc => 
-                    proc.codigo.includes(valor) || proc.nome.toLowerCase().includes(valor)
-                );
-
-                resultados.forEach(proc => {
-                    let item = document.createElement('div');
-                    item.innerHTML = `<strong>${proc.codigo}</strong> - ${proc.nome}`;
-                    
-                    item.addEventListener('click', function() {
-                        campoDescricao.value = proc.nome;
-                        campoCodigoVisivel.value = proc.codigo;
-                        campoCodigoEscondido.value = proc.codigo;
-                        
-                        campoDescricao.classList.remove('campo-invalido');
-                        campoCodigoVisivel.classList.remove('campo-invalido');
-                        
-                        document.getElementById(idListaDesc).innerHTML = '';
-                        document.getElementById(idListaCod).innerHTML = '';
-                    });
-                    lista.appendChild(item);
-                });
-            });
-        }
-        configurarCampo(idDescricao, idListaDesc);
-        configurarCampo(idCodigoVisivel, idListaCod);
-    }
-
-// 1. O NOSSO MAPA DE COORDENADAS (Atualizado para o Molde da APAC)
+// 1. MAPA DE COORDENADAS DA APAC
 const mapaApac = {
     // (Bloco 1 - Estabelecimento e Paciente)
     nomeEstabelecimento: { x: 35,  y: 740, tamanho: 12 },
@@ -1437,11 +1932,11 @@ const mapaApac = {
     
     // --- COORDENADAS DOS PROCEDIMENTOS SECUNDÁRIOS DINÂMICOS ---
     procSecundario: {
-        xCodigo: 35,          // Exatamente alinhado com o código principal
-        xDescricao: 220,      // Exatamente alinhado com a descrição principal
-        xQtde: 525,           // Exatamente alinhado com a quantidade principal
-        distanciaDoPrincipal: 45,        // Posição Y da PRIMEIRA linha de proc. secundário, salto após o principal
-        espacamentoY: 26,     // Quantos pixels ele deve "descer" para cada nova linha
+        xCodigo: 35,
+        xDescricao: 220,
+        xQtde: 525,
+        distanciaDoPrincipal: 45,
+        espacamentoY: 26,
         tamanhoCod: 14,
         espacamentoLetrasCod: 18,
         tamanhoDesc: 9,
@@ -1450,25 +1945,22 @@ const mapaApac = {
     
     // (Bloco 3 - Justificativa e Diagnóstico)
     descricaoDiagnostico: { x: 35,  y: 340, tamanho: 10, larguraMaxima: 540, alturaLinha: 12 },
-    cidPrincipal:         { x: 340,  y: 340, tamanho: 12, espacamento: 10 },
+    cidPrincipal:         { x: 340, y: 340, tamanho: 12, espacamento: 10 },
     cidSecundario:        { x: 400, y: 340, tamanho: 12, espacamento: 10 },
     cidCausasAssociadas:  { x: 480, y: 340, tamanho: 12, espacamento: 10 },
     observacoesApac:      { x: 35,  y: 310, tamanho: 10, larguraMaxima: 540, alturaLinha: 12 },
     
     // (Bloco 4 - Profissional)
     nomeProfissional:      { x: 35,  y: 205, tamanho: 12 },
-    dataSolicitacao:       { x: 305,  y: 202, tamanho: 15 },
+    dataSolicitacao:       { x: 305, y: 202, tamanho: 15 },
     numeroDocProfissional: { x: 150, y: 180, tamanho: 12, espacamento: 15.5 },
     docCNS:                { x: 50,  y: 180, tamanho: 12 },
     docCPF:                { x: 105, y: 180, tamanho: 12 } 
 };
 
-// --- NOSSA NOVA FUNÇÃO REUTILIZÁVEL ---
-// Ela recebe três ingredientes: o texto que foi digitado, as configurações do mapa e a página do PDF
 function imprimirTextoEspacado(texto, configuracaoMapa, pagina) {
-    if (!texto) return; // Se o médico não digitou nada, a função para aqui e não dá erro
-    
-    let textoString = String(texto).toUpperCase(); // Já transforma tudo em Maiúsculo (ex: j159 vira J159)
+    if (!texto) return;
+    let textoString = String(texto).toUpperCase();
     
     for (let i = 0; i < textoString.length; i++) {
         let digito = textoString[i];
@@ -1482,12 +1974,12 @@ function imprimirTextoEspacado(texto, configuracaoMapa, pagina) {
     }
 }
 
-// 2. A FUNÇÃO PRINCIPAL (Refatorada para ler os campos da APAC)
+// 2. FUNÇÃO PRINCIPAL DE VALIDAÇÃO E GERAÇÃO DO PDF DA APAC
 async function capturarDados() {
-    
     let divErro = document.getElementById('mensagemErro');
+    let divFeedback = document.getElementById('feedbackGeracaoPdf');
+    if (divFeedback) divFeedback.style.display = 'none';
 
-    // Mini-função de erro (D.R.Y.) mantida
     function bloquearComErro(elemento, mensagem) {
         divErro.textContent = mensagem;
         divErro.style.display = 'block';
@@ -1496,7 +1988,6 @@ async function capturarDados() {
         elemento.focus();
     }
 
-    // --- 1. VALIDAÇÃO DE CAMPOS (Trocamos os campos antigos pelos novos) ---
     const camposParaValidar = [
         { id: 'nomeEstabelecimento', nome: 'Nome do Estabelecimento Solicitante' },
         { id: 'nomePaciente', nome: 'Nome do Paciente' },
@@ -1506,9 +1997,9 @@ async function capturarDados() {
         { id: 'nomeMae', nome: 'Nome da Mãe' },
         { id: 'municipioResidencia', nome: 'Município de Residência' },
         { id: 'descricaoProcedimento', nome: 'Nome do Procedimento Principal' },
-        { id: 'qtdeProcedimento', nome: 'Quantidade (QTDE)' }, // Novo
+        { id: 'qtdeProcedimento', nome: 'Quantidade (QTDE)' },
         { id: 'buscaCodigoProcedimento', nome: 'Código do Procedimento (SIGTAP)' },
-        { id: 'descricaoDiagnostico', nome: 'Descrição do Diagnóstico' }, // Novo
+        { id: 'descricaoDiagnostico', nome: 'Descrição do Diagnóstico' },
         { id: 'diagnosticoInicial', nome: 'Diagnóstico Inicial' },
         { id: 'buscaCidPrincipal', nome: 'CID 10 Principal' },
         { id: 'tipoDocumentoProfissional', nome: 'Tipo de Documento do Profissional' },
@@ -1517,33 +2008,29 @@ async function capturarDados() {
         { id: 'dataSolicitacao', nome: 'Data da Solicitação' }
     ];
 
-    // Limpeza de segurança antes de checar
     divErro.style.display = 'none';
     camposParaValidar.forEach(campo => {
         document.getElementById(campo.id).classList.remove('campo-invalido');
     });
 
-    // Verificação de vazios
     for (let i = 0; i < camposParaValidar.length; i++) {
         let elemento = document.getElementById(camposParaValidar[i].id);
         let valor = elemento.value.trim();
 
         if (valor === '') {
             bloquearComErro(elemento, `Processo interrompido: O campo "${camposParaValidar[i].nome}" é de preenchimento obrigatório.`);
-            return; // Encerra a função
+            return;
         }
     }
 
-    // --- 2. VALIDAÇÃO ESPECÍFICA DE TAMANHO DE NÚMEROS ---
-    
-    // A. Validando o CNS do Paciente (!== significa "Diferente de")
+    // A. Validando o CNS do Paciente
     let cnsPacienteElem = document.getElementById('cnsPaciente');
     if (cnsPacienteElem.value.trim().length !== 15) {
         bloquearComErro(cnsPacienteElem, "Erro de formatação: O Cartão Nacional de Saúde (CNS) do paciente deve conter exatamente 15 dígitos.");
         return;
     }
 
-    // B. Validando o Documento do Profissional (Inteligência Condicional)
+    // B. Validando o Documento do Profissional
     let tipoDocSelecionado = document.getElementById('tipoDocumentoProfissional').value;
     let numDocProfElem = document.getElementById('numeroDocProfissional');
     let numDocProfValor = numDocProfElem.value.trim();
@@ -1555,8 +2042,8 @@ async function capturarDados() {
         bloquearComErro(numDocProfElem, "Erro de formatação: O CPF do profissional deve conter exatamente 11 dígitos.");
         return;
     }
-	
-	// C. Validando o Código do Procedimento (SIGTAP)
+    
+    // C. Validando o Código do Procedimento (SIGTAP)
     let codigoProcElemVisivel = document.getElementById('buscaCodigoProcedimento');
     let codigoProcEscondido = document.getElementById('codigoProcedimento').value;
 
@@ -1564,59 +2051,49 @@ async function capturarDados() {
         bloquearComErro(codigoProcElemVisivel, "Erro de Validação: Você deve selecionar um Procedimento válido na lista suspensa (SIGTAP de 10 dígitos).");
         return;
     }
-	
-	// D. Validando o CNES do Estabelecimento (Opcional, mas estrito a 7 dígitos)
+    
+    // D. Validando o CNES do Estabelecimento
     let cnesElem = document.getElementById('cnesEstabelecimento');
     let cnesValor = cnesElem.value.trim();
 
-    // Se o médico preencheu alguma coisa E essa coisa não tiver 7 dígitos, bloqueie!
     if (cnesValor !== '' && cnesValor.length !== 7) {
         bloquearComErro(cnesElem, "Erro de formatação: O CNES do estabelecimento deve conter exatamente 7 dígitos.");
         return;
     }
-	
-	// E. Validando se o CID Principal foi selecionado na lista (Menu Suspenso)
+    
+    // E. Validando se o CID Principal foi selecionado na lista
     let cidEscondidoValor = document.getElementById('cidPrincipal').value;
     let cidBuscaElem = document.getElementById('buscaCidPrincipal');
     
-    // Se o usuário digitou algo, mas o código escondido está vazio, significa que ele não clicou no menu!
     if (cidBuscaElem.value !== '' && cidEscondidoValor === '') {
         bloquearComErro(cidBuscaElem, "Erro de Validação: Você deve selecionar uma doença válida na lista suspensa do CID 10 Principal.");
         return;
     }
-    // --- FIM DA VALIDAÇÃO ---
 
-    // Se o código chegou até aqui, não há erros. Vamos salvar os dados fixos para a função de memória.
     salvarDadosFixos();
 
-    // --- NOVA LÓGICA: CAPTURA E VALIDAÇÃO DOS PROCEDIMENTOS SECUNDÁRIOS ---
+    // Captura e validação dos Procedimentos Secundários Dinâmicos
     let arrayProcedimentosSecundarios = [];
-    
-    // O loop vai rodar de 1 até o número exato de blocos que o médico adicionou na tela
     for (let i = 1; i <= contadorProcSec; i++) {
         let codEscondido = document.getElementById(`codigoProcSec${i}`).value.trim();
         let desc = document.getElementById(`descricaoProcSec${i}`).value.trim();
         let qtde = document.getElementById(`qtdeProcSec${i}`).value.trim();
         let campoVisivel = document.getElementById(`buscaCodigoProcSec${i}`);
 
-        // Valida se o médico preencheu pela lista corretamente
         if (!codEscondido || codEscondido.length !== 10) {
             bloquearComErro(campoVisivel, `Processo interrompido: Você deve selecionar um Procedimento Secundário ${i} válido na lista do SIGTAP.`);
-            return; // Interrompe a geração do PDF
+            return;
         }
 
-        // Se estiver tudo certo, guarda na nossa "caixa" (array) para imprimir depois
         arrayProcedimentosSecundarios.push({
             codigo: codEscondido,
             descricao: desc,
             qtde: qtde
         });
     }
-    // --- FIM DA CAPTURA DINÂMICA ---
 
-    // Captura os dados digitados (Removidos os que não usamos na APAC, mantidos os nomes iguais)
-	let nomeEstabelecimento = document.getElementById('nomeEstabelecimento').value;
-	let cnesEstabelecimento = document.getElementById('cnesEstabelecimento').value;
+    let nomeEstabelecimento = document.getElementById('nomeEstabelecimento').value;
+    let cnesEstabelecimento = document.getElementById('cnesEstabelecimento').value;
     let nomePaciente = document.getElementById('nomePaciente').value;
     let cnsPaciente = document.getElementById('cnsPaciente').value;
     let dataNascimento = document.getElementById('dataNascimento').value;
@@ -1630,264 +2107,241 @@ async function capturarDados() {
     
     let descricaoDiagnostico = document.getElementById('descricaoDiagnostico').value.replace(/[\r\n]+/g, ' ').trim();
     let observacoesApac = document.getElementById('observacoesApac').value.replace(/[\r\n]+/g, ' ').trim();
-    let diagnosticoInicial = document.getElementById('diagnosticoInicial').value;
     let cidPrincipal = document.getElementById('cidPrincipal').value;
-	let cidSecundario = document.getElementById('cidSecundario').value;
-    let cidCausasAssociadas = document.getElementById('cidCausasAssociadas').value;
-	
+    let cidSecundario = document.getElementById('cidSecundario').value.replace(/\./g, '').trim().toUpperCase().slice(0, 4);
+    let cidCausasAssociadas = document.getElementById('cidCausasAssociadas').value.replace(/\./g, '').trim().toUpperCase().slice(0, 4);
+    
     let descricaoProcedimento = document.getElementById('descricaoProcedimento').value;
     let codigoProcedimento = document.getElementById('codigoProcedimento').value;
-    let qtdeProcedimento = document.getElementById('qtdeProcedimento').value; // Novo Campo
+    let qtdeProcedimento = document.getElementById('qtdeProcedimento').value;
     
-	let tipoDocumentoProfissional = document.getElementById('tipoDocumentoProfissional').value;
+    let tipoDocumentoProfissional = document.getElementById('tipoDocumentoProfissional').value;
     let numeroDocProfissional = document.getElementById('numeroDocProfissional').value;
-	let nomeProfissional = document.getElementById('nomeProfissional').value;
-	let dataSolicitacao = document.getElementById('dataSolicitacao').value;
-	
-	// --- CARREGA O PDF FIXO DO SERVIDOR ---
-    // O fetch busca o arquivo na mesma pasta.
-    let respostaPdf = await fetch('apac_base.pdf'); 
-    
-    // Converte o PDF baixado para a linguagem binária que a biblioteca entende
-    let arrayBuffer = await respostaPdf.arrayBuffer(); 
-    let pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-    let primeiraPagina = pdfDoc.getPages()[0];
-	
-	// Embutindo a fonte padrão explícita (A nossa "Régua" matemática)
-    let fontePadrao = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+    let nomeProfissional = document.getElementById('nomeProfissional').value;
+    let dataSolicitacao = document.getElementById('dataSolicitacao').value;
 
-// 3. CARIMBANDO OS DADOS USANDO O NOSSO MAPA ATUALIZADO
-    primeiraPagina.drawText(nomeEstabelecimento, { 
-        x: mapaApac.nomeEstabelecimento.x, 
-        y: mapaApac.nomeEstabelecimento.y, 
-        size: mapaApac.nomeEstabelecimento.tamanho 
-    });
+    try {
+        let respostaPdf = await fetch('apac_base.pdf');
+        if (!respostaPdf.ok) {
+            throw new Error(`Falha ao carregar o modelo base da APAC (HTTP ${respostaPdf.status}).`);
+        }
 
-    // Imprimindo o CNES usando nossa função de quadradinhos
-    imprimirTextoEspacado(cnesEstabelecimento, mapaApac.cnesEstabelecimento, primeiraPagina);
+        let arrayBuffer = await respostaPdf.arrayBuffer(); 
+        let pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+        let primeiraPagina = pdfDoc.getPages()[0];
+        let fontePadrao = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
 
-    primeiraPagina.drawText(nomePaciente, {  // CORREÇÃO: Variável atualizada para nomePaciente
-        x: mapaApac.nomePaciente.x, 
-        y: mapaApac.nomePaciente.y, 
-        size: mapaApac.nomePaciente.tamanho 
-    });
-    
-// --- LÓGICA DO CNS COM LAÇO DE REPETIÇÃO ---
-    if(cnsPaciente) { // CORREÇÃO: Variável atualizada para cnsPaciente
-        let stringCns = String(cnsPaciente); 
+        // Bloco 1 - Estabelecimento e Paciente
+        primeiraPagina.drawText(nomeEstabelecimento, { 
+            x: mapaApac.nomeEstabelecimento.x, 
+            y: mapaApac.nomeEstabelecimento.y, 
+            size: mapaApac.nomeEstabelecimento.tamanho 
+        });
+
+        imprimirTextoEspacado(cnesEstabelecimento, mapaApac.cnesEstabelecimento, primeiraPagina);
+
+        primeiraPagina.drawText(nomePaciente, {
+            x: mapaApac.nomePaciente.x, 
+            y: mapaApac.nomePaciente.y, 
+            size: mapaApac.nomePaciente.tamanho 
+        });
         
-        for (let i = 0; i < stringCns.length; i++) {
-            let digito = stringCns[i]; 
-            let posicaoX = mapaApac.cnsPaciente.x + (i * mapaApac.cnsPaciente.espacamento); 
-            
-            primeiraPagina.drawText(digito, { 
-                x: posicaoX, 
-                y: mapaApac.cnsPaciente.y, 
-                size: mapaApac.cnsPaciente.tamanho 
+        if (cnsPaciente) {
+            let stringCns = String(cnsPaciente); 
+            for (let i = 0; i < stringCns.length; i++) {
+                let digito = stringCns[i]; 
+                let posicaoX = mapaApac.cnsPaciente.x + (i * mapaApac.cnsPaciente.espacamento); 
+                primeiraPagina.drawText(digito, { 
+                    x: posicaoX, 
+                    y: mapaApac.cnsPaciente.y, 
+                    size: mapaApac.cnsPaciente.tamanho 
+                });
+            }
+        }
+
+        if (dataNascimento) {
+            let partesData = dataNascimento.split('-'); 
+            let dataFormatada = partesData[2] + '/' + partesData[1] + '/' + partesData[0];
+            primeiraPagina.drawText(dataFormatada, { 
+                x: mapaApac.dataNascimento.x, 
+                y: mapaApac.dataNascimento.y, 
+                size: mapaApac.dataNascimento.tamanho 
             });
         }
-    }
 
-    if(dataNascimento) { // CORREÇÃO: Variável atualizada para dataNascimento
-        let partesData = dataNascimento.split('-'); 
-        let dataFormatada = partesData[2] + '/' + partesData[1] + '/' + partesData[0];
-        primeiraPagina.drawText(dataFormatada, { 
-            x: mapaApac.dataNascimento.x, 
-            y: mapaApac.dataNascimento.y, 
-            size: mapaApac.dataNascimento.tamanho 
-        });
-    }
-
-// --- LÓGICA PARA AS CAIXAS DE SELEÇÃO DO SEXO ---
-    if (sexoPaciente === 'M') { // CORREÇÃO: Variável atualizada para sexoPaciente
-        primeiraPagina.drawText('X', { 
-            x: mapaApac.sexoMasc.x, 
-            y: mapaApac.sexoMasc.y, 
-            size: mapaApac.sexoMasc.tamanho 
-        });
-    } 
-    else if (sexoPaciente === 'F') {
-        primeiraPagina.drawText('X', { 
-            x: mapaApac.sexoFem.x, 
-            y: mapaApac.sexoFem.y, 
-            size: mapaApac.sexoFem.tamanho 
-        });
-    }
-    
-    // Carimbando o Nome da Mãe
-    primeiraPagina.drawText(nomeMae, { 
-        x: mapaApac.nomeMae.x, 
-        y: mapaApac.nomeMae.y, 
-        size: mapaApac.nomeMae.tamanho 
-    });
-    
-    // Carimbando o Nome do Responsável
-    primeiraPagina.drawText(nomeResponsavel, { 
-        x: mapaApac.nomeResponsavel.x, 
-        y: mapaApac.nomeResponsavel.y, 
-        size: mapaApac.nomeResponsavel.tamanho 
-    });
-
-    // Carimbando o Endereço
-    primeiraPagina.drawText(endereco, { 
-        x: mapaApac.endereco.x, 
-        y: mapaApac.endereco.y, 
-        size: mapaApac.endereco.tamanho 
-    });
-
-    // Carimbando a UF usando nossa função de quadradinhos
-    imprimirTextoEspacado(uf, mapaApac.uf, primeiraPagina);
-
-    // Carimbando o CEP usando nossa função de quadradinhos
-    imprimirTextoEspacado(cep, mapaApac.cep, primeiraPagina);
-
-    // Carimbando o Município de Residência
-    primeiraPagina.drawText(municipioResidencia, { 
-        x: mapaApac.municipioResidencia.x, 
-        y: mapaApac.municipioResidencia.y, 
-        size: mapaApac.municipioResidencia.tamanho 
-    });
-
-// Justificativas (Usando o sistema de quebra de linhas)
-    primeiraPagina.drawText(descricaoDiagnostico, { 
-        x: mapaApac.descricaoDiagnostico.x, y: mapaApac.descricaoDiagnostico.y, 
-        size: mapaApac.descricaoDiagnostico.tamanho, maxWidth: mapaApac.descricaoDiagnostico.larguraMaxima, 
-        lineHeight: mapaApac.descricaoDiagnostico.alturaLinha, font: fontePadrao, wordBreaks: [' ', '-']
-    });
-
-    primeiraPagina.drawText(observacoesApac, { 
-        x: mapaApac.observacoesApac.x, y: mapaApac.observacoesApac.y, 
-        size: mapaApac.observacoesApac.tamanho, maxWidth: mapaApac.observacoesApac.larguraMaxima, 
-        lineHeight: mapaApac.observacoesApac.alturaLinha, font: fontePadrao, wordBreaks: [' ', '-']
-    });
-
-// CIDs
-    imprimirTextoEspacado(cidPrincipal, mapaApac.cidPrincipal, primeiraPagina);
-    imprimirTextoEspacado(cidSecundario, mapaApac.cidSecundario, primeiraPagina);
-    imprimirTextoEspacado(cidCausasAssociadas, mapaApac.cidCausasAssociadas, primeiraPagina);
-
-// --- IMPRESSÃO DO BLOCO 4 ---
-    primeiraPagina.drawText(descricaoProcedimento, { 
-        x: mapaApac.descricaoProcedimento.x, 
-        y: mapaApac.descricaoProcedimento.y, 
-        size: mapaApac.descricaoProcedimento.tamanho 
-    });
-
-    // Lógica do Código do Procedimento (SIGTAP) - Loop de espaçamento
-    if(codigoProcedimento) {
-        let stringCodigo = String(codigoProcedimento); 
-        for (let i = 0; i < stringCodigo.length; i++) {
-            let digito = stringCodigo[i];
-            let posicaoX = mapaApac.codigoProcedimento.x + (i * mapaApac.codigoProcedimento.espacamento);
-            primeiraPagina.drawText(digito, { 
-                x: posicaoX, 
-                y: mapaApac.codigoProcedimento.y, 
-                size: mapaApac.codigoProcedimento.tamanho 
+        if (sexoPaciente === 'M') {
+            primeiraPagina.drawText('X', { 
+                x: mapaApac.sexoMasc.x, 
+                y: mapaApac.sexoMasc.y, 
+                size: mapaApac.sexoMasc.tamanho 
+            });
+        } else if (sexoPaciente === 'F') {
+            primeiraPagina.drawText('X', { 
+                x: mapaApac.sexoFem.x, 
+                y: mapaApac.sexoFem.y, 
+                size: mapaApac.sexoFem.tamanho 
             });
         }
-    }
-
-    // CORREÇÃO: Adicionada a impressão da Quantidade do Principal (já existente no seu código)
-    if(qtdeProcedimento) {
-        primeiraPagina.drawText(String(qtdeProcedimento), { 
-            x: mapaApac.qtdeProcedimento.x, 
-            y: mapaApac.qtdeProcedimento.y, 
-            size: mapaApac.qtdeProcedimento.tamanho 
-        });
-    }
-
-    // --- NOVO MOTOR: IMPRIMINDO OS PROCEDIMENTOS SECUNDÁRIOS ---
-    arrayProcedimentosSecundarios.forEach((proc, index) => {
         
-        // FÓRMULA ATUALIZADA: (Y do Principal - Salto Inicial) - (Index * Espaço entre as linhas secundárias)
-        let linhaYAtual = (mapaApac.codigoProcedimento.y - mapaApac.procSecundario.distanciaDoPrincipal) - (index * mapaApac.procSecundario.espacamentoY);
-
-        // 1. Imprime o Nome do Procedimento
-        primeiraPagina.drawText(proc.descricao, { 
-            x: mapaApac.procSecundario.xDescricao, 
-            y: linhaYAtual, 
-            size: mapaApac.procSecundario.tamanhoDesc 
+        primeiraPagina.drawText(nomeMae, { 
+            x: mapaApac.nomeMae.x, 
+            y: mapaApac.nomeMae.y, 
+            size: mapaApac.nomeMae.tamanho 
+        });
+        
+        primeiraPagina.drawText(nomeResponsavel, { 
+            x: mapaApac.nomeResponsavel.x, 
+            y: mapaApac.nomeResponsavel.y, 
+            size: mapaApac.nomeResponsavel.tamanho 
         });
 
-        // 2. Imprime a Quantidade
-        primeiraPagina.drawText(String(proc.qtde), { 
-            x: mapaApac.procSecundario.xQtde, 
-            y: linhaYAtual, 
-            size: mapaApac.procSecundario.tamanhoQtde 
+        primeiraPagina.drawText(endereco, { 
+            x: mapaApac.endereco.x, 
+            y: mapaApac.endereco.y, 
+            size: mapaApac.endereco.tamanho 
         });
 
-        // 3. Imprime o Código do SIGTAP usando a nossa lógica de espaçamento (quadradinhos)
-        let stringCodSec = String(proc.codigo);
-        for (let k = 0; k < stringCodSec.length; k++) {
-            let digitoSec = stringCodSec[k];
-            let posicaoXSec = mapaApac.procSecundario.xCodigo + (k * mapaApac.procSecundario.espacamentoLetrasCod);
-            
-            primeiraPagina.drawText(digitoSec, { 
-                x: posicaoXSec, 
+        imprimirTextoEspacado(uf, mapaApac.uf, primeiraPagina);
+        imprimirTextoEspacado(cep, mapaApac.cep, primeiraPagina);
+
+        primeiraPagina.drawText(municipioResidencia, { 
+            x: mapaApac.municipioResidencia.x, 
+            y: mapaApac.municipioResidencia.y, 
+            size: mapaApac.municipioResidencia.tamanho 
+        });
+
+        // Bloco 3 - Justificativas e CIDs
+        primeiraPagina.drawText(descricaoDiagnostico, { 
+            x: mapaApac.descricaoDiagnostico.x, y: mapaApac.descricaoDiagnostico.y, 
+            size: mapaApac.descricaoDiagnostico.tamanho, maxWidth: mapaApac.descricaoDiagnostico.larguraMaxima, 
+            lineHeight: mapaApac.descricaoDiagnostico.alturaLinha, font: fontePadrao, wordBreaks: [' ', '-']
+        });
+
+        primeiraPagina.drawText(observacoesApac, { 
+            x: mapaApac.observacoesApac.x, y: mapaApac.observacoesApac.y, 
+            size: mapaApac.observacoesApac.tamanho, maxWidth: mapaApac.observacoesApac.larguraMaxima, 
+            lineHeight: mapaApac.observacoesApac.alturaLinha, font: fontePadrao, wordBreaks: [' ', '-']
+        });
+
+        imprimirTextoEspacado(cidPrincipal, mapaApac.cidPrincipal, primeiraPagina);
+        imprimirTextoEspacado(cidSecundario, mapaApac.cidSecundario, primeiraPagina);
+        imprimirTextoEspacado(cidCausasAssociadas, mapaApac.cidCausasAssociadas, primeiraPagina);
+
+        // Bloco 2 - Procedimento Principal e Secundários
+        primeiraPagina.drawText(descricaoProcedimento, { 
+            x: mapaApac.descricaoProcedimento.x, 
+            y: mapaApac.descricaoProcedimento.y, 
+            size: mapaApac.descricaoProcedimento.tamanho 
+        });
+
+        if (codigoProcedimento) {
+            let stringCodigo = String(codigoProcedimento); 
+            for (let i = 0; i < stringCodigo.length; i++) {
+                let digito = stringCodigo[i];
+                let posicaoX = mapaApac.codigoProcedimento.x + (i * mapaApac.codigoProcedimento.espacamento);
+                primeiraPagina.drawText(digito, { 
+                    x: posicaoX, 
+                    y: mapaApac.codigoProcedimento.y, 
+                    size: mapaApac.codigoProcedimento.tamanho 
+                });
+            }
+        }
+
+        if (qtdeProcedimento) {
+            primeiraPagina.drawText(String(qtdeProcedimento), { 
+                x: mapaApac.qtdeProcedimento.x, 
+                y: mapaApac.qtdeProcedimento.y, 
+                size: mapaApac.qtdeProcedimento.tamanho 
+            });
+        }
+
+        arrayProcedimentosSecundarios.forEach((proc, index) => {
+            let linhaYAtual = (mapaApac.codigoProcedimento.y - mapaApac.procSecundario.distanciaDoPrincipal) - (index * mapaApac.procSecundario.espacamentoY);
+
+            primeiraPagina.drawText(proc.descricao, { 
+                x: mapaApac.procSecundario.xDescricao, 
                 y: linhaYAtual, 
-                size: mapaApac.procSecundario.tamanhoCod 
+                size: mapaApac.procSecundario.tamanhoDesc 
+            });
+
+            primeiraPagina.drawText(String(proc.qtde), { 
+                x: mapaApac.procSecundario.xQtde, 
+                y: linhaYAtual, 
+                size: mapaApac.procSecundario.tamanhoQtde 
+            });
+
+            let stringCodSec = String(proc.codigo);
+            for (let k = 0; k < stringCodSec.length; k++) {
+                let digitoSec = stringCodSec[k];
+                let posicaoXSec = mapaApac.procSecundario.xCodigo + (k * mapaApac.procSecundario.espacamentoLetrasCod);
+                primeiraPagina.drawText(digitoSec, { 
+                    x: posicaoXSec, 
+                    y: linhaYAtual, 
+                    size: mapaApac.procSecundario.tamanhoCod 
+                });
+            }
+        });
+
+        // Bloco 4 - Profissional
+        if (tipoDocumentoProfissional === 'CNS') {
+            primeiraPagina.drawText('X', { 
+                x: mapaApac.docCNS.x, 
+                y: mapaApac.docCNS.y, 
+                size: mapaApac.docCNS.tamanho 
+            });
+        } else if (tipoDocumentoProfissional === 'CPF') {
+            primeiraPagina.drawText('X', { 
+                x: mapaApac.docCPF.x, 
+                y: mapaApac.docCPF.y, 
+                size: mapaApac.docCPF.tamanho 
             });
         }
-    });
-    // --- FIM DA IMPRESSÃO DINÂMICA ---
-
-// --- IMPRESSÃO DO BLOCO 5 ---
-    
-    // --- IMPRESSÃO DO BLOCO 5 ---
-    
-    // Marcação do (X) para CNS ou CPF
-    if (tipoDocumentoProfissional === 'CNS') {
-        primeiraPagina.drawText('X', { 
-            x: mapaApac.docCNS.x, 
-            y: mapaApac.docCNS.y, 
-            size: mapaApac.docCNS.tamanho 
-        });
-    } else if (tipoDocumentoProfissional === 'CPF') {
-        primeiraPagina.drawText('X', { 
-            x: mapaApac.docCPF.x, 
-            y: mapaApac.docCPF.y, 
-            size: mapaApac.docCPF.tamanho 
-        });
-    }
-    
-    // Imprimindo o número do documento com espaçamento
-    imprimirTextoEspacado(numeroDocProfissional, mapaApac.numeroDocProfissional, primeiraPagina);
-
-    // Imprimindo o Nome do Profissional
-    primeiraPagina.drawText(nomeProfissional, { 
-        x: mapaApac.nomeProfissional.x, 
-        y: mapaApac.nomeProfissional.y, 
-        size: mapaApac.nomeProfissional.tamanho 
-    });
-    
-    // Imprimindo a Data da Solicitação invertida para DD/MM/AAAA
-    if(dataSolicitacao) {
-        let partesDataSol = dataSolicitacao.split('-'); 
-        let dataSolFormatada = partesDataSol[2] + '/' + partesDataSol[1] + '/' + partesDataSol[0];
         
-        primeiraPagina.drawText(dataSolFormatada, { 
-            x: mapaApac.dataSolicitacao.x, 
-            y: mapaApac.dataSolicitacao.y, 
-            size: mapaApac.dataSolicitacao.tamanho 
-        });
-    }
+        imprimirTextoEspacado(numeroDocProfissional, mapaApac.numeroDocProfissional, primeiraPagina);
 
-    // Salva e faz o download
-    let pdfBytes = await pdfDoc.save();
-    let blob = new Blob([pdfBytes], { type: "application/pdf" });
-    let link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = "APAC_Preenchida.pdf";
-    link.click();
-
-    // DISPARO DE EVENTO PARA O GOOGLE ANALYTICS
-    if (typeof gtag === 'function') {
-        gtag('event', 'geracao_apac_sucesso', {
-            'tipo_documento': 'pdf_apac_sus',
-            'origem': 'botao_gerar'
+        primeiraPagina.drawText(nomeProfissional, { 
+            x: mapaApac.nomeProfissional.x, 
+            y: mapaApac.nomeProfissional.y, 
+            size: mapaApac.nomeProfissional.tamanho 
         });
+        
+        if (dataSolicitacao) {
+            let partesDataSol = dataSolicitacao.split('-'); 
+            let dataSolFormatada = partesDataSol[2] + '/' + partesDataSol[1] + '/' + partesDataSol[0];
+            primeiraPagina.drawText(dataSolFormatada, { 
+                x: mapaApac.dataSolicitacao.x, 
+                y: mapaApac.dataSolicitacao.y, 
+                size: mapaApac.dataSolicitacao.tamanho 
+            });
+        }
+
+        // Salva e inicia o download
+        let pdfBytes = await pdfDoc.save();
+        let blob = new Blob([pdfBytes], { type: "application/pdf" });
+        let urlBlob = window.URL.createObjectURL(blob);
+        let link = document.createElement('a');
+        link.href = urlBlob;
+        link.download = "APAC_Preenchida.pdf";
+        link.click();
+        setTimeout(() => window.URL.revokeObjectURL(urlBlob), 5000);
+
+        if (divFeedback) {
+            divFeedback.textContent = "✓ APAC_Preenchida.pdf gerada e baixada com sucesso.";
+            divFeedback.style.display = "block";
+        }
+
+        if (typeof gtag === 'function') {
+            gtag('event', 'geracao_apac_sucesso', {
+                'tipo_documento': 'pdf_apac_sus',
+                'origem': 'botao_gerar'
+            });
+        }
+    } catch (erroPdf) {
+        console.error("Erro ao gerar PDF da APAC:", erroPdf);
+        divErro.textContent = "Erro técnico ao gerar o PDF da APAC. Verifique sua conexão e tente novamente.";
+        divErro.style.display = "block";
     }
 }
-    </script>
+</script>
 </body>
 </html>
