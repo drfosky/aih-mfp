@@ -1,0 +1,21 @@
+# AIH Fácil (aihfacil.com.br)
+
+> Plataforma web clínica gratuita para preenchimento automatizado da Autorização de Internação Hospitalar (AIH) e da Autorização de Procedimentos Ambulatoriais (APAC) do Sistema Único de Saúde (SUS) do Brasil, com validação cruzada em tempo real entre a Classificação Internacional de Doenças (CID-10) e a Tabela Unificada SIGTAP do DATASUS.
+
+## Principais Ferramentas Clínicas
+- [Gerador Automatizado de AIH do SUS](https://aihfacil.com.br/): Emissão instantânea de PDF oficial da AIH com autocompletar CID-10, seleção de subcategorias por família diagnóstica e verificação de compatibilidade SIGTAP.
+- [Gerador Automatizado de APAC do SUS](https://aihfacil.com.br/apac.html): Emissão de PDF oficial da APAC com suporte a procedimento principal, até 5 procedimentos secundários e validação regulatória.
+- [Busca Integrada CID-10 × SIGTAP × Família](https://aihfacil.com.br/busca.html): Consulta bidirecional entre diagnósticos CID-10, famílias de doenças e procedimentos hospitalares/ambulatoriais autorizados no SUS.
+
+## Catálogos Completos Indexados (Base Oficial DATASUS)
+- [Tabela Unificada SIGTAP Completa](https://aihfacil.com.br/sigtap/): Catálogo integral dos 4.984 procedimentos do SUS com lista de CIDs compatíveis e preenchimento em 1 clique.
+- [Tabela CID-10 Completa por Família](https://aihfacil.com.br/cid/): Catálogo integral dos 12.451 códigos CID-10 organizados por capítulo e família diagnóstica, com lista de procedimentos SIGTAP aceitos.
+
+## Padrão de URLs Diretas (Deep Linking)
+- Consulta direta de procedimento SIGTAP (10 dígitos): `https://aihfacil.com.br/sigtap/{codigo_10_digitos}-{slug}.html` (ex: `https://aihfacil.com.br/sigtap/0303140151-tratamento-de-pneumonias-ou-influenza-gripe.html`)
+- Consulta direta de código CID-10: `https://aihfacil.com.br/cid/{codigo_cid_sem_ponto}-{slug}.html` (ex: `https://aihfacil.com.br/cid/j189-pneumonia-nao-especificada.html`)
+- Pré-preenchimento direto do gerador AIH: `https://aihfacil.com.br/?proc={codigo_sigtap}&cid={codigo_cid}`
+- Pré-preenchimento direto do gerador APAC: `https://aihfacil.com.br/apac.html?proc={codigo_sigtap}&cid={codigo_cid}`
+
+## Privacidade e Conformidade (LGPD)
+- Arquitetura 100% client-side no navegador do usuário: nenhum dado pessoal ou clínico de pacientes é transmitido ou armazenado em servidores externos.
